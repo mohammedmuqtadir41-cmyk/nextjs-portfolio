@@ -4,33 +4,64 @@ import AdminHomeView from "@/src/components/admin-view/home";
 import AdminContactView from "@/src/components/admin-view/contact";
 import AdminEducationView from "@/src/components/admin-view/education";
 import AdminExperienceView from "@/src/components/admin-view/experience";
-import AdminLoginView from "@/src/components/admin-view/login";
 import AdminProjectView from "@/src/components/admin-view/project";
 import AdminAboutView from "@/src/components/admin-view/about";
 import { useState } from "react";
+import formControl from "@/src/components/admin-view/form-controls";
 
 const initialHomeViewFormData = {
   heading: "",
   summary: "",
 };
 
+const initialAboutViewFormData = {
+  aboutme: "",
+  noofprojects: "",
+  yearsofexperience: "",
+  noofclients: "",
+  skills: "",
+};
+
+const initialExperienceViewFormData = {
+  position: "",
+  company: "",
+  duration: "",
+  location: "",
+  jobprofile: "",
+};
+
 export default function AdminView() {
   const [currentSelectedTab, setCurrentSelectedTab] = useState("home");
-  const [homeViewFormData, setHomeViewFormData] = useState(initialHomeViewFormData);
+  const [homeViewFormData, setHomeViewFormData] = useState(
+    initialHomeViewFormData,
+  );
+  const [aboutViewFormData, setAboutViewFormData] = useState(
+    initialAboutViewFormData,
+  );
+  const [experienceViewFormData, setExperienceViewFormData] = useState(
+    initialExperienceViewFormData,
+  );
 
   const menuItem = [
     {
       id: "home",
       label: "Home",
-      component: <AdminHomeView
-      formData = {homeViewFormData}
-      setFormData= {setHomeViewFormData}
-      />,
+      component: (
+        <AdminHomeView
+          formData={homeViewFormData}
+          setFormData={setHomeViewFormData}
+        />
+      ),
     },
     {
       id: "about",
       label: "About",
-      component: <AdminAboutView />,
+      component: (
+        <AdminAboutView
+          formData={aboutViewFormData}
+          setFormData={setAboutViewFormData}
+        />
+      ),
     },
     {
       id: "contact",
@@ -45,13 +76,13 @@ export default function AdminView() {
     {
       id: "experience",
       label: "Experience",
-      component: <AdminExperienceView />,
+      component: (
+        <AdminExperienceView
+          formData={experienceViewFormData}
+          setFormData={setExperienceViewFormData}
+        />
+      ),
     },
-    // {
-    //   id: "login",
-    //   label: "Login",
-    //   component: <AdminLoginView />,
-    // },
     {
       id: "project",
       label: "Project",

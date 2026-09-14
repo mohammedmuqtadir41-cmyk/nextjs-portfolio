@@ -24,7 +24,7 @@ const controls = [
 ];
 
 export default function AdminEducationView({ formData, setFormData }) {
-  console.log(formData);
+  // console.log(formData);
 
   return (
     <div className="w-full">

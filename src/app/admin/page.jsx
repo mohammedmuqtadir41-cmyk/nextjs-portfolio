@@ -53,7 +53,6 @@ const initialProjectViewFormData = {
 export default function AdminView() {
   const [currentSelectedTab, setCurrentSelectedTab] = useState("home");
 
-
   const [homeViewFormData, setHomeViewFormData] = useState(
     initialHomeViewFormData,
   );
@@ -84,6 +83,7 @@ export default function AdminView() {
       label: "Home",
       component: (
         <AdminHomeView
+          currentSelectedTab={currentSelectedTab}
           formData={homeViewFormData}
           setFormData={setHomeViewFormData}
         />
@@ -94,6 +94,7 @@ export default function AdminView() {
       label: "About",
       component: (
         <AdminAboutView
+          currentSelectedTab={currentSelectedTab}
           formData={aboutViewFormData}
           setFormData={setAboutViewFormData}
         />
@@ -104,6 +105,7 @@ export default function AdminView() {
       label: "Contact",
       component: (
         <AdminContactView
+          currentSelectedTab={currentSelectedTab}
           formData={contactViewFormData}
           setFormData={setContactViewFormData}
         />
@@ -114,6 +116,7 @@ export default function AdminView() {
       label: "Education",
       component: (
         <AdminEducationView
+          currentSelectedTab={currentSelectedTab}
           formData={educationViewFormData}
           setFormData={setEducationViewFormData}
         />
@@ -124,6 +127,7 @@ export default function AdminView() {
       label: "Experience",
       component: (
         <AdminExperienceView
+          currentSelectedTab={currentSelectedTab}
           formData={experienceViewFormData}
           setFormData={setExperienceViewFormData}
         />
@@ -134,6 +138,7 @@ export default function AdminView() {
       label: "Project",
       component: (
         <AdminProjectView
+          currentSelectedTab={currentSelectedTab}
           formData={projectViewFormData}
           setFormData={setProjectViewFormData}
         />

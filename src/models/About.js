@@ -2,15 +2,31 @@ import mongoose from "mongoose";
 
 const AboutSchema = new mongoose.Schema(
   {
-    aboutme: String,
-    noofprojects: String,
-    yearsofexperience: String,
-    noofclients: String,
-    skills: String,
+    aboutme: {
+      type: String,
+      required: true,
+    },
+    noofprojects: {
+      type: String,
+    },
+    yearsofexperience: {
+      type: String,
+    },
+    noofclients: {
+      type: String,
+    },
+    skills: {
+      type: String,
+    },
   },
-  { timestamps: true },
+  { timestamps: true }
 );
 
-const About = mongoose.models.About || mongoose.model("About", AboutSchema);
+// Delete existing cached model to force Next.js to reload the new schema
+if (mongoose.models.About) {
+  delete mongoose.models.About;
+}
+
+const About = mongoose.model("About", AboutSchema);
 
 export default About;

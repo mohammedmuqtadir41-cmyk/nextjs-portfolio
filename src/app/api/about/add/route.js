@@ -7,8 +7,10 @@ export async function POST(req) {
     await connectToDB();
 
     const extractData = await req.json();
+    console.log("EXTRACT DATA RECEIVED:", extractData); // <-- Add this log
 
     const saveData = await About.create(extractData);
+    console.log("SAVE DATA RESULT:", saveData);
 
     if (saveData) {
       return NextResponse.json({

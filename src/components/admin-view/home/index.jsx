@@ -33,6 +33,7 @@ export default function AdminHomeView({
 
     if (result.success) {
       setFormData(initialFormData);
+      extractAllDatas
     }
   };
 

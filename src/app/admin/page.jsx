@@ -6,7 +6,8 @@ import AdminEducationView from "@/src/components/admin-view/education";
 import AdminExperienceView from "@/src/components/admin-view/experience";
 import AdminProjectView from "@/src/components/admin-view/project";
 import AdminAboutView from "@/src/components/admin-view/about";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getData } from "@/src/services";
 
 const initialHomeViewFormData = {
   heading: "",
@@ -77,6 +78,8 @@ export default function AdminView() {
     initialExperienceViewFormData,
   );
 
+  const [allData, setAllData] = useState({});
+
   const initialDataMap = {
     home: initialHomeViewFormData,
     about: initialAboutViewFormData,
@@ -84,6 +87,38 @@ export default function AdminView() {
     experience: initialExperienceViewFormData,
     project: initialProjectViewFormData,
   };
+
+  async function extractAllDatas() {
+    const response = await getData(currentSelectedTab);
+
+    if (
+      currentSelectedTab === "home" &&
+      response &&
+      response.data &&
+      response?.data?.length > 0
+    ) {
+      setHomeViewFormData(response && response.data[0]);
+    }
+
+    if (
+      currentSelectedTab === "about" &&
+      response?.success &&
+      response?.data?.length > 0
+    ) {
+      const { _id, ...aboutData } = response.data[0];
+
+      setAboutViewFormData({
+        ...initialAboutViewFormData,
+        ...aboutData,
+      });
+    }
+
+    console.log(allData, homeViewFormData, "homeViewFormData");
+  }
+
+  useEffect(() => {
+    extractAllDatas();
+  }, [currentSelectedTab]);
 
   const menuItem = [
     {

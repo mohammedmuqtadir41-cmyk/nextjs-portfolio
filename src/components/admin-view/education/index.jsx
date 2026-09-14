@@ -24,13 +24,17 @@ const controls = [
   },
 ];
 
-export default function AdminEducationView({ formData, setFormData, currentSelectedTab }) {
+export default function AdminEducationView({ formData, setFormData, currentSelectedTab, initialFormData }) {
   // console.log(formData);
 
   const handleSave = async() => {
     const result = await addData(currentSelectedTab , formData);
 
     console.log("SAVE RESULT:", result);
+
+    if(result.success){
+      setFormData(initialFormData)
+    }
   }
 
   return (

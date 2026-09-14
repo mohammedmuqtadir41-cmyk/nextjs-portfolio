@@ -40,6 +40,7 @@ export default function AdminExperienceView({
   formData,
   setFormData,
   currentSelectedTab,
+  initialFormData
 }) {
   // console.log(formData);
 
@@ -47,6 +48,10 @@ export default function AdminExperienceView({
     const result = await addData(currentSelectedTab, formData);
 
     console.log("SAVE RESULT:", result);
+
+    if(result.success){
+      setFormData(initialFormData)
+    }
   };
 
   return (

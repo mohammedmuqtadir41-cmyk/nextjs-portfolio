@@ -77,6 +77,14 @@ export default function AdminView() {
     initialExperienceViewFormData,
   );
 
+  const initialDataMap = {
+    home: initialHomeViewFormData,
+    about: initialAboutViewFormData,
+    education: initialEducationViewFormData,
+    experience: initialExperienceViewFormData,
+    project: initialProjectViewFormData,
+  };
+
   const menuItem = [
     {
       id: "home",
@@ -86,6 +94,7 @@ export default function AdminView() {
           currentSelectedTab={currentSelectedTab}
           formData={homeViewFormData}
           setFormData={setHomeViewFormData}
+          initialFormData={initialDataMap.home}
         />
       ),
     },
@@ -97,6 +106,7 @@ export default function AdminView() {
           currentSelectedTab={currentSelectedTab}
           formData={aboutViewFormData}
           setFormData={setAboutViewFormData}
+          initialFormData={initialDataMap.about}
         />
       ),
     },
@@ -108,6 +118,7 @@ export default function AdminView() {
           currentSelectedTab={currentSelectedTab}
           formData={contactViewFormData}
           setFormData={setContactViewFormData}
+          initialFormData={initialDataMap.contact}
         />
       ),
     },
@@ -119,6 +130,7 @@ export default function AdminView() {
           currentSelectedTab={currentSelectedTab}
           formData={educationViewFormData}
           setFormData={setEducationViewFormData}
+          initialFormData={initialDataMap.education}
         />
       ),
     },
@@ -130,6 +142,7 @@ export default function AdminView() {
           currentSelectedTab={currentSelectedTab}
           formData={experienceViewFormData}
           setFormData={setExperienceViewFormData}
+          initialFormData={initialDataMap.experience}
         />
       ),
     },
@@ -141,6 +154,7 @@ export default function AdminView() {
           currentSelectedTab={currentSelectedTab}
           formData={projectViewFormData}
           setFormData={setProjectViewFormData}
+          initialFormData={initialDataMap.project}
         />
       ),
     },

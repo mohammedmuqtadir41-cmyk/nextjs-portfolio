@@ -30,13 +30,17 @@ const controls = [
   },
 ];
 
-export default function AdminProjectView({ formData, setFormData, currentSelectedTab }) {
+export default function AdminProjectView({ formData, setFormData, currentSelectedTab,initialFormData }) {
   // console.log(formData);
 
   async function handleSave(){
     const result = await addData(currentSelectedTab, formData);
 
     console.log("SAVE RESULT:", result);
+
+    if(result.success){
+      setFormData(initialFormData)
+    }
   }
 
   return (

@@ -48,7 +48,7 @@ export default function AdminExperienceView({ formData, setFormData }) {
         />
 
         <button className="mt-1.25 rounded-md border border-blue-600 bg-blue-600 p-3 text-[16px] font-bold text-white focus:bg-green-800">
-          Add Info
+          Add Experience
         </button>
       </div>
     </div>

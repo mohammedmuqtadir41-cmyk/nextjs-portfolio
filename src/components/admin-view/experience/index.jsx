@@ -1,5 +1,6 @@
 "use client";
 
+import { addData } from "@/src/services";
 import FormControl from "../form-controls";
 
 const controls = [
@@ -35,8 +36,18 @@ const controls = [
   },
 ];
 
-export default function AdminExperienceView({ formData, setFormData }) {
+export default function AdminExperienceView({
+  formData,
+  setFormData,
+  currentSelectedTab,
+}) {
   // console.log(formData);
+
+  const handleSave = async () => {
+    const result = await addData(currentSelectedTab, formData);
+
+    console.log("SAVE RESULT:", result);
+  };
 
   return (
     <div className="w-full">
@@ -47,7 +58,10 @@ export default function AdminExperienceView({ formData, setFormData }) {
           setFormData={setFormData}
         />
 
-        <button className="mt-1.25 rounded-md border border-blue-600 bg-blue-600 p-3 text-[16px] font-bold text-white focus:bg-green-800">
+        <button
+          className="mt-1.25 rounded-md border border-blue-600 bg-blue-600 p-3 text-[16px] font-bold text-white focus:bg-green-800"
+          onClick={handleSave}
+        >
           Add Experience
         </button>
       </div>

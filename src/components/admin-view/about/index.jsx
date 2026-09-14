@@ -30,7 +30,7 @@ const controls = [
     label: "Number of clients",
   },
   {
-    name: "Skills",
+    name: "skills",
     placeholder: "Skills",
     type: "text",
     label: "Skills",

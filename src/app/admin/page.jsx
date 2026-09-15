@@ -8,6 +8,7 @@ import AdminProjectView from "@/src/components/admin-view/project";
 import AdminAboutView from "@/src/components/admin-view/about";
 import { useEffect, useState } from "react";
 import { getData } from "@/src/services";
+import { useRouter } from "next/navigation";
 
 const initialHomeViewFormData = {
   heading: "",
@@ -79,6 +80,22 @@ export default function AdminView() {
   );
 
   const [allData, setAllData] = useState({});
+
+  const router = useRouter();
+
+  const handleLogout = async() => {
+    const response = await fetch('/api/auth/logout', {
+      method: 'POST',
+    })
+
+    const result = await response.json();
+
+    console.log('LOGOUT RESULT:',result)
+
+    if(result.success){
+      router.push('/auth')
+    }
+  }
 
   const initialDataMap = {
     home: initialHomeViewFormData,
@@ -205,27 +222,48 @@ export default function AdminView() {
 ];
 
   return (
-    <div className="border-b border-gray-400">
-      {/* <h1 className="text-3xl font-bold text-red-500">Tailwind is working!</h1> */}
-      <nav className="-mb-0.5 flex justify-center space-x-6" role="tablist">
-        {menuItem.map((Item) => (
-          <button
-            key={Item.id}
-            type="button"
-            className="p-4 font-bold text-xl text-black"
-            onClick={() => setCurrentSelectedTab(Item.id)}
-          >
-            {Item.label}
-          </button>
-        ))}
-      </nav>
-      <div className="mt-10 p-10">
-        {menuItem.map(
-          (Item) => Item.id === currentSelectedTab && Item.component,
-        )}
-      </div>
-    </div>
-  );
-}
+  <div className="min-h-screen">
+    
+    {/* Header */}
+    <div className="flex items-center justify-between border-b border-gray-400 px-8 py-4">
+      <h1 className="text-2xl font-bold text-black">
+        Admin Dashboard
+      </h1>
 
-// 3:34
+      <button
+        type="button"
+        onClick={handleLogout}
+        className="rounded-md bg-red-600 px-5 py-2 font-semibold text-white transition hover:bg-red-700"
+      >
+        Logout
+      </button>
+    </div>
+
+    {/* Navigation */}
+    <nav
+      className="-mb-0.5 flex justify-center space-x-6 border-b border-gray-400"
+      role="tablist"
+    >
+      {menuItem.map((Item) => (
+        <button
+          key={Item.id}
+          type="button"
+          className="p-4 text-xl font-bold text-black"
+          onClick={() => setCurrentSelectedTab(Item.id)}
+        >
+          {Item.label}
+        </button>
+      ))}
+    </nav>
+
+    {/* Selected Section */}
+    <div className="mt-10 p-10">
+      {menuItem.map(
+        (Item) =>
+          Item.id === currentSelectedTab && Item.component
+      )}
+    </div>
+
+  </div>
+);
+}

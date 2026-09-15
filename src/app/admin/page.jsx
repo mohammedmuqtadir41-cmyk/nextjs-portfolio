@@ -122,82 +122,87 @@ export default function AdminView() {
   }, [currentSelectedTab]);
 
   const menuItem = [
-    {
-      id: "home",
-      label: "Home",
-      component: (
-        <AdminHomeView
-          currentSelectedTab={currentSelectedTab}
-          formData={homeViewFormData}
-          setFormData={setHomeViewFormData}
-          initialFormData={initialDataMap.home}
-        />
-      ),
-    },
-    {
-      id: "about",
-      label: "About",
-      component: (
-        <AdminAboutView
-          currentSelectedTab={currentSelectedTab}
-          formData={aboutViewFormData}
-          setFormData={setAboutViewFormData}
-          initialFormData={initialDataMap.about}
-        />
-      ),
-    },
-    {
-      id: "contact",
-      label: "Contact",
-      component: (
-        <AdminContactView
-          currentSelectedTab={currentSelectedTab}
-          formData={contactViewFormData}
-          setFormData={setContactViewFormData}
-          initialFormData={initialDataMap.contact}
-        />
-      ),
-    },
-    {
-      id: "education",
-      label: "Education",
-      component: (
-        <AdminEducationView
-          currentSelectedTab={currentSelectedTab}
-          formData={educationViewFormData}
-          setFormData={setEducationViewFormData}
-          initialFormData={initialDataMap.education}
-          data={allData?.education}
-        />
-      ),
-    },
-    {
-      id: "experience",
-      label: "Experience",
-      component: (
-        <AdminExperienceView
-          currentSelectedTab={currentSelectedTab}
-          formData={experienceViewFormData}
-          setFormData={setExperienceViewFormData}
-          initialFormData={initialDataMap.experience}
-          data = {allData?.experience}
-        />
-      ),
-    },
-    {
-      id: "project",
-      label: "Project",
-      component: (
-        <AdminProjectView
-          currentSelectedTab={currentSelectedTab}
-          formData={projectViewFormData}
-          setFormData={setProjectViewFormData}
-          initialFormData={initialDataMap.project}
-          data={allData?.project}
-        />
-      ),
-    },
-  ];
+  {
+    id: "home",
+    label: "Home",
+    component: (
+      <AdminHomeView
+        currentSelectedTab={currentSelectedTab}
+        formData={homeViewFormData}
+        setFormData={setHomeViewFormData}
+        initialFormData={initialDataMap.home}
+      />
+    ),
+  },
+
+  {
+    id: "about",
+    label: "About",
+    component: (
+      <AdminAboutView
+        currentSelectedTab={currentSelectedTab}
+        formData={aboutViewFormData}
+        setFormData={setAboutViewFormData}
+        initialFormData={initialDataMap.about}
+      />
+    ),
+  },
+
+  {
+    id: "education",
+    label: "Education",
+    component: (
+      <AdminEducationView
+        currentSelectedTab={currentSelectedTab}
+        formData={educationViewFormData}
+        setFormData={setEducationViewFormData}
+        initialFormData={initialDataMap.education}
+        data={allData?.education}
+      />
+    ),
+  },
+
+  {
+    id: "project",
+    label: "Project",
+    component: (
+      <AdminProjectView
+        currentSelectedTab={currentSelectedTab}
+        formData={projectViewFormData}
+        setFormData={setProjectViewFormData}
+        initialFormData={initialDataMap.project}
+        data={allData?.project}
+      />
+    ),
+  },
+
+  {
+    id: "experience",
+    label: "Experience",
+    component: (
+      <AdminExperienceView
+        currentSelectedTab={currentSelectedTab}
+        formData={experienceViewFormData}
+        setFormData={setExperienceViewFormData}
+        initialFormData={initialDataMap.experience}
+        data={allData?.experience}
+      />
+    ),
+  },
+
+  {
+    id: "contact",
+    label: "Contact",
+    component: (
+      <AdminContactView
+        currentSelectedTab={currentSelectedTab}
+        formData={contactViewFormData}
+        setFormData={setContactViewFormData}
+        initialFormData={initialDataMap.contact}
+      />
+    ),
+  },
+];
 
   return (
     <div className="border-b border-gray-400">

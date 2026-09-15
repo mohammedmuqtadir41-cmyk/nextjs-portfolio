@@ -6,8 +6,21 @@ import { NextResponse } from "next/server";
 export async function POST(req){
     try{
         await connectToDB();
+
         const extractData = await req.json();
-        const saveData = await Home.create(extractData)
+
+        const {_id, ...homeData } = extractData;
+
+        let saveData;
+
+        if(_id){
+        saveData = await Home.findByIdAndUpdate(_id, homeData, {
+            new: true,
+            runValidators: true,
+        });
+        } else {
+            saveData = await Home.create(homeData);
+        }
 
         if(saveData){
             return NextResponse.json({

@@ -7,8 +7,7 @@ export async function POST(req) {
     await connectToDB();
 
     const extractData = await req.json();
-    // console.log("EXTRACT DATA RECEIVED:", extractData);
-
+    
     const { _id, ...aboutData } = extractData;
 
     let saveData;

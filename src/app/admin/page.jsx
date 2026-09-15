@@ -193,6 +193,7 @@ export default function AdminView() {
           formData={projectViewFormData}
           setFormData={setProjectViewFormData}
           initialFormData={initialDataMap.project}
+          data={allData?.project}
         />
       ),
     },

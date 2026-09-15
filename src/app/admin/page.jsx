@@ -167,6 +167,7 @@ export default function AdminView() {
           formData={educationViewFormData}
           setFormData={setEducationViewFormData}
           initialFormData={initialDataMap.education}
+          data={allData?.education}
         />
       ),
     },
@@ -179,6 +180,7 @@ export default function AdminView() {
           formData={experienceViewFormData}
           setFormData={setExperienceViewFormData}
           initialFormData={initialDataMap.experience}
+          data = {allData?.experience}
         />
       ),
     },

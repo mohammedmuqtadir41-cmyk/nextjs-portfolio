@@ -40,7 +40,8 @@ export default function AdminExperienceView({
   formData,
   setFormData,
   currentSelectedTab,
-  initialFormData
+  initialFormData,
+  data,
 }) {
   // console.log(formData);
 
@@ -49,14 +50,46 @@ export default function AdminExperienceView({
 
     console.log("SAVE RESULT:", result);
 
-    if(result.success){
-      setFormData(initialFormData)
+    if (result.success) {
+      setFormData(initialFormData);
     }
   };
 
   return (
     <div className="w-full">
       <div className="mb-4 rounded bg-[#d7d7d7] px-8 pb-8 pt-6 shadow-md">
+        <div className="mb-10 space-y-6">
+          {data && data.length ? (
+            data.map((item, index) => (
+              <div
+                key={index}
+                className="bg-[#ffffff] flex flex-col gap-2 p-6 rounded-lg shadow-md border border-green-600 hover:border-green-800 transition duration-300"
+              >
+                <p className="text-lg font-semibold text-gray-700">
+                  {item.position}
+                </p>
+                <p className="text-lg text-gray-700">
+                  {item.company}
+                </p>
+                <p className="text-lg text-gray-700">
+                  {item.duration}
+                </p>
+                <p className="text-lg text-gray-700">
+                  {item.location}
+                </p>
+                <p className="text-lg text-gray-700">
+                  {item.jobprofile}
+                </p>
+              </div>
+            ))
+          ) : (
+            <p className="text-center text-gray-600 ">
+              {" "}
+              No Job Experience Available
+            </p>
+          )}
+        </div>
+
         <FormControl
           controls={controls}
           formData={formData}

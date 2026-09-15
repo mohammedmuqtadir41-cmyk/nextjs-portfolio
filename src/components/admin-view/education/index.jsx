@@ -24,30 +24,59 @@ const controls = [
   },
 ];
 
-export default function AdminEducationView({ formData, setFormData, currentSelectedTab, initialFormData }) {
+export default function AdminEducationView({
+  formData,
+  setFormData,
+  currentSelectedTab,
+  initialFormData,
+  data,
+}) {
   // console.log(formData);
 
-  const handleSave = async() => {
-    const result = await addData(currentSelectedTab , formData);
+  const handleSave = async () => {
+    const result = await addData(currentSelectedTab, formData);
 
     console.log("SAVE RESULT:", result);
 
-    if(result.success){
-      setFormData(initialFormData)
+    if (result.success) {
+      setFormData(initialFormData);
     }
-  }
+  };
 
   return (
     <div className="w-full">
       <div className="mb-4 rounded bg-[#d7d7d7] px-8 pb-8 pt-6 shadow-md">
+        <div className="mb-10 space-y-6">
+          {data && data.length ? (
+            data.map((item, index) => (
+              <div
+                key={index}
+                className="bg-[#ffffff] flex flex-col gap-2 p-6 rounded-lg shadow-md border border-green-600 hover:border-green-800 transition duration-300"
+              >
+                <p className="text-lg font-semibold text-gray-700">
+                  {item.degree}
+                </p>
+                <p className="text-lg text-gray-700">{item.year}</p>
+                <p className="text-lg text-gray-700">{item.college}</p>
+              </div>
+            ))
+          ) : (
+            <p className="text-center text-gray-600">
+              No Education Data available
+            </p>
+          )}
+        </div>
+
         <FormControl
           controls={controls}
           formData={formData}
           setFormData={setFormData}
         />
 
-        <button className="mt-1.25 rounded-md border border-blue-600 bg-blue-600 p-3 text-[16px] font-bold text-white focus:bg-green-800"
-        onClick={handleSave}>
+        <button
+          className="mt-1.25 rounded-md border border-blue-600 bg-blue-600 p-3 text-[16px] font-bold text-white focus:bg-green-800"
+          onClick={handleSave}
+        >
           Add Education
         </button>
       </div>

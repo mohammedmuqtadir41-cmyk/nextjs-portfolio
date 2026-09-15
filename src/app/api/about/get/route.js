@@ -6,14 +6,15 @@ export async function GET(req) {
   try {
     await connectToDB();
 
-    const extractData = await About.find({});
+    const extractData = await About.find({})
+      .sort({ updatedAt: -1});
 
     return NextResponse.json({
       success: true,
       data: extractData,
     });
   } catch (e) {
-    console.log(e);
+    console.log("About GET Err",e);
 
     return NextResponse.json({
       success: false,

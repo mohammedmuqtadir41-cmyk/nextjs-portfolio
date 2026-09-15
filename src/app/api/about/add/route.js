@@ -7,10 +7,22 @@ export async function POST(req) {
     await connectToDB();
 
     const extractData = await req.json();
-    console.log("EXTRACT DATA RECEIVED:", extractData); // <-- Add this log
+    // console.log("EXTRACT DATA RECEIVED:", extractData);
 
-    const saveData = await About.create(extractData);
-    console.log("SAVE DATA RESULT:", saveData);
+    const { _id, ...aboutData } = extractData;
+
+    let saveData;
+
+    if (_id) {
+      saveData = await About.findByIdAndUpdate(_id, aboutData, {
+        new: true,
+        runValidators: true,
+      });
+    } else {
+      saveData = await About.create(aboutData);
+    }
+    
+    // console.log("SAVE DATA RESULT:", saveData);
 
     if (saveData) {
       return NextResponse.json({

@@ -102,19 +102,20 @@ export default function AdminView() {
 
     if (
       currentSelectedTab === "about" &&
-      response?.success &&
+      response &&
+      response?.data &&
       response?.data?.length > 0
     ) {
-      const { _id, ...aboutData } = response.data[0];
-
-      setAboutViewFormData({
-        ...initialAboutViewFormData,
-        ...aboutData,
-      });
+      setAboutViewFormData(response && response.data[0]);
     }
 
-    console.log(allData, homeViewFormData, "homeViewFormData");
+    if (response.success) {
+      setAllData({ ...allData, [currentSelectedTab]: response.data });
+    }
   }
+
+  console.log(allData, homeViewFormData, 'homeViewFormData');
+
 
   useEffect(() => {
     extractAllDatas();
@@ -218,3 +219,5 @@ export default function AdminView() {
     </div>
   );
 }
+
+// 3:34

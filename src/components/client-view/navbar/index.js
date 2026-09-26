@@ -59,10 +59,10 @@ export default function Navbar() {
   const [scrollActive, setScrollActive] = useState(false);
 
   useEffect(() => {
-    window.addEventListener('scroll', () => {
-      setScrollActive(window.screenY > 20)
-    })
-  })
+    window.addEventListener("scroll", () => {
+      setScrollActive(window.screenY > 20);
+    });
+  });
 
   return (
     <>
@@ -112,24 +112,29 @@ export default function Navbar() {
               className="py-2 px-5 border-2 border-green-600 text-green-600 
               font-semibold rounded-full text-xl hover:bg-gray-400 hover:text-white hover:shadow-lg
                transition-all duration-300 ease-in-out"
-            >Contact Me</button>
+            >
+              Contact Me
+            </button>
           </div>
         </nav>
       </header>
 
-      <nav className="fixed lg:hidden bottom-0 left-0 right-0 z-20 px-4 
-      sm:px-8 shadow-t">
+      <nav
+        className="fixed lg:hidden bottom-0 left-0 right-0 z-20 px-4 
+      sm:px-8 shadow-t"
+      >
         <div className="bg-white-500 sm:px-3">
-              <ul className="overflow-x-auto flex w-full justify-between
-              items-center text-[#000]">
-                <CreateMenus 
-                setActiveLink={setActiveLink}
-                activeLink={activeLink}
-                getMenuItems={menuItems}
-                />
-              </ul>
+          <ul
+            className="overflow-x-auto flex w-full justify-between
+              items-center text-[#000]"
+          >
+            <CreateMenus
+              setActiveLink={setActiveLink}
+              activeLink={activeLink}
+              getMenuItems={menuItems}
+            />
+          </ul>
         </div>
-
       </nav>
     </>
   );

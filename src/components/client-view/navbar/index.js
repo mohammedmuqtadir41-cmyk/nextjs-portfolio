@@ -1,6 +1,6 @@
 "use client";
 // 6:02
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import logo from "../../../assets/logo.png";
 import { Link as LinkScroll, scroller } from "react-scroll";
@@ -58,6 +58,12 @@ export default function Navbar() {
   const [activeLink, setActiveLink] = useState("home");
   const [scrollActive, setScrollActive] = useState(false);
 
+  useEffect(() => {
+    window.addEventListener('scroll', () => {
+      setScrollActive(window.screenY > 20)
+    })
+  })
+
   return (
     <>
       <header
@@ -110,6 +116,21 @@ export default function Navbar() {
           </div>
         </nav>
       </header>
+
+      <nav className="fixed lg:hidden bottom-0 left-0 right-0 z-20 px-4 
+      sm:px-8 shadow-t">
+        <div className="bg-white-500 sm:px-3">
+              <ul className="overflow-x-auto flex w-full justify-between
+              items-center text-[#000]">
+                <CreateMenus 
+                setActiveLink={setActiveLink}
+                activeLink={activeLink}
+                getMenuItems={menuItems}
+                />
+              </ul>
+        </div>
+
+      </nav>
     </>
   );
 }

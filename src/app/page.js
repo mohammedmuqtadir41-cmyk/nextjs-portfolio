@@ -40,6 +40,8 @@ export default async function Home() {
       />
 
       <ProjectClientView data={projectSectionData} />
+
+      <ContactClientView />
     </div>
   );
 }

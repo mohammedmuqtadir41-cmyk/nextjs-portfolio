@@ -410,3 +410,15 @@ https://nextjs-portfolio-gamma-azure.vercel.app
 ## 📄 License
 
 This project is intended for personal portfolio and educational purposes.
+
+# Base URL
+
+NEXT_PUBLIC_BASE_URL=http://localhost:3000
+
+# MongoDB
+
+mongoURL=your_mongodb_connection_string
+
+# JWT
+
+JWT_SECRET=your_jwt_secret

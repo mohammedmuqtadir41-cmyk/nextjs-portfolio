@@ -1,9 +1,9 @@
 "use client";
-// 6:02
+
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import logo from "../../../assets/logo.png";
 import { Link as LinkScroll, scroller } from "react-scroll";
+import { motion } from "framer-motion";
 
 const menuItems = [
   {
@@ -20,7 +20,7 @@ const menuItems = [
   },
   {
     id: "project",
-    label: "Project",
+    label: "Projects",
   },
   {
     id: "contact",
@@ -28,28 +28,43 @@ const menuItems = [
   },
 ];
 
-function CreateMenus({ activeLink, getMenuItems, setActiveLink }) {
+function CreateMenus({
+  activeLink,
+  getMenuItems,
+  setActiveLink,
+}) {
   return getMenuItems.map((item) => (
     <LinkScroll
       key={item.id}
-      activeClass="active"
       to={item.id}
       spy={true}
       smooth={true}
-      duration={1000}
+      duration={800}
+      offset={-80}
       onSetActive={() => setActiveLink(item.id)}
-      className={`px-4 py-2 mx-2 cursor-pointer
-        inline-block relative font-semibold
-        after:absolute after:bottom-0 after:left-1/2
-        after:h-[2px] after:bg-[#0DB760]
-        after:transition-all after:duration-300
-        ${
-          activeLink === item.id
-            ? "text-[#0DB760] after:w-full after:-translate-x-1/2"
-            : "text-black hover:text-[#0DB760] after:w-0 after:-translate-x-1/2 hover:after:w-full"
-        }`}
+      className="relative cursor-pointer px-3 py-2 text-sm font-medium transition-colors duration-300"
     >
-      {item.label}
+      <span
+        className={
+          activeLink === item.id
+            ? "text-white"
+            : "text-zinc-400 hover:text-white"
+        }
+      >
+        {item.label}
+      </span>
+
+      {activeLink === item.id && (
+        <motion.span
+          layoutId="navbar-active"
+          className="absolute bottom-0 left-1/2 h-[2px] w-5 -translate-x-1/2 rounded-full bg-[#0DB760]"
+          transition={{
+            type: "spring",
+            stiffness: 400,
+            damping: 30,
+          }}
+        />
+      )}
     </LinkScroll>
   ));
 }
@@ -59,81 +74,161 @@ export default function Navbar() {
   const [scrollActive, setScrollActive] = useState(false);
 
   useEffect(() => {
-    window.addEventListener("scroll", () => {
-      setScrollActive(window.screenY > 20);
+    const handleScroll = () => {
+      setScrollActive(window.scrollY > 30);
+    };
+
+    handleScroll();
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  const handleContact = () => {
+    scroller.scrollTo("contact", {
+      duration: 800,
+      smooth: true,
+      offset: -80,
     });
-  });
+  };
 
   return (
     <>
-      <header
-        className={`fixed top-0 w-full z-30 bg-white transition-all
-                    ${scrollActive ? "shadow-md pt-0" : "pt-4"}`}
-      >
-        <nav
-          className="max-w-screen-xl px-6 sm:px-8 lg:px-16
-                        mx-auto grid grid-flow-col py-3 sm:py-4"
+      {/* Desktop Navbar */}
+      <header className="fixed left-0 right-0 top-0 z-50 px-4 pt-4 sm:px-6 lg:px-8">
+        <motion.nav
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className={`
+            mx-auto flex max-w-6xl items-center justify-between
+            rounded-full px-4 py-3
+            transition-all duration-500
+            ${
+              scrollActive
+                ? "glass shadow-[0_10px_40px_rgba(0,0,0,0.25)]"
+                : "border border-transparent bg-transparent"
+            }
+          `}
         >
-          <div className="col-start-1 col-end-2 flex items-center">
-            <div
-              className="cursor-pointer flex gap-2 font-bold
-                                items-center text-[20px] text-[#0DB760]"
-            >
-              <Image
-                src={logo}
-                alt="logo"
-                width={100}
-                height={100}
-                quality={100}
-              />
-            </div>
-          </div>
-
-          <ul
-            className="hidden lg:flex col-start-4 col-end-8
-                            text-black items-center"
+          {/* Logo */}
+          <LinkScroll
+            to="home"
+            smooth={true}
+            duration={800}
+            className="cursor-pointer"
           >
+            <div className="flex items-center gap-3">
+              <div className="relative h-9 w-9 overflow-hidden rounded-full border border-white/10 bg-white/5">
+                <Image
+                  src="/logo.png"
+                  alt="Mohammed Muqthadir Ahmed"
+                  fill
+                  sizes="36px"
+                  className="object-cover"
+                />
+              </div>
+
+              <div className="hidden sm:block">
+                <p className="text-sm font-semibold text-white">
+                  Muqthadir Ahmed
+                </p>
+
+                <p className="text-[10px] uppercase tracking-[0.2em] text-zinc-500">
+                  Software Developer
+                </p>
+              </div>
+            </div>
+          </LinkScroll>
+
+          {/* Navigation */}
+          <div className="hidden items-center gap-1 md:flex">
             <CreateMenus
               setActiveLink={setActiveLink}
               activeLink={activeLink}
               getMenuItems={menuItems}
             />
-          </ul>
-
-          <div className="col-start-10 col-end-12 flex justify-end">
-            <button
-              onClick={() =>
-                scroller.scrollTo("contact", {
-                  duration: 1500,
-                  delay: 100,
-                  smooth: true,
-                })
-              }
-              className="py-2 px-5 border-2 border-green-600 text-green-600 
-              font-semibold rounded-full text-xl hover:bg-gray-400 hover:text-white hover:shadow-lg
-               transition-all duration-300 ease-in-out"
-            >
-              Contact Me
-            </button>
           </div>
-        </nav>
+
+          {/* Contact CTA */}
+          <button
+            onClick={handleContact}
+            className="
+              hidden rounded-full
+              border border-[#0DB760]/30
+              bg-[#0DB760]/10
+              px-4 py-2
+              text-sm font-semibold
+              text-[#19D879]
+              transition-all duration-300
+              hover:border-[#0DB760]/60
+              hover:bg-[#0DB760]/20
+              hover:shadow-[0_0_25px_rgba(13,183,96,0.15)]
+              md:block
+            "
+          >
+            Lets Talk
+          </button>
+
+          {/* Mobile button */}
+          <button
+            onClick={handleContact}
+            className="
+              rounded-full
+              border border-[#0DB760]/30
+              bg-[#0DB760]/10
+              px-4 py-2
+              text-xs font-semibold
+              text-[#19D879]
+              md:hidden
+            "
+          >
+            Contact
+          </button>
+        </motion.nav>
       </header>
 
-      <nav
-        className="fixed lg:hidden bottom-0 left-0 right-0 z-20 px-4 
-      sm:px-8 shadow-t"
-      >
-        <div className="bg-white-500 sm:px-3">
-          <ul
-            className="overflow-x-auto flex w-full justify-between
-              items-center text-[#000]"
-          >
-            <CreateMenus
-              setActiveLink={setActiveLink}
-              activeLink={activeLink}
-              getMenuItems={menuItems}
-            />
-          </ul>
+      {/* Mobile Bottom Navigation */}
+      <nav className="fixed bottom-4 left-4 right-4 z-50 md:hidden">
+        <div
+          className="
+            glass
+            mx-auto flex max-w-md
+            items-center justify-between
+            rounded-2xl
+            px-2 py-2
+            shadow-[0_10px_40px_rgba(0,0,0,0.35)]
+          "
+        >
+          {menuItems.map((item) => (
+            <LinkScroll
+              key={item.id}
+              to={item.id}
+              spy={true}
+              smooth={true}
+              duration={800}
+              offset={-80}
+              onSetActive={() => setActiveLink(item.id)}
+              className="flex flex-1 cursor-pointer justify-center"
+            >
+              <div
+                className={`
+                  rounded-xl px-3 py-2 text-xs font-medium
+                  transition-all duration-300
+                  ${
+                    activeLink === item.id
+                      ? "bg-[#0DB760]/10 text-[#19D879]"
+                      : "text-zinc-500"
+                  }
+                `}
+              >
+                {item.label}
+              </div>
+            </LinkScroll>
+          ))}
         </div>
       </nav>
     </>

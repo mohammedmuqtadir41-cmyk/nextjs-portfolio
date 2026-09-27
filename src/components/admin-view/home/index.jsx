@@ -35,21 +35,48 @@ export default function AdminHomeView({
   };
 
   return (
-    <div className="w-full">
-      <div className="mb-4 rounded-lg bg-[#d7d7d7] px-8 pb-8 pt-6 shadow-md">
-        <FormControl
-          controls={controls}
-          formData={formData}
-          setFormData={setFormData}
-        />
+  <div className="w-full">
+    <div className="mb-6">
+      <p className="text-sm text-zinc-500">
+        Update the content displayed in your portfolio hero section.
+      </p>
+    </div>
 
+    <div className="rounded-2xl border border-white/10 bg-[#0b0b0b] p-6 shadow-xl shadow-black/20 sm:p-8">
+      <div className="mb-8">
+        <div className="flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-400">
+            ✦
+          </div>
+
+          <div>
+            <h3 className="text-lg font-semibold text-white">
+              Hero Section
+            </h3>
+
+            <p className="text-sm text-zinc-500">
+              Manage your introduction and career summary.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <FormControl
+        controls={controls}
+        formData={formData}
+        setFormData={setFormData}
+      />
+
+      <div className="mt-8 flex justify-end">
         <button
-          className="mt-4 rounded-md bg-blue-600 px-5 py-3 text-[16px] font-bold text-white transition duration-200 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          type="button"
+          className="rounded-xl bg-emerald-500 px-6 py-3 text-sm font-semibold text-black transition-all duration-200 hover:bg-emerald-400 hover:shadow-lg hover:shadow-emerald-500/10 focus:outline-none focus:ring-2 focus:ring-emerald-400/30"
           onClick={handleSave}
         >
-          Add Info
+          Save Changes
         </button>
       </div>
     </div>
-  );
+  </div>
+);
 }

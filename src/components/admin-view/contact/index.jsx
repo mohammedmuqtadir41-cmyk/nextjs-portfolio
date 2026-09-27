@@ -31,97 +31,118 @@ export default function AdminContactView() {
 
   if (loading) {
     return (
-      <div className="p-6">
-        <p>Loading messages...</p>
+      <div className="flex min-h-[300px] items-center justify-center">
+        <div className="text-center">
+          <div className="mx-auto h-8 w-8 animate-spin rounded-full border-2 border-white/10 border-t-emerald-400" />
+
+          <p className="mt-4 text-sm text-zinc-500">
+            Loading messages...
+          </p>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="p-6">
+    <div className="w-full">
 
-      {/* Heading */}
+      {/* Header */}
+      <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <p className="text-sm text-zinc-500">
+            Messages submitted through your portfolio.
+          </p>
 
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-800">
-          Contact Messages
-        </h1>
+          <div className="mt-2 flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-400">
+              ✉
+            </div>
 
-        <p className="text-gray-500 mt-2">
-          Messages submitted through your portfolio.
-        </p>
+            <h2 className="text-2xl font-bold tracking-tight text-white">
+              Contact Messages
+            </h2>
+          </div>
+        </div>
+
+        {/* Message Count */}
+        <div className="w-fit rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2">
+          <p className="text-xs uppercase tracking-wider text-zinc-500">
+            Messages
+          </p>
+
+          <p className="mt-1 text-lg font-semibold text-emerald-400">
+            {contactData.length}
+          </p>
+        </div>
       </div>
 
-      {/* Messages */}
-
+      {/* Empty State */}
       {contactData.length === 0 ? (
-        <div className="border rounded-lg p-8 text-center">
-          <p className="text-gray-500">
-            No contact messages yet.
+        <div className="rounded-2xl border border-dashed border-white/10 bg-white/[0.02] p-12 text-center">
+          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-white/[0.04] text-2xl">
+            ✉
+          </div>
+
+          <h3 className="mt-5 text-base font-semibold text-zinc-300">
+            No messages yet
+          </h3>
+
+          <p className="mt-2 text-sm text-zinc-600">
+            Contact messages from your portfolio will appear here.
           </p>
         </div>
       ) : (
-        <div className="space-y-5">
+        <div className="space-y-4">
 
           {contactData.map((item, index) => (
-            <div
+            <article
               key={item._id || index}
-              className="
-                border
-                border-gray-200
-                rounded-lg
-                p-6
-                shadow-sm
-                bg-white
-              "
+              className="group rounded-2xl border border-white/10 bg-[#0b0b0b] p-6 shadow-xl shadow-black/10 transition-all duration-200 hover:border-emerald-500/20 hover:bg-[#0d0d0d]"
             >
 
-              {/* Name */}
+              {/* Message Header */}
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
 
-              <div className="mb-3">
-                <p className="text-sm text-gray-500">
-                  Name
-                </p>
+                <div className="flex items-start gap-4">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-emerald-500/10 text-sm font-semibold text-emerald-400">
+                    {item.name?.charAt(0)?.toUpperCase() || "?"}
+                  </div>
 
-                <h2 className="text-lg font-semibold text-gray-800">
-                  {item.name}
-                </h2>
+                  <div>
+                    <h3 className="text-base font-semibold text-white">
+                      {item.name || "Unknown sender"}
+                    </h3>
+
+                    <p className="mt-1 text-sm text-emerald-400">
+                      {item.email}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Date */}
+                {item.createdAt && (
+                  <p className="text-xs text-zinc-600 sm:text-right">
+                    {new Date(item.createdAt).toLocaleString()}
+                  </p>
+                )}
+
               </div>
 
-              {/* Email */}
-
-              <div className="mb-3">
-                <p className="text-sm text-gray-500">
-                  Email
-                </p>
-
-                <p className="text-gray-800">
-                  {item.email}
-                </p>
-              </div>
+              {/* Divider */}
+              <div className="my-5 border-t border-white/10" />
 
               {/* Message */}
-
-              <div className="mb-3">
-                <p className="text-sm text-gray-500">
+              <div>
+                <p className="mb-2 text-xs font-medium uppercase tracking-wider text-zinc-500">
                   Message
                 </p>
 
-                <p className="text-gray-700 whitespace-pre-wrap">
+                <p className="whitespace-pre-wrap text-sm leading-7 text-zinc-400">
                   {item.message}
                 </p>
               </div>
 
-              {/* Date */}
-
-              {item.createdAt && (
-                <p className="text-xs text-gray-400 mt-4">
-                  Received on{" "}
-                  {new Date(item.createdAt).toLocaleString()}
-                </p>
-              )}
-
-            </div>
+            </article>
           ))}
 
         </div>

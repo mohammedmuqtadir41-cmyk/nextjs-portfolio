@@ -48,73 +48,102 @@ export default function AdminExperienceView({
 
     console.log("SAVE RESULT:", result);
 
-    if (result.success) {
+    if (result?.success) {
       setFormData(initialFormData);
     }
   };
 
   return (
     <div className="w-full">
-      <div className="mb-4 rounded-lg bg-[#d7d7d7] px-8 pb-8 pt-6 shadow-md">
 
-        {/* Existing Experience */}
-        <div className="mb-10 space-y-5">
+      {/* Description */}
+      <div className="mb-6">
+        <p className="text-sm text-zinc-500">
+          Manage your professional experience and work history.
+        </p>
+      </div>
+
+      {/* Experience History */}
+      <div className="mb-6 rounded-2xl border border-white/10 bg-[#0b0b0b] p-6 shadow-xl shadow-black/20 sm:p-8">
+
+        <div className="mb-6 flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-400">
+            💼
+          </div>
+
+          <div>
+            <h3 className="text-lg font-semibold text-white">
+              Experience History
+            </h3>
+
+            <p className="text-sm text-zinc-500">
+              Your professional roles and work experience.
+            </p>
+          </div>
+        </div>
+
+        <div className="space-y-4">
           {data && data.length ? (
             data.map((item, index) => (
               <div
                 key={index}
-                className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg"
+                className="group rounded-xl border border-white/10 bg-white/[0.02] p-5 transition-all duration-200 hover:border-emerald-500/20 hover:bg-white/[0.04]"
               >
-                {/* Position & Company */}
-                <div className="mb-4 flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100 text-xl">
-                    💼
+                {/* Header */}
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                  <div className="flex items-start gap-4">
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-emerald-500/10 text-lg">
+                      💼
+                    </div>
+
+                    <div>
+                      <p className="text-xs font-medium uppercase tracking-wider text-zinc-500">
+                        Position
+                      </p>
+
+                      <h4 className="mt-1 text-lg font-semibold text-white">
+                        {item.position}
+                      </h4>
+
+                      <p className="mt-1 text-sm font-medium text-emerald-400">
+                        {item.company}
+                      </p>
+                    </div>
                   </div>
 
-                  <div>
-                    <p className="text-sm font-medium text-gray-500">
-                      Position
+                  {/* Duration */}
+                  <div className="sm:text-right">
+                    <p className="text-xs font-medium uppercase tracking-wider text-zinc-500">
+                      Duration
                     </p>
 
-                    <h3 className="text-xl font-bold text-gray-800">
-                      {item.position}
-                    </h3>
-
-                    <p className="text-base font-medium text-gray-600">
-                      {item.company}
+                    <p className="mt-1 text-sm font-semibold text-zinc-300">
+                      {item.duration}
                     </p>
                   </div>
                 </div>
 
-                {/* Experience Details */}
-                <div className="grid gap-4 border-t border-gray-200 pt-4 sm:grid-cols-2">
+                {/* Details */}
+                <div className="mt-5 grid gap-5 border-t border-white/10 pt-5 sm:grid-cols-2">
 
+                  {/* Location */}
                   <div>
-                    <p className="text-sm font-medium text-gray-500">
-                      Duration
-                    </p>
-
-                    <p className="mt-1 text-base font-semibold text-gray-700">
-                      {item.duration}
-                    </p>
-                  </div>
-
-                  <div>
-                    <p className="text-sm font-medium text-gray-500">
+                    <p className="text-xs font-medium uppercase tracking-wider text-zinc-500">
                       Location
                     </p>
 
-                    <p className="mt-1 text-base font-semibold text-gray-700">
+                    <p className="mt-1 text-sm text-zinc-300">
                       {item.location}
                     </p>
                   </div>
 
+                  {/* Job Profile */}
                   <div className="sm:col-span-2">
-                    <p className="text-sm font-medium text-gray-500">
+                    <p className="text-xs font-medium uppercase tracking-wider text-zinc-500">
                       Job Profile
                     </p>
 
-                    <p className="mt-1 text-base leading-relaxed text-gray-700">
+                    <p className="mt-2 text-sm leading-6 text-zinc-400">
                       {item.jobprofile}
                     </p>
                   </div>
@@ -123,28 +152,55 @@ export default function AdminExperienceView({
               </div>
             ))
           ) : (
-            <div className="rounded-lg border border-dashed border-gray-400 bg-white p-8 text-center">
-              <p className="text-gray-600">
-                💼 No Job Experience Available
+            <div className="rounded-xl border border-dashed border-white/10 bg-white/[0.02] p-8 text-center">
+              <div className="text-2xl">💼</div>
+
+              <p className="mt-3 text-sm font-medium text-zinc-300">
+                No Experience Data Available
+              </p>
+
+              <p className="mt-1 text-xs text-zinc-600">
+                Add your first experience entry below.
               </p>
             </div>
           )}
         </div>
+      </div>
 
-        {/* Experience Form */}
+      {/* Add Experience */}
+      <div className="rounded-2xl border border-white/10 bg-[#0b0b0b] p-6 shadow-xl shadow-black/20 sm:p-8">
+
+        <div className="mb-8 flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-400">
+            +
+          </div>
+
+          <div>
+            <h3 className="text-lg font-semibold text-white">
+              Add Experience
+            </h3>
+
+            <p className="text-sm text-zinc-500">
+              Add a new professional experience entry.
+            </p>
+          </div>
+        </div>
+
         <FormControl
           controls={controls}
           formData={formData}
           setFormData={setFormData}
         />
 
-        {/* Save Button */}
-        <button
-          className="mt-4 rounded-md bg-blue-600 px-5 py-3 text-[16px] font-bold text-white transition duration-200 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
-          onClick={handleSave}
-        >
-          Add Experience
-        </button>
+        <div className="mt-8 flex justify-end">
+          <button
+            type="button"
+            onClick={handleSave}
+            className="rounded-xl bg-emerald-500 px-6 py-3 text-sm font-semibold text-black transition-all duration-200 hover:bg-emerald-400 hover:shadow-lg hover:shadow-emerald-500/10 focus:outline-none focus:ring-2 focus:ring-emerald-400/30"
+          >
+            Add Experience
+          </button>
+        </div>
       </div>
     </div>
   );

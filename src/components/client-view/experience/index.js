@@ -1,177 +1,250 @@
 "use client";
 
-import AnimationWrapper from "../animation-wrapper";
-import { useMemo } from "react";
 import { motion } from "framer-motion";
 
-function variants() {
-  return {
-    offscreen: {
-      y: 100,
-      opacity: 0,
-    },
-    onscreen: ({ duration = 1 } = {}) => ({
-      y: 0,
-      opacity: 1,
-      transition: {
-        type: "spring",
-        duration,
-      },
-    }),
-  };
+function TimelineItem({
+  children,
+  isLast,
+  side = "left",
+  index,
+}) {
+  return (
+    <motion.div
+      initial={{
+        opacity: 0,
+        x: side === "left" ? -25 : 25,
+      }}
+      whileInView={{
+        opacity: 1,
+        x: 0,
+      }}
+      viewport={{
+        once: true,
+        amount: 0.15,
+      }}
+      transition={{
+        duration: 0.5,
+        delay: index * 0.12,
+      }}
+      className="relative flex gap-4"
+    >
+      {/* TIMELINE */}
+      <div className="relative flex w-4 shrink-0 justify-center">
+        <div className="relative z-10 mt-5 h-2.5 w-2.5 rounded-full bg-[#0DB760] shadow-[0_0_12px_rgba(13,183,96,0.6)]" />
+
+        {!isLast && (
+          <div className="absolute left-1/2 top-7 h-[calc(100%+1.25rem)] w-px -translate-x-1/2 bg-gradient-to-b from-[#0DB760]/60 to-white/5" />
+        )}
+      </div>
+
+      {/* CARD */}
+      <div className="mb-5 min-w-0 flex-1">
+        {children}
+      </div>
+    </motion.div>
+  );
 }
 
 export default function ExperienceAndEducationClientView({
   experience,
   education,
 }) {
-  console.log(experience, "Experience");
-  console.log(education, "Education");
-
-  const setVariants = useMemo(() => variants(), []);
-
   return (
-    <div
+    <section
       id="experience"
-      className="max-w-7xl mx-auto px-8 xl:px-6 py-20"
+      className="relative mx-auto max-w-6xl px-5 py-20 sm:px-8 lg:px-12"
     >
-      <AnimationWrapper>
-        <motion.div variants={setVariants}>
+      {/* HEADER */}
+      <motion.div
+        initial={{
+          opacity: 0,
+          y: 25,
+        }}
+        whileInView={{
+          opacity: 1,
+          y: 0,
+        }}
+        viewport={{
+          once: true,
+        }}
+        transition={{
+          duration: 0.6,
+        }}
+        className="mb-14"
+      >
+        <div className="mb-3 flex items-center gap-3">
+          <span className="h-[2px] w-7 bg-[#0DB760]" />
 
-          {/* MAIN HEADINGS */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
+          <span className="text-xs font-medium uppercase tracking-[0.2em] text-[#19D879]">
+            My Journey
+          </span>
+        </div>
 
-            <h2 className="text-4xl lg:text-5xl text-center font-medium">
-              My{" "}
-              <span className="text-green-600">
-                Experience
+        <h2 className="max-w-3xl text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl">
+          Experience &{" "}
+          <span className="text-[#0DB760]">
+            Education
+          </span>
+        </h2>
+
+        <p className="mt-4 max-w-2xl text-sm leading-7 text-zinc-500 sm:text-base">
+          A look at the experience and education that have shaped my
+          journey as a developer.
+        </p>
+      </motion.div>
+
+      {/* EXPERIENCE + EDUCATION */}
+      <div className="grid gap-14 lg:grid-cols-2 lg:gap-16">
+
+        {/* EXPERIENCE */}
+        <div>
+          <div className="mb-7 flex items-center gap-3">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-[#0DB760]/20 bg-[#0DB760]/5">
+              <span className="text-sm text-[#19D879]">
+                {"</>"}
               </span>
-            </h2>
+            </div>
 
-            <h2 className="text-4xl lg:text-5xl text-center font-medium">
-              My{" "}
-              <span className="text-green-600">
-                Education
-              </span>
-            </h2>
+            <div>
+              <h3 className="text-lg font-semibold text-white">
+                My Experience
+              </h3>
 
+              <p className="text-xs text-zinc-600">
+                Professional journey
+              </p>
+            </div>
           </div>
 
-          {/* EXPERIENCE + EDUCATION */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-
-            {/* EXPERIENCE */}
+          {experience?.length ? (
             <div>
-              {experience?.map((item, index) => (
-                <motion.div
+              {experience.map((item, index) => (
+                <TimelineItem
                   key={item._id || index}
-                  initial={{ opacity: 0, x: -30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{
-                    duration: 0.5,
-                    delay: index * 0.2,
-                  }}
-                  className="flex"
+                  index={index}
+                  side="left"
+                  isLast={index === experience.length - 1}
                 >
-
-                  {/* TIMELINE */}
-                  <div className="flex flex-col items-center mr-5">
-
-                    {/* DOT */}
-                    <div className="w-3 h-3 bg-green-600 rounded-full mt-4" />
-
-                    {/* LINE */}
-                    {index !== experience.length - 1 && (
-                      <div className="w-[2px] bg-green-500 h-full min-h-[120px]" />
-                    )}
-
-                  </div>
-
-                  {/* CARD */}
-                  <div className="border-2 border-green-500 rounded-lg p-5 mb-5 w-full">
-
-                    <p className="font-semibold text-gray-800 mb-2">
+                  <div
+                    className="
+                      rounded-2xl
+                      border
+                      border-white/10
+                      bg-white/[0.02]
+                      p-5
+                      transition-all
+                      duration-300
+                      hover:border-[#0DB760]/30
+                      hover:bg-[#0DB760]/[0.03]
+                    "
+                  >
+                    {/* Duration */}
+                    <p className="mb-3 text-xs font-medium uppercase tracking-wider text-[#19D879]">
                       {item.duration}
                     </p>
 
-                    <h3 className="font-bold text-gray-900 text-lg">
+                    {/* Company */}
+                    <h4 className="text-base font-semibold text-white sm:text-lg">
                       {item.company}
-                    </h3>
-
-                    <h4 className="font-bold text-gray-900 mt-1">
-                      {item.position}
                     </h4>
 
-                    <p className="text-gray-700 mt-2">
-                      {item.jobprofile}
+                    {/* Position */}
+                    <p className="mt-1 text-sm font-medium text-zinc-300">
+                      {item.position}
                     </p>
 
-                    {item.location && (
-                      <p className="text-gray-500 text-sm mt-1">
-                        {item.location}
+                    {/* Description */}
+                    {item.jobprofile && (
+                      <p className="mt-3 text-xs leading-6 text-zinc-500 sm:text-sm">
+                        {item.jobprofile}
                       </p>
                     )}
 
+                    {/* Location */}
+                    {item.location && (
+                      <div className="mt-4 flex items-center gap-2 text-xs text-zinc-600">
+                        <span className="h-1.5 w-1.5 rounded-full bg-[#0DB760]" />
+                        {item.location}
+                      </div>
+                    )}
                   </div>
-
-                </motion.div>
+                </TimelineItem>
               ))}
             </div>
+          ) : (
+            <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 text-sm text-zinc-500">
+              Experience details will be added here.
+            </div>
+          )}
+        </div>
 
-            {/* EDUCATION */}
+        {/* EDUCATION */}
+        <div>
+          <div className="mb-7 flex items-center gap-3">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-[#0DB760]/20 bg-[#0DB760]/5">
+              <span className="text-sm text-[#19D879]">
+                ✦
+              </span>
+            </div>
+
             <div>
-              {education?.map((item, index) => (
-                <motion.div
+              <h3 className="text-lg font-semibold text-white">
+                My Education
+              </h3>
+
+              <p className="text-xs text-zinc-600">
+                Academic background
+              </p>
+            </div>
+          </div>
+
+          {education?.length ? (
+            <div>
+              {education.map((item, index) => (
+                <TimelineItem
                   key={item._id || index}
-                  initial={{ opacity: 0, x: 30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{
-                    duration: 0.5,
-                    delay: index * 0.2,
-                  }}
-                  className="flex"
+                  index={index}
+                  side="right"
+                  isLast={index === education.length - 1}
                 >
-
-                  {/* TIMELINE */}
-                  <div className="flex flex-col items-center mr-5">
-
-                    {/* DOT */}
-                    <div className="w-3 h-3 bg-green-600 rounded-full mt-4" />
-
-                    {/* LINE */}
-                    {index !== education.length - 1 && (
-                      <div className="w-[2px] bg-green-500 h-full min-h-[120px]" />
-                    )}
-
-                  </div>
-
-                  {/* CARD */}
-                  <div className="border-2 border-green-500 rounded-lg p-5 mb-5 w-full">
-
-                    <p className="font-semibold text-gray-800 mb-2">
+                  <div
+                    className="
+                      rounded-2xl
+                      border
+                      border-white/10
+                      bg-white/[0.02]
+                      p-5
+                      transition-all
+                      duration-300
+                      hover:border-[#0DB760]/30
+                      hover:bg-[#0DB760]/[0.03]
+                    "
+                  >
+                    {/* Year */}
+                    <p className="mb-3 text-xs font-medium uppercase tracking-wider text-[#19D879]">
                       {item.year}
                     </p>
 
-                    <h3 className="font-bold text-gray-900 text-lg">
+                    {/* College */}
+                    <h4 className="text-base font-semibold text-white sm:text-lg">
                       {item.college}
-                    </h3>
-
-                    <h4 className="font-bold text-gray-900 mt-1">
-                      {item.degree}
                     </h4>
 
+                    {/* Degree */}
+                    <p className="mt-1 text-sm font-medium leading-6 text-zinc-400">
+                      {item.degree}
+                    </p>
                   </div>
-
-                </motion.div>
+                </TimelineItem>
               ))}
             </div>
-
-          </div>
-
-        </motion.div>
-      </AnimationWrapper>
-    </div>
+          ) : (
+            <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 text-sm text-zinc-500">
+              Education details will be added here.
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
   );
 }

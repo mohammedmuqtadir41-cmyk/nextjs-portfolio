@@ -8,25 +8,25 @@ const controls = [
     name: "aboutme",
     placeholder: "Enter About Me",
     type: "text",
-    label: "Enter About Me",
+    label: "About Me",
   },
   {
     name: "noofprojects",
     placeholder: "Number of projects",
     type: "text",
-    label: "Number of projects",
+    label: "Number of Projects",
   },
   {
     name: "yearsofexperience",
     placeholder: "Years of experience",
     type: "text",
-    label: "Years of experience",
+    label: "Years of Experience",
   },
   {
     name: "noofclients",
     placeholder: "Number of clients",
     type: "text",
-    label: "Number of clients",
+    label: "Number of Clients",
   },
   {
     name: "skills",
@@ -56,21 +56,51 @@ export default function AdminAboutView({
 
   return (
     <div className="w-full">
-      <div className="mb-4 rounded-lg bg-[#d7d7d7] px-8 pb-8 pt-6 shadow-md">
-        
+      {/* Description */}
+      <div className="mb-6">
+        <p className="text-sm text-zinc-500">
+          Manage your introduction, experience statistics, and technical
+          skills.
+        </p>
+      </div>
+
+      {/* About Card */}
+      <div className="rounded-2xl border border-white/10 bg-[#0b0b0b] p-6 shadow-xl shadow-black/20 sm:p-8">
+
+        {/* Header */}
+        <div className="mb-8 flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-400">
+            👤
+          </div>
+
+          <div>
+            <h3 className="text-lg font-semibold text-white">
+              About Section
+            </h3>
+
+            <p className="text-sm text-zinc-500">
+              Update the information displayed in your portfolio.
+            </p>
+          </div>
+        </div>
+
+        {/* Form */}
         <FormControl
           controls={controls}
           formData={formData}
           setFormData={setFormData}
         />
 
-        <button
-          className="mt-4 rounded-md bg-blue-600 px-5 py-3 text-[16px] font-bold text-white transition duration-200 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
-          onClick={handleSave}
-        >
-          Add Info
-        </button>
-
+        {/* Save */}
+        <div className="mt-8 flex justify-end">
+          <button
+            type="button"
+            onClick={handleSave}
+            className="rounded-xl bg-emerald-500 px-6 py-3 text-sm font-semibold text-black transition-all duration-200 hover:bg-emerald-400 hover:shadow-lg hover:shadow-emerald-500/10 focus:outline-none focus:ring-2 focus:ring-emerald-400/30"
+          >
+            Save Changes
+          </button>
+        </div>
       </div>
     </div>
   );

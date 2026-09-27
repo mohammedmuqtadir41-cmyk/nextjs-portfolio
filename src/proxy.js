@@ -2,15 +2,9 @@ import { NextResponse } from "next/server";
 import { jwtVerify } from "jose";
 
 export default async function proxy(request) {
-  console.log("🔥 PROXY RUNNING:", request.nextUrl.pathname);
-
   const token = request.cookies.get("token")?.value;
 
-  console.log("🍪 TOKEN:", token);
-
   if (!token) {
-    console.log("❌ NO TOKEN, REDIRECTING");
-
     return NextResponse.redirect(
       new URL("/auth", request.url)
     );
@@ -23,12 +17,8 @@ export default async function proxy(request) {
 
     await jwtVerify(token, secret);
 
-    console.log("✅ TOKEN VALID");
-
     return NextResponse.next();
-  } catch (error) {
-    console.log("❌ INVALID TOKEN");
-
+  } catch {
     return NextResponse.redirect(
       new URL("/auth", request.url)
     );
@@ -36,5 +26,5 @@ export default async function proxy(request) {
 }
 
 export const config = {
-  matcher: ['/admin',"/admin/:path*"],
+  matcher: ["/admin", "/admin/:path*"],
 };

@@ -1,117 +1,173 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #050505;
+  --foreground: #f5f5f5;
+
+  --surface: #0a0a0a;
+  --surface-light: #111111;
+
+  --accent: #0db760;
+  --accent-light: #19d879;
+
+  --text-primary: #f5f5f5;
+  --text-secondary: #a1a1aa;
+  --border: rgba(255, 255, 255, 0.08);
+}
+
+* {
+  box-sizing: border-box;
 }
 
 html {
-  font-family: "Rubik", sans-serif;
+  scroll-behavior: smooth;
+  background: var(--background);
 }
 
 body {
-  background: #ffffff;
-  color: #000000;
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
 }
 
-/* Navbar animation */
-.animation-hover {
-  position: relative;
+/* Selection */
+::selection {
+  background: rgba(13, 183, 96, 0.25);
+  color: #ffffff;
 }
 
-.animation-hover::after {
-  background: none;
-  content: "";
-  height: 2px;
-  width: 0;
-  background: #0DB760;
-  left: 50%;
-  display: block;
-  bottom: 0;
-  position: absolute;
-  transition:
-    width 0.3s ease 0s,
-    left 0.3s ease 0s;
+/* Smooth anchor positioning */
+section[id] {
+  scroll-margin-top: 100px;
 }
 
-.animation-active::after {
-  left: 0;
-  width: 100%;
-}
-
-.animation-hover:hover::after {
-  left: 0;
-  width: 100%;
-}
-
-/* Custom scrollbar */
+/* Premium scrollbar */
 body::-webkit-scrollbar {
-  width: 5px;
+  width: 6px;
 }
 
 body::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background: #050505;
 }
 
 body::-webkit-scrollbar-thumb {
-  background-color: darkgrey;
-  outline: 1px solid slategrey;
+  background: #27272a;
+  border-radius: 999px;
 }
 
-/* Project wrapper */
-.project-wrapper {
-  display: flex;
-  list-style: none;
-  height: 350px;
-  overflow-x: scroll;
-  padding: 20px 0;
-  flex: 0 0 600px;
+body::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
 }
 
-.project-wrapper li {
-  flex: 0 0 300px;
-  margin: 0 20px 0 0;
+/* Subtle grid background */
+.portfolio-grid {
+  background-image:
+    linear-gradient(
+      rgba(255, 255, 255, 0.025) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.025) 1px,
+      transparent 1px
+    );
+
+  background-size: 50px 50px;
 }
 
-.project-wrapper li:last-of-type {
-  margin: 0;
+/* Green ambient glow */
+.portfolio-glow {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 9999px;
+  background: rgba(13, 183, 96, 0.08);
+  filter: blur(120px);
+  pointer-events: none;
 }
 
-/* Progress bar */
-.progress-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 10px;
-  background: var(--red);
-  transform-origin: 0%;
+/* Glass surface */
+.glass {
+  background: rgba(10, 10, 10, 0.72);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid var(--border);
 }
 
-/* Circular progress */
-#progress {
-  transform: rotate(-90deg);
+/* Premium border */
+.premium-border {
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-circle {
-  stroke-dashoffset: 0;
-  stroke-width: 15%;
-  fill: none;
+/* Green glow */
+.green-glow {
+  box-shadow:
+    0 0 30px rgba(13, 183, 96, 0.08),
+    inset 0 0 30px rgba(13, 183, 96, 0.02);
 }
 
-#progress .indicator {
-  stroke: red;
+/* Accent text */
+.accent-text {
+  color: var(--accent);
 }
 
-/* Timeline */
-.MuiTimelineItem-root::before {
-  flex: 0 !important;
+/* Gradient accent text */
+.gradient-text {
+  background: linear-gradient(
+    135deg,
+    #ffffff 20%,
+    #0db760 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
 }
 
-.MuiTimelineDot-root {
-  background-color: rgba(47, 171, 115, 1) !important;
+/* Floating animation */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
 }
 
-.MuiTimelineConnector-root {
-  background-color: rgba(47, 171, 115, 1) !important;
+.float-animation {
+  animation: float 5s ease-in-out infinite;
+}
+
+/* Subtle pulse */
+@keyframes glow-pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+
+  50% {
+    opacity: 0.65;
+  }
+}
+
+.glow-pulse {
+  animation: glow-pulse 4s ease-in-out infinite;
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

@@ -222,48 +222,84 @@ export default function AdminView() {
 ];
 
   return (
-  <div className="min-h-screen">
-    
+  <div className="min-h-screen bg-[#050505] text-white">
     {/* Header */}
-    <div className="flex items-center justify-between border-b border-gray-400 px-8 py-4">
-      <h1 className="text-2xl font-bold text-black">
-        Admin Dashboard
-      </h1>
+    <header className="border-b border-white/10 bg-[#080808]/95 backdrop-blur-xl">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 lg:px-8">
+        <div>
+          <p className="text-xs font-medium uppercase tracking-[0.25em] text-emerald-400">
+            Portfolio CMS
+          </p>
 
-      <button
-        type="button"
-        onClick={handleLogout}
-        className="rounded-md bg-red-600 px-5 py-2 font-semibold text-white transition hover:bg-red-700"
-      >
-        Logout
-      </button>
-    </div>
+          <h1 className="mt-1 text-2xl font-bold tracking-tight text-white">
+            Admin Dashboard
+          </h1>
+        </div>
+
+        <button
+          type="button"
+          onClick={handleLogout}
+          className="rounded-xl border border-red-500/20 bg-red-500/10 px-5 py-2.5 text-sm font-semibold text-red-400 transition-all duration-200 hover:border-red-500/40 hover:bg-red-500/20 hover:text-red-300"
+        >
+          Logout
+        </button>
+      </div>
+    </header>
 
     {/* Navigation */}
     <nav
-      className="-mb-0.5 flex justify-center space-x-6 border-b border-gray-400"
+      className="sticky top-0 z-20 border-b border-white/10 bg-[#080808]/90 backdrop-blur-xl"
       role="tablist"
     >
-      {menuItem.map((Item) => (
-        <button
-          key={Item.id}
-          type="button"
-          className="p-4 text-xl font-bold text-black"
-          onClick={() => setCurrentSelectedTab(Item.id)}
-        >
-          {Item.label}
-        </button>
-      ))}
+      <div className="mx-auto flex max-w-7xl gap-1 overflow-x-auto px-4 py-3 scrollbar-hide lg:px-8">
+        {menuItem.map((Item) => {
+          const isActive = currentSelectedTab === Item.id;
+
+          return (
+            <button
+              key={Item.id}
+              type="button"
+              role="tab"
+              aria-selected={isActive}
+              onClick={() => setCurrentSelectedTab(Item.id)}
+              className={`relative whitespace-nowrap rounded-xl px-5 py-2.5 text-sm font-semibold transition-all duration-200 ${
+                isActive
+                  ? "bg-emerald-500/15 text-emerald-400 shadow-[0_0_25px_rgba(16,185,129,0.08)]"
+                  : "text-zinc-400 hover:bg-white/5 hover:text-white"
+              }`}
+            >
+              {Item.label}
+
+              {isActive && (
+                <span className="absolute bottom-0 left-1/2 h-0.5 w-8 -translate-x-1/2 rounded-full bg-emerald-400" />
+              )}
+            </button>
+          );
+        })}
+      </div>
     </nav>
 
-    {/* Selected Section */}
-    <div className="mt-10 p-10">
-      {menuItem.map(
-        (Item) =>
-          Item.id === currentSelectedTab && Item.component
-      )}
-    </div>
+    {/* Main Content */}
+    <main className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8 lg:py-10">
+      <div className="mb-8">
+        <p className="text-sm text-zinc-500">
+          Manage your portfolio content
+        </p>
 
+        <h2 className="mt-1 text-2xl font-bold text-white">
+          {menuItem.find((item) => item.id === currentSelectedTab)?.label}
+        </h2>
+      </div>
+
+      <section className="rounded-2xl border border-white/10 bg-white/[0.02] p-4 shadow-2xl shadow-black/20 sm:p-6">
+        {menuItem.map(
+          (Item) =>
+            Item.id === currentSelectedTab && (
+              <div key={Item.id}>{Item.component}</div>
+            )
+        )}
+      </section>
+    </main>
   </div>
 );
 }

@@ -70,75 +70,236 @@ export default function AuthPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-100">
-      <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-lg">
-        <h1 className="mb-6 text-center text-3xl font-bold">
-          {isLogin ? "Login" : "Create Account"}
-        </h1>
+    <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#050505] px-5 py-10 text-white">
+      {/* Background */}
+      <div className="pointer-events-none fixed inset-0 -z-10">
+        <div className="portfolio-grid absolute inset-0 opacity-30" />
 
-        <form onSubmit={handleSubmit}>
+        <div className="portfolio-glow left-[-250px] top-[100px]" />
+
+        <div className="portfolio-glow bottom-[10%] right-[-250px]" />
+      </div>
+
+      {/* Auth Card */}
+      <div
+        className="
+          w-full
+          max-w-md
+          rounded-2xl
+          border
+          border-white/10
+          bg-white/[0.04]
+          p-7
+          shadow-[0_20px_80px_rgba(0,0,0,0.45)]
+          backdrop-blur-xl
+          sm:p-9
+        "
+      >
+        {/* Header */}
+        <div className="mb-8 text-center">
+          <div className="mb-4 flex items-center justify-center gap-3">
+            <span className="h-[2px] w-8 bg-[#0DB760]" />
+
+            <span className="text-xs font-medium uppercase tracking-[0.25em] text-zinc-500">
+              Admin Access
+            </span>
+
+            <span className="h-[2px] w-8 bg-[#0DB760]" />
+          </div>
+
+          <h1 className="text-3xl font-bold tracking-tight text-white">
+            {isLogin ? "Welcome Back" : "Create Account"}
+          </h1>
+
+          <p className="mt-2 text-sm text-zinc-500">
+            {isLogin
+              ? "Sign in to access your portfolio dashboard."
+              : "Create an account to manage your portfolio."}
+          </p>
+        </div>
+
+        {/* Form */}
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {/* Name */}
           {!isLogin && (
+            <div>
+              <label
+                htmlFor="name"
+                className="mb-2 block text-sm font-medium text-zinc-300"
+              >
+                Name
+              </label>
+
+              <input
+                id="name"
+                type="text"
+                name="name"
+                placeholder="Enter your name"
+                value={formData.name}
+                onChange={handleChange}
+                className="
+                  w-full
+                  rounded-xl
+                  border
+                  border-white/10
+                  bg-white/[0.04]
+                  px-4
+                  py-3
+                  text-sm
+                  text-white
+                  outline-none
+                  placeholder:text-zinc-600
+                  transition-all
+                  duration-200
+                  focus:border-[#0DB760]/60
+                  focus:bg-white/[0.06]
+                  focus:ring-2
+                  focus:ring-[#0DB760]/10
+                "
+              />
+            </div>
+          )}
+
+          {/* Email */}
+          <div>
+            <label
+              htmlFor="email"
+              className="mb-2 block text-sm font-medium text-zinc-300"
+            >
+              Email
+            </label>
+
             <input
-              type="text"
-              name="name"
-              placeholder="Name"
-              value={formData.name}
+              id="email"
+              type="email"
+              name="email"
+              placeholder="Enter your email"
+              value={formData.email}
               onChange={handleChange}
-              className="mb-4 w-full rounded-md border p-3"
+              className="
+                w-full
+                rounded-xl
+                border
+                border-white/10
+                bg-white/[0.04]
+                px-4
+                py-3
+                text-sm
+                text-white
+                outline-none
+                placeholder:text-zinc-600
+                transition-all
+                duration-200
+                focus:border-[#0DB760]/60
+                focus:bg-white/[0.06]
+                focus:ring-2
+                focus:ring-[#0DB760]/10
+              "
             />
-          )}
+          </div>
 
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={formData.email}
-            onChange={handleChange}
-            className="mb-4 w-full rounded-md border p-3"
-          />
+          {/* Password */}
+          <div>
+            <label
+              htmlFor="password"
+              className="mb-2 block text-sm font-medium text-zinc-300"
+            >
+              Password
+            </label>
 
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={formData.password}
-            onChange={handleChange}
-            className="mb-4 w-full rounded-md border p-3"
-          />
+            <input
+              id="password"
+              type="password"
+              name="password"
+              placeholder="Enter your password"
+              value={formData.password}
+              onChange={handleChange}
+              className="
+                w-full
+                rounded-xl
+                border
+                border-white/10
+                bg-white/[0.04]
+                px-4
+                py-3
+                text-sm
+                text-white
+                outline-none
+                placeholder:text-zinc-600
+                transition-all
+                duration-200
+                focus:border-[#0DB760]/60
+                focus:bg-white/[0.06]
+                focus:ring-2
+                focus:ring-[#0DB760]/10
+              "
+            />
+          </div>
 
+          {/* Error */}
           {error && (
-            <p className="mb-4 text-center text-sm font-medium text-red-600">
-              {error}
-            </p>
+            <div className="rounded-xl border border-red-500/20 bg-red-500/5 px-4 py-3">
+              <p className="text-center text-sm font-medium text-red-400">
+                {error}
+              </p>
+            </div>
           )}
 
+          {/* Submit */}
           <button
             type="submit"
-            className="w-full rounded-md bg-blue-600 p-3 font-bold text-white hover:bg-blue-700"
+            className="
+              mt-2
+              w-full
+              rounded-xl
+              bg-[#0DB760]
+              px-4
+              py-3
+              text-sm
+              font-bold
+              text-black
+              transition-all
+              duration-300
+              hover:bg-[#19D879]
+              hover:shadow-[0_0_30px_rgba(13,183,96,0.25)]
+              active:scale-[0.98]
+            "
           >
-            {isLogin ? "Login" : "Signup"}
+            {isLogin ? "Login" : "Create Account"}
           </button>
         </form>
 
-        <p className="mt-5 text-center text-gray-600">
-          {isLogin ? "Don't have an account?" : "Already have an account?"}
+        {/* Switch */}
+        <div className="mt-7 border-t border-white/10 pt-6 text-center">
+          <p className="text-sm text-zinc-500">
+            {isLogin ? "Don't have an account?" : "Already have an account?"}
 
-          <button
-            onClick={() => {
-              setIsLogin(!isLogin);
-              setError("");
-              setFormData({
-                name: "",
-                email: "",
-                password: "",
-              });
-            }}
-            className="ml-2 font-semibold text-blue-600 hover:underline"
-          >
-            {isLogin ? "Signup" : "Login"}
-          </button>
-        </p>
+            <button
+              type="button"
+              onClick={() => {
+                setIsLogin(!isLogin);
+                setError("");
+
+                setFormData({
+                  name: "",
+                  email: "",
+                  password: "",
+                });
+              }}
+              className="
+                ml-2
+                font-semibold
+                text-[#19D879]
+                transition-colors
+                hover:text-[#0DB760]
+                hover:underline
+              "
+            >
+              {isLogin ? "Signup" : "Login"}
+            </button>
+          </p>
+        </div>
       </div>
-    </div>
+    </main>
   );
 }

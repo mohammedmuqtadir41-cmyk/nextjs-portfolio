@@ -1,54 +1,36 @@
+
 "use client";
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Link as LinkScroll, scroller } from "react-scroll";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 const menuItems = [
-  {
-    id: "home",
-    label: "Home",
-  },
-  {
-    id: "about",
-    label: "About",
-  },
-  {
-    id: "experience",
-    label: "Experience",
-  },
-  {
-    id: "project",
-    label: "Projects",
-  },
-  {
-    id: "contact",
-    label: "Contact",
-  },
+  { id: "home", label: "Home" },
+  { id: "about", label: "About" },
+  { id: "experience", label: "Experience" },
+  { id: "project", label: "Projects" },
+  { id: "contact", label: "Contact" },
 ];
 
-function CreateMenus({
-  activeLink,
-  getMenuItems,
-  setActiveLink,
-}) {
+function CreateMenus({ activeLink, getMenuItems, setActiveLink }) {
   return getMenuItems.map((item) => (
     <LinkScroll
       key={item.id}
       to={item.id}
-      spy={true}
-      smooth={true}
+      spy
+      smooth
       duration={800}
-      offset={-80}
+      offset={-90}
       onSetActive={() => setActiveLink(item.id)}
-      className="relative cursor-pointer px-3 py-2 text-sm font-medium transition-colors duration-300"
+      className="relative cursor-pointer px-3 py-2 text-sm font-medium"
     >
       <span
         className={
           activeLink === item.id
             ? "text-white"
-            : "text-zinc-400 hover:text-white"
+            : "text-zinc-400 transition-colors hover:text-white"
         }
       >
         {item.label}
@@ -58,11 +40,7 @@ function CreateMenus({
         <motion.span
           layoutId="navbar-active"
           className="absolute bottom-0 left-1/2 h-[2px] w-5 -translate-x-1/2 rounded-full bg-[#0DB760]"
-          transition={{
-            type: "spring",
-            stiffness: 400,
-            damping: 30,
-          }}
+          transition={{ type: "spring", stiffness: 400, damping: 30 }}
         />
       )}
     </LinkScroll>
@@ -72,6 +50,7 @@ function CreateMenus({
 export default function Navbar() {
   const [activeLink, setActiveLink] = useState("home");
   const [scrollActive, setScrollActive] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -79,36 +58,37 @@ export default function Navbar() {
     };
 
     handleScroll();
-
     window.addEventListener("scroll", handleScroll);
 
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const handleContact = () => {
+    setMobileMenuOpen(false);
+
     scroller.scrollTo("contact", {
       duration: 800,
       smooth: true,
-      offset: -80,
+      offset: -90,
     });
   };
 
+  const closeMobileMenu = () => setMobileMenuOpen(false);
+
   return (
     <>
-      {/* Desktop Navbar */}
-      <header className="fixed left-0 right-0 top-0 z-50 px-4 pt-4 sm:px-6 lg:px-8">
+      {/* Main Navbar */}
+      <header className="fixed left-0 right-0 top-0 z-50 px-3 pt-3 sm:px-6 sm:pt-4 lg:px-8">
         <motion.nav
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           className={`
             mx-auto flex w-full max-w-[1440px] items-center justify-between
-            rounded-full px-4 py-3
+            rounded-2xl px-3 py-3 sm:rounded-full sm:px-4
             transition-all duration-500
             ${
-              scrollActive
+              scrollActive || mobileMenuOpen
                 ? "glass shadow-[0_10px_40px_rgba(0,0,0,0.25)]"
                 : "border border-transparent bg-transparent"
             }
@@ -117,8 +97,10 @@ export default function Navbar() {
           {/* Logo */}
           <LinkScroll
             to="home"
-            smooth={true}
+            smooth
             duration={800}
+            offset={-90}
+            onClick={closeMobileMenu}
             className="cursor-pointer"
           >
             <div className="flex items-center gap-3">
@@ -136,7 +118,6 @@ export default function Navbar() {
                 <p className="text-sm font-semibold text-white">
                   Muqthadir Ahmed
                 </p>
-
                 <p className="text-[10px] uppercase tracking-[0.2em] text-zinc-500">
                   Software Developer
                 </p>
@@ -144,7 +125,7 @@ export default function Navbar() {
             </div>
           </LinkScroll>
 
-          {/* Navigation */}
+          {/* Desktop Navigation */}
           <div className="hidden items-center gap-1 md:flex">
             <CreateMenus
               setActiveLink={setActiveLink}
@@ -153,84 +134,103 @@ export default function Navbar() {
             />
           </div>
 
-          {/* Contact CTA */}
+          {/* Desktop CTA */}
           <button
             onClick={handleContact}
-            className="
-              hidden rounded-full
-              border border-[#0DB760]/30
-              bg-[#0DB760]/10
-              px-4 py-2
-              text-sm font-semibold
-              text-[#19D879]
-              transition-all duration-300
-              hover:border-[#0DB760]/60
-              hover:bg-[#0DB760]/20
-              hover:shadow-[0_0_25px_rgba(13,183,96,0.15)]
-              md:block
-            "
+            className="hidden rounded-full border border-[#0DB760]/30 bg-[#0DB760]/10 px-4 py-2 text-sm font-semibold text-[#19D879] transition-all duration-300 hover:border-[#0DB760]/60 hover:bg-[#0DB760]/20 hover:shadow-[0_0_25px_rgba(13,183,96,0.15)] md:block"
           >
-            Lets Talk
+            Let's Talk
           </button>
 
-          {/* Mobile button */}
-          <button
-            onClick={handleContact}
-            className="
-              rounded-full
-              border border-[#0DB760]/30
-              bg-[#0DB760]/10
-              px-4 py-2
-              text-xs font-semibold
-              text-[#19D879]
-              md:hidden
-            "
-          >
-            Contact
-          </button>
-        </motion.nav>
-      </header>
-
-      {/* Mobile Bottom Navigation */}
-      <nav className="fixed top-20 left-4 right-4 z-50 md:hidden">
-        <div
-          className="
-            glass
-            mx-auto flex max-w-md
-            items-center justify-between
-            rounded-2xl
-            px-2 py-2
-            shadow-[0_10px_40px_rgba(0,0,0,0.35)]
-          "
-        >
-          {menuItems.map((item) => (
-            <LinkScroll
-              key={item.id}
-              to={item.id}
-              spy={true}
-              smooth={true}
-              duration={800}
-              offset={-80}
-              onSetActive={() => setActiveLink(item.id)}
-              className="flex flex-1 cursor-pointer justify-center"
+          {/* Mobile Controls */}
+          <div className="flex items-center gap-2 md:hidden">
+            <button
+              onClick={handleContact}
+              className="rounded-full border border-[#0DB760]/30 bg-[#0DB760]/10 px-3 py-2 text-xs font-semibold text-[#19D879]"
             >
-              <div
-                className={`
-                  rounded-xl px-3 py-2 text-xs font-medium
-                  transition-all duration-300
-                  ${
-                    activeLink === item.id
-                      ? "bg-[#0DB760]/10 text-[#19D879]"
-                      : "text-zinc-500"
+              Contact
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setMobileMenuOpen((open) => !open)}
+              aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+              aria-expanded={mobileMenuOpen}
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white transition-colors hover:border-[#0DB760]/40 hover:bg-[#0DB760]/10"
+            >
+              <span className="flex w-4 flex-col gap-1.5">
+                <motion.span
+                  animate={
+                    mobileMenuOpen
+                      ? { rotate: 45, y: 4 }
+                      : { rotate: 0, y: 0 }
                   }
-                `}
-              >
-                {item.label}
+                  className="h-[2px] w-4 rounded-full bg-current"
+                />
+                <motion.span
+                  animate={{
+                    opacity: mobileMenuOpen ? 0 : 1,
+                    x: mobileMenuOpen ? 8 : 0,
+                  }}
+                  className="h-[2px] w-4 rounded-full bg-current"
+                />
+                <motion.span
+                  animate={
+                    mobileMenuOpen
+                      ? { rotate: -45, y: -4 }
+                      : { rotate: 0, y: 0 }
+                  }
+                  className="h-[2px] w-4 rounded-full bg-current"
+                />
+              </span>
+            </button>
+          </div>
+        </motion.nav>
+
+        {/* Mobile Dropdown */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -8, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -8, scale: 0.98 }}
+              transition={{ duration: 0.2 }}
+              className="glass mx-auto mt-2 max-w-[1440px] overflow-hidden rounded-2xl border border-white/10 p-2 shadow-[0_20px_60px_rgba(0,0,0,0.45)] md:hidden"
+            >
+              <div className="flex flex-col">
+                {menuItems.map((item, index) => (
+                  <motion.div
+                    key={item.id}
+                    initial={{ opacity: 0, x: -8 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.035 }}
+                  >
+                    <LinkScroll
+                      to={item.id}
+                      spy
+                      smooth
+                      duration={800}
+                      offset={-90}
+                      onSetActive={() => setActiveLink(item.id)}
+                      onClick={closeMobileMenu}
+                      className={`flex cursor-pointer items-center justify-between rounded-xl px-4 py-3 text-sm transition-colors ${
+                        activeLink === item.id
+                          ? "bg-[#0DB760]/10 font-semibold text-[#19D879]"
+                          : "text-zinc-300 hover:bg-white/5 hover:text-white"
+                      }`}
+                    >
+                      <span>{item.label}</span>
+                      {activeLink === item.id && (
+                        <span className="h-1.5 w-1.5 rounded-full bg-[#19D879]" />
+                      )}
+                    </LinkScroll>
+                  </motion.div>
+                ))}
               </div>
-            </LinkScroll>
-          ))}
-        </div>
-      </nav>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </header>
     </>
   );
 }

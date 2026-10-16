@@ -1,47 +1,63 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
-function TimelineItem({
-  children,
-  isLast,
-  side = "left",
-  index,
-}) {
+function TimelineItem({ children, isLast, index, reduceMotion }) {
   return (
     <motion.div
       initial={{
         opacity: 0,
-        x: side === "left" ? -25 : 25,
+        x: reduceMotion ? 0 : 18,
+        y: reduceMotion ? 0 : 8,
       }}
-      whileInView={{
-        opacity: 1,
-        x: 0,
-      }}
-      viewport={{
-        once: true,
-        amount: 0.15,
-      }}
+      whileInView={{ opacity: 1, x: 0, y: 0 }}
+      viewport={{ once: true, amount: 0.15 }}
       transition={{
-        duration: 0.5,
-        delay: index * 0.12,
+        duration: reduceMotion ? 0 : 0.55,
+        delay: reduceMotion ? 0 : Math.min(index * 0.1, 0.3),
+        ease: [0.22, 1, 0.36, 1],
       }}
-      className="relative flex gap-4"
+      className="relative flex gap-4 sm:gap-5"
     >
       {/* TIMELINE */}
       <div className="relative flex w-4 shrink-0 justify-center">
-        <div className="relative z-10 mt-5 h-2.5 w-2.5 rounded-full bg-[#0DB760] shadow-[0_0_12px_rgba(13,183,96,0.6)]" />
+        <span className="timeline-node relative z-10 mt-6 h-2.5 w-2.5 rounded-full" />
 
         {!isLast && (
-          <div className="absolute left-1/2 top-7 h-[calc(100%+1.25rem)] w-px -translate-x-1/2 bg-gradient-to-b from-[#0DB760]/60 to-white/5" />
+          <span
+            aria-hidden="true"
+            className="absolute bottom-0 left-1/2 top-9 w-px -translate-x-1/2 bg-gradient-to-b from-emerald-400/50 via-emerald-400/15 to-transparent"
+          />
         )}
       </div>
 
       {/* CARD */}
-      <div className="mb-5 min-w-0 flex-1">
-        {children}
-      </div>
+      <div className="mb-6 min-w-0 flex-1">{children}</div>
     </motion.div>
+  );
+}
+
+function SectionIcon({ children }) {
+  return (
+    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-emerald-300/15 bg-emerald-300/[0.06] text-sm text-emerald-300 shadow-[0_0_24px_rgba(16,214,160,0.04)]">
+      {children}
+    </div>
+  );
+}
+
+function TimelineCard({ children }) {
+  return (
+    <div className="timeline-glass-card group relative overflow-hidden rounded-2xl border border-white/[0.09] p-5 sm:p-6">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute left-0 top-5 h-10 w-px bg-emerald-400/0 transition-colors duration-300 group-hover:bg-emerald-400/80"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-5 top-0 h-px bg-gradient-to-r from-transparent via-emerald-300/0 to-transparent transition-colors duration-300 group-hover:via-emerald-300/40"
+      />
+      {children}
+    </div>
   );
 }
 
@@ -49,68 +65,65 @@ export default function ExperienceAndEducationClientView({
   experience,
   education,
 }) {
+  const reduceMotion = useReducedMotion();
+
+  const introAnimation = {
+    initial: { opacity: 0, y: reduceMotion ? 0 : 18 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true },
+    transition: { duration: reduceMotion ? 0 : 0.6 },
+  };
+
   return (
     <section
       id="experience"
-      className="relative mx-auto max-w-6xl px-5 py-20 sm:px-8 lg:px-12"
+      className="experience-showcase relative isolate mx-auto max-w-7xl overflow-hidden px-5 py-24 sm:px-8 lg:px-12"
     >
+      {/* BACKGROUND DECOR */}
+      <div
+        aria-hidden="true"
+        className="experience-ambient-glow experience-ambient-glow-left"
+      />
+      <div
+        aria-hidden="true"
+        className="experience-ambient-glow experience-ambient-glow-right"
+      />
+
       {/* HEADER */}
       <motion.div
-        initial={{
-          opacity: 0,
-          y: 25,
-        }}
-        whileInView={{
-          opacity: 1,
-          y: 0,
-        }}
-        viewport={{
-          once: true,
-        }}
-        transition={{
-          duration: 0.6,
-        }}
-        className="mb-14"
+        {...introAnimation}
+        className="relative z-10 mb-14 max-w-3xl sm:mb-16"
       >
-        <div className="mb-3 flex items-center gap-3">
-          <span className="h-[2px] w-7 bg-[#0DB760]" />
-
-          <span className="text-xs font-medium uppercase tracking-[0.2em] text-[#19D879]">
-            My Journey
+        <div className="mb-4 flex items-center gap-3">
+          <span className="h-px w-8 bg-emerald-400" />
+          <span className="text-[10px] font-semibold uppercase tracking-[0.28em] text-emerald-300 sm:text-xs">
+            The journey so far
           </span>
         </div>
 
-        <h2 className="max-w-3xl text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl">
-          Experience &{" "}
-          <span className="text-[#0DB760]">
-            Education
-          </span>
+        <h2 className="text-3xl font-semibold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
+          Experience <span className="experience-heading-amp">&</span>
+          <br className="hidden sm:block" />{" "}
+          <span className="experience-gradient-text">Education.</span>
         </h2>
 
-        <p className="mt-4 max-w-2xl text-sm leading-7 text-zinc-500 sm:text-base">
-          A look at the experience and education that have shaped my
-          journey as a developer.
+        <p className="mt-5 max-w-2xl text-sm leading-7 text-zinc-400 sm:text-base sm:leading-8">
+          The milestones, experiences and learning that continue to
+          shape my journey as a developer.
         </p>
       </motion.div>
 
       {/* EXPERIENCE + EDUCATION */}
-      <div className="grid gap-14 lg:grid-cols-2 lg:gap-16">
-
+      <div className="relative z-10 grid gap-12 lg:grid-cols-2 lg:gap-14">
         {/* EXPERIENCE */}
-        <div>
-          <div className="mb-7 flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-[#0DB760]/20 bg-[#0DB760]/5">
-              <span className="text-sm text-[#19D879]">
-                {"</>"}
-              </span>
-            </div>
-
+        <motion.div {...introAnimation}>
+          <div className="mb-7 flex items-center gap-4">
+            <SectionIcon>{"</>"}</SectionIcon>
             <div>
-              <h3 className="text-lg font-semibold text-white">
-                My Experience
+              <h3 className="text-lg font-semibold text-white sm:text-xl">
+                Experience
               </h3>
-
-              <p className="text-xs text-zinc-600">
+              <p className="mt-1 text-xs text-zinc-500">
                 Professional journey
               </p>
             </div>
@@ -122,77 +135,56 @@ export default function ExperienceAndEducationClientView({
                 <TimelineItem
                   key={item._id || index}
                   index={index}
-                  side="left"
+                  reduceMotion={reduceMotion}
                   isLast={index === experience.length - 1}
                 >
-                  <div
-                    className="
-                      rounded-2xl
-                      border
-                      border-white/10
-                      bg-white/[0.02]
-                      p-5
-                      transition-all
-                      duration-300
-                      hover:border-[#0DB760]/30
-                      hover:bg-[#0DB760]/[0.03]
-                    "
-                  >
-                    {/* Duration */}
-                    <p className="mb-3 text-xs font-medium uppercase tracking-wider text-[#19D879]">
+                  <TimelineCard>
+                    <p className="mb-3 inline-flex rounded-full border border-emerald-300/15 bg-emerald-300/[0.06] px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.15em] text-emerald-300 sm:text-xs">
                       {item.duration}
                     </p>
 
-                    {/* Company */}
-                    <h4 className="text-base font-semibold text-white sm:text-lg">
+                    <h4 className="text-base font-semibold leading-snug text-white sm:text-lg">
                       {item.company}
                     </h4>
 
-                    {/* Position */}
-                    <p className="mt-1 text-sm font-medium text-zinc-300">
+                    <p className="mt-2 text-sm font-medium text-emerald-100/80">
                       {item.position}
                     </p>
 
-                    {/* Description */}
                     {item.jobprofile && (
-                      <p className="mt-3 text-xs leading-6 text-zinc-500 sm:text-sm">
+                      <p className="mt-4 whitespace-pre-line text-sm leading-7 text-zinc-400">
                         {item.jobprofile}
                       </p>
                     )}
 
-                    {/* Location */}
                     {item.location && (
-                      <div className="mt-4 flex items-center gap-2 text-xs text-zinc-600">
-                        <span className="h-1.5 w-1.5 rounded-full bg-[#0DB760]" />
+                      <div className="mt-5 flex items-center gap-2 border-t border-white/[0.07] pt-4 text-xs text-zinc-500">
+                        <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
                         {item.location}
                       </div>
                     )}
-                  </div>
+                  </TimelineCard>
                 </TimelineItem>
               ))}
             </div>
           ) : (
-            <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 text-sm text-zinc-500">
-              Experience details will be added here.
+            <div className="timeline-glass-card rounded-2xl border border-white/[0.09] p-6">
+              <p className="text-sm leading-7 text-zinc-400">
+                Experience details will be added here.
+              </p>
             </div>
           )}
-        </div>
+        </motion.div>
 
         {/* EDUCATION */}
-        <div>
-          <div className="mb-7 flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-[#0DB760]/20 bg-[#0DB760]/5">
-              <span className="text-sm text-[#19D879]">
-                ✦
-              </span>
-            </div>
-
+        <motion.div {...introAnimation}>
+          <div className="mb-7 flex items-center gap-4">
+            <SectionIcon>✦</SectionIcon>
             <div>
-              <h3 className="text-lg font-semibold text-white">
-                My Education
+              <h3 className="text-lg font-semibold text-white sm:text-xl">
+                Education
               </h3>
-
-              <p className="text-xs text-zinc-600">
+              <p className="mt-1 text-xs text-zinc-500">
                 Academic background
               </p>
             </div>
@@ -204,46 +196,33 @@ export default function ExperienceAndEducationClientView({
                 <TimelineItem
                   key={item._id || index}
                   index={index}
-                  side="right"
+                  reduceMotion={reduceMotion}
                   isLast={index === education.length - 1}
                 >
-                  <div
-                    className="
-                      rounded-2xl
-                      border
-                      border-white/10
-                      bg-white/[0.02]
-                      p-5
-                      transition-all
-                      duration-300
-                      hover:border-[#0DB760]/30
-                      hover:bg-[#0DB760]/[0.03]
-                    "
-                  >
-                    {/* Year */}
-                    <p className="mb-3 text-xs font-medium uppercase tracking-wider text-[#19D879]">
+                  <TimelineCard>
+                    <p className="mb-3 inline-flex rounded-full border border-emerald-300/15 bg-emerald-300/[0.06] px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.15em] text-emerald-300 sm:text-xs">
                       {item.year}
                     </p>
 
-                    {/* College */}
-                    <h4 className="text-base font-semibold text-white sm:text-lg">
+                    <h4 className="text-base font-semibold leading-snug text-white sm:text-lg">
                       {item.college}
                     </h4>
 
-                    {/* Degree */}
-                    <p className="mt-1 text-sm font-medium leading-6 text-zinc-400">
+                    <p className="mt-2 text-sm leading-7 text-zinc-400">
                       {item.degree}
                     </p>
-                  </div>
+                  </TimelineCard>
                 </TimelineItem>
               ))}
             </div>
           ) : (
-            <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 text-sm text-zinc-500">
-              Education details will be added here.
+            <div className="timeline-glass-card rounded-2xl border border-white/[0.09] p-6">
+              <p className="text-sm leading-7 text-zinc-400">
+                Education details will be added here.
+              </p>
             </div>
           )}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

@@ -104,7 +104,7 @@ export default function Navbar() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           className={`
-            mx-auto flex max-w-6xl items-center justify-between
+            mx-auto flex w-full max-w-[1440px] items-center justify-between
             rounded-full px-4 py-3
             transition-all duration-500
             ${

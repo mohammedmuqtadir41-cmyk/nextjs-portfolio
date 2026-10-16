@@ -1,9 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
+import { FaPaperPlane, FaCheckCircle } from "react-icons/fa";
 
 export default function ContactClientView() {
+  const reduceMotion = useReducedMotion();
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -12,6 +15,7 @@ export default function ContactClientView() {
 
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState("");
+  const [success, setSuccess] = useState(false);
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -20,13 +24,21 @@ export default function ContactClientView() {
       ...prev,
       [name]: value,
     }));
+
+    if (status) {
+      setStatus("");
+      setSuccess(false);
+    }
   }
 
   async function handleSubmit(e) {
     e.preventDefault();
 
+    if (loading) return;
+
     setLoading(true);
     setStatus("");
+    setSuccess(false);
 
     try {
       const response = await fetch("/api/contact/add", {
@@ -39,8 +51,9 @@ export default function ContactClientView() {
 
       const result = await response.json();
 
-      if (result.success) {
-        setStatus("Message sent successfully!");
+      if (response.ok && result.success) {
+        setStatus("Message sent successfully! I'll be in touch soon.");
+        setSuccess(true);
 
         setFormData({
           name: "",
@@ -49,288 +62,252 @@ export default function ContactClientView() {
         });
       } else {
         setStatus(
-          result.message ||
-            "Something went wrong. Please try again."
+          result.message || "Something went wrong. Please try again."
         );
       }
     } catch (error) {
       console.error("Contact Form Error:", error);
-
-      setStatus(
-        "Something went wrong. Please try again."
-      );
+      setStatus("Unable to send your message. Please try again.");
     } finally {
       setLoading(false);
     }
   }
 
+  const fieldClass =
+    "contact-input w-full rounded-xl border bg-black/25 px-4 py-3.5 text-sm text-white placeholder:text-zinc-600 outline-none transition-all duration-300";
+
+  const reveal = {
+    initial: {
+      opacity: 0,
+      y: reduceMotion ? 0 : 22,
+    },
+    whileInView: {
+      opacity: 1,
+      y: 0,
+    },
+    viewport: {
+      once: true,
+      amount: 0.15,
+    },
+    transition: {
+      duration: reduceMotion ? 0 : 0.6,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  };
+
   return (
     <section
       id="contact"
-      className="relative mx-auto max-w-6xl px-5 py-24 sm:px-8 lg:px-12"
+      className="contact-showcase relative isolate mx-auto max-w-7xl overflow-hidden px-5 py-24 sm:px-8 lg:px-12"
     >
+      {/* AMBIENT LIGHTING */}
+      <div
+        aria-hidden="true"
+        className="contact-ambient-glow contact-ambient-glow-left"
+      />
+      <div
+        aria-hidden="true"
+        className="contact-ambient-glow contact-ambient-glow-right"
+      />
+
       {/* HEADER */}
       <motion.div
-        initial={{
-          opacity: 0,
-          y: 25,
-        }}
-        whileInView={{
-          opacity: 1,
-          y: 0,
-        }}
-        viewport={{
-          once: true,
-          amount: 0.2,
-        }}
-        transition={{
-          duration: 0.6,
-        }}
-        className="mb-12 text-center"
+        {...reveal}
+        className="relative z-10 mb-12 text-center sm:mb-14"
       >
-        <div className="mb-4 flex items-center justify-center gap-3">
-          <span className="h-px w-8 bg-[#0DB760]" />
+        <div className="mb-5 flex items-center justify-center gap-3">
+          <span className="h-px w-8 bg-emerald-400" />
 
-          <span className="text-xs font-medium uppercase tracking-[0.25em] text-[#19D879]">
-            Get In Touch
+          <span className="text-[10px] font-semibold uppercase tracking-[0.28em] text-emerald-300 sm:text-xs">
+            Get in touch
           </span>
 
-          <span className="h-px w-8 bg-[#0DB760]" />
+          <span className="h-px w-8 bg-emerald-400" />
         </div>
 
-        <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl">
-          Let's build something{" "}
-          <span className="text-[#0DB760]">
-            together.
+        <h2 className="text-3xl font-semibold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
+          Have an idea?
+          <br />
+          <span className="contact-gradient-text">
+            Lets build it together.
           </span>
         </h2>
 
-        <p className="mx-auto mt-4 max-w-xl text-sm leading-7 text-zinc-500 sm:text-base">
-          Have a project, opportunity, or idea you'd like to
-          discuss? Send me a message and I'll get back to you.
+        <p className="mx-auto mt-5 max-w-xl text-sm leading-7 text-zinc-400 sm:text-base sm:leading-8">
+          Have a project, opportunity, or idea to discuss? Send me a
+          message and lets explore what we can create.
         </p>
       </motion.div>
 
-      {/* FORM */}
+      {/* CONTACT FORM */}
       <motion.div
-        initial={{
-          opacity: 0,
-          y: 30,
-        }}
-        whileInView={{
-          opacity: 1,
-          y: 0,
-        }}
-        viewport={{
-          once: true,
-          amount: 0.15,
-        }}
+        {...reveal}
         transition={{
-          duration: 0.6,
-          delay: 0.1,
+          ...reveal.transition,
+          delay: reduceMotion ? 0 : 0.1,
         }}
-        className="
-          mx-auto
-          max-w-3xl
-          rounded-3xl
-          border
-          border-white/10
-          bg-white/[0.02]
-          p-5
-          shadow-[0_20px_60px_rgba(0,0,0,0.2)]
-          sm:p-8
-          md:p-10
-        "
+        className="contact-glass-panel relative z-10 mx-auto max-w-3xl overflow-hidden rounded-3xl border border-white/[0.09] p-5 sm:p-8 md:p-10"
       >
-        <form onSubmit={handleSubmit}>
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-10 top-0 h-px bg-gradient-to-r from-transparent via-emerald-300/50 to-transparent"
+        />
 
+        <div className="mb-8 flex items-center gap-4">
+          <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-emerald-300/15 bg-emerald-300/[0.06] text-emerald-300">
+            <FaPaperPlane size={15} />
+          </div>
+
+          <div>
+            <h3 className="text-base font-semibold text-white sm:text-lg">
+              Send a message
+            </h3>
+            <p className="mt-1 text-xs text-zinc-500">
+              I will get back to you as soon as I can.
+            </p>
+          </div>
+        </div>
+
+        <form onSubmit={handleSubmit}>
           {/* NAME + EMAIL */}
           <div className="grid gap-5 sm:grid-cols-2">
-
-            {/* NAME */}
             <div>
               <label
-                htmlFor="name"
-                className="mb-2 block text-xs font-medium text-zinc-400"
+                htmlFor="contact-name"
+                className="mb-2.5 block text-xs font-medium text-zinc-300"
               >
-                Name
+                Your name <span className="text-emerald-400">*</span>
               </label>
 
               <input
-                id="name"
+                id="contact-name"
                 name="name"
                 type="text"
+                autoComplete="name"
                 value={formData.name}
                 onChange={handleChange}
                 required
-                placeholder="Your name"
-                className="
-                  w-full
-                  rounded-xl
-                  border
-                  border-white/10
-                  bg-black/30
-                  px-4
-                  py-3
-                  text-sm
-                  text-white
-                  placeholder:text-zinc-700
-                  outline-none
-                  transition-all
-                  duration-300
-                  focus:border-[#0DB760]/50
-                  focus:bg-[#0DB760]/[0.03]
-                  focus:ring-2
-                  focus:ring-[#0DB760]/10
-                "
+                maxLength={100}
+                placeholder="John Doe"
+                className={fieldClass}
               />
             </div>
 
-            {/* EMAIL */}
             <div>
               <label
-                htmlFor="email"
-                className="mb-2 block text-xs font-medium text-zinc-400"
+                htmlFor="contact-email"
+                className="mb-2.5 block text-xs font-medium text-zinc-300"
               >
-                Email
+                Email address <span className="text-emerald-400">*</span>
               </label>
 
               <input
-                id="email"
+                id="contact-email"
                 name="email"
                 type="email"
+                autoComplete="email"
                 value={formData.email}
                 onChange={handleChange}
                 required
+                maxLength={254}
                 placeholder="you@example.com"
-                className="
-                  w-full
-                  rounded-xl
-                  border
-                  border-white/10
-                  bg-black/30
-                  px-4
-                  py-3
-                  text-sm
-                  text-white
-                  placeholder:text-zinc-700
-                  outline-none
-                  transition-all
-                  duration-300
-                  focus:border-[#0DB760]/50
-                  focus:bg-[#0DB760]/[0.03]
-                  focus:ring-2
-                  focus:ring-[#0DB760]/10
-                "
+                className={fieldClass}
               />
             </div>
           </div>
 
           {/* MESSAGE */}
-          <div className="mt-5">
-            <label
-              htmlFor="message"
-              className="mb-2 block text-xs font-medium text-zinc-400"
-            >
-              Message
-            </label>
+          <div className="mt-6">
+            <div className="mb-2.5 flex items-center justify-between gap-3">
+              <label
+                htmlFor="contact-message"
+                className="text-xs font-medium text-zinc-300"
+              >
+                Your message <span className="text-emerald-400">*</span>
+              </label>
+
+              <span className="text-[10px] tabular-nums text-zinc-600">
+                {formData.message.length}/2000
+              </span>
+            </div>
 
             <textarea
-              id="message"
+              id="contact-message"
               name="message"
               value={formData.message}
               onChange={handleChange}
               required
-              placeholder="Tell me a little about your project..."
-              rows={7}
-              className="
-                w-full
-                resize-none
-                rounded-xl
-                border
-                border-white/10
-                bg-black/30
-                px-4
-                py-3
-                text-sm
-                leading-6
-                text-white
-                placeholder:text-zinc-700
-                outline-none
-                transition-all
-                duration-300
-                focus:border-[#0DB760]/50
-                focus:bg-[#0DB760]/[0.03]
-                focus:ring-2
-                focus:ring-[#0DB760]/10
-              "
+              maxLength={2000}
+              placeholder="Tell me about your idea, project, or opportunity..."
+              rows={6}
+              className={`${fieldClass} resize-y leading-7`}
             />
           </div>
 
           {/* STATUS */}
           {status && (
-            <motion.p
+            <motion.div
               initial={{
                 opacity: 0,
-                y: 5,
+                y: reduceMotion ? 0 : 6,
               }}
-              animate={{
-                opacity: 1,
-                y: 0,
-              }}
-              className={`
-                mt-5
-                rounded-xl
-                border
-                px-4
-                py-3
-                text-sm
-                ${
-                  status.includes("successfully")
-                    ? "border-[#0DB760]/20 bg-[#0DB760]/5 text-[#19D879]"
-                    : "border-red-500/20 bg-red-500/5 text-red-400"
-                }
-              `}
+              animate={{ opacity: 1, y: 0 }}
+              role={success ? "status" : "alert"}
+              aria-live={success ? "polite" : "assertive"}
+              className={`mt-5 flex items-start gap-3 rounded-xl border px-4 py-3.5 text-sm ${
+                success
+                  ? "border-emerald-300/20 bg-emerald-300/[0.05] text-emerald-300"
+                  : "border-red-400/20 bg-red-400/[0.05] text-red-300"
+              }`}
             >
-              {status}
-            </motion.p>
+              {success && (
+                <FaCheckCircle className="mt-0.5 shrink-0" />
+              )}
+              <p>{status}</p>
+            </motion.div>
           )}
 
           {/* SUBMIT */}
-          <div className="mt-6 flex justify-end">
+          <div className="mt-7 flex flex-col gap-4 border-t border-white/[0.07] pt-6 sm:flex-row sm:items-center sm:justify-between">
+            <p className="text-[11px] leading-5 text-zinc-500">
+              Your details will only be used to respond to your message.
+            </p>
+
             <motion.button
               type="submit"
               disabled={loading}
-              whileHover={{
-                scale: loading ? 1 : 1.02,
-              }}
-              whileTap={{
-                scale: loading ? 1 : 0.98,
-              }}
-              className="
-                rounded-full
-                bg-[#0DB760]
-                px-6
-                py-3
-                text-sm
-                font-semibold
-                text-black
-                transition-all
-                duration-300
-                hover:bg-[#19D879]
-                hover:shadow-[0_0_30px_rgba(13,183,96,0.2)]
-                disabled:cursor-not-allowed
-                disabled:opacity-50
-              "
+              whileHover={
+                reduceMotion || loading ? undefined : { y: -2 }
+              }
+              whileTap={
+                reduceMotion || loading ? undefined : { scale: 0.98 }
+              }
+              className="contact-submit-button inline-flex min-h-12 items-center justify-center gap-3 rounded-full px-6 py-3 text-sm font-semibold text-black disabled:cursor-not-allowed disabled:opacity-60"
             >
-              {loading ? "Sending..." : "Send Message"}
+              {loading ? (
+                <>
+                  <span className="h-4 w-4 animate-spin rounded-full border-2 border-black/25 border-t-black" />
+                  Sending...
+                </>
+              ) : (
+                <>
+                  Send Message
+                  <FaPaperPlane size={12} />
+                </>
+              )}
             </motion.button>
           </div>
         </form>
       </motion.div>
 
-      {/* BOTTOM ACCENT */}
-      <div className="mx-auto mt-16 h-px max-w-4xl bg-gradient-to-r from-transparent via-[#0DB760]/30 to-transparent" />
+      {/* FOOTER ACCENT */}
+      <div className="relative z-10 mx-auto mt-16 flex max-w-4xl items-center gap-4">
+        <div className="h-px flex-1 bg-gradient-to-r from-transparent to-emerald-300/20" />
+        <span className="text-[9px] uppercase tracking-[0.25em] text-zinc-600">
+          Lets connect
+        </span>
+        <div className="h-px flex-1 bg-gradient-to-l from-transparent to-emerald-300/20" />
+      </div>
     </section>
   );
 }

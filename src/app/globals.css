@@ -661,3 +661,391 @@ body::-webkit-scrollbar-thumb:hover {
     bottom: 3%;
   }
 }
+
+/* ===== EXPERIENCE & EDUCATION: EMERALD SHOWCASE ===== */
+
+#experience.experience-showcase {
+  isolation: isolate;
+  background:
+    radial-gradient(ellipse at 12% 25%, rgba(0, 180, 125, 0.055), transparent 28rem),
+    radial-gradient(ellipse at 90% 75%, rgba(0, 220, 160, 0.055), transparent 30rem),
+    linear-gradient(115deg, #020807 0%, #03100e 50%, #010605 100%);
+}
+
+.experience-ambient-glow {
+  position: absolute;
+  z-index: 0;
+  width: clamp(220px, 30vw, 380px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: rgba(0, 220, 160, 0.07);
+  filter: blur(90px);
+  pointer-events: none;
+}
+
+.experience-ambient-glow-left {
+  top: 14%;
+  left: -16%;
+}
+
+.experience-ambient-glow-right {
+  right: -16%;
+  bottom: 8%;
+}
+
+.experience-gradient-text {
+  background: linear-gradient(115deg, #d8fff1 0%, #10d6a0 72%, #00a979 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.experience-heading-amp {
+  color: rgba(255, 255, 255, 0.48);
+}
+
+.timeline-node {
+  background: #10d6a0;
+  box-shadow: 0 0 0 5px rgba(16, 214, 160, 0.07),
+    0 0 16px rgba(16, 214, 160, 0.5);
+}
+
+.timeline-glass-card {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.035),
+    rgba(255, 255, 255, 0.012)
+  );
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+  transition:
+    border-color 260ms ease,
+    background-color 260ms ease,
+    transform 260ms ease,
+    box-shadow 260ms ease;
+}
+
+.timeline-glass-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(16, 214, 160, 0.27);
+  background-color: rgba(16, 214, 160, 0.025);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.2),
+    0 0 24px rgba(16, 214, 160, 0.035);
+}
+
+@media (max-width: 640px) {
+  #experience.experience-showcase {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+
+  .experience-ambient-glow {
+    filter: blur(60px);
+  }
+
+  .timeline-glass-card:hover {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .timeline-glass-card {
+    transition: none;
+  }
+
+  .timeline-glass-card:hover {
+    transform: none;
+  }
+}
+
+/* ===== PROJECTS: EMERALD GLASS SHOWCASE ===== */
+
+#project.project-showcase {
+  isolation: isolate;
+  background:
+    radial-gradient(ellipse at 10% 15%, rgba(0, 180, 125, 0.055), transparent 30rem),
+    radial-gradient(ellipse at 92% 78%, rgba(0, 220, 160, 0.06), transparent 28rem),
+    linear-gradient(115deg, #020807 0%, #03100e 50%, #010605 100%);
+}
+
+.project-ambient-glow {
+  position: absolute;
+  z-index: 0;
+  width: clamp(220px, 28vw, 380px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: rgba(0, 220, 160, 0.065);
+  filter: blur(90px);
+  pointer-events: none;
+}
+
+.project-ambient-glow-left {
+  top: 10%;
+  left: -18%;
+}
+
+.project-ambient-glow-right {
+  right: -18%;
+  bottom: 5%;
+}
+
+.project-gradient-text {
+  background: linear-gradient(115deg, #d8fff1 0%, #10d6a0 72%, #00a979 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.project-glass-card {
+  background: linear-gradient(
+    140deg,
+    rgba(255, 255, 255, 0.035),
+    rgba(255, 255, 255, 0.012)
+  );
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+  transition:
+    border-color 280ms ease,
+    background-color 280ms ease,
+    box-shadow 280ms ease;
+}
+
+.project-glass-card:hover {
+  border-color: rgba(16, 214, 160, 0.28);
+  background-color: rgba(16, 214, 160, 0.025);
+  box-shadow:
+    0 22px 55px rgba(0, 0, 0, 0.22),
+    0 0 30px rgba(16, 214, 160, 0.035);
+}
+
+.project-card-glow {
+  background: rgba(16, 214, 160, 0.09);
+  filter: blur(55px);
+}
+
+.project-tech-pill {
+  border-color: rgba(99, 255, 205, 0.12);
+  background: rgba(11, 30, 24, 0.48);
+  color: #aebfb7;
+  transition:
+    border-color 220ms ease,
+    background-color 220ms ease,
+    color 220ms ease;
+}
+
+.project-glass-card:hover .project-tech-pill {
+  border-color: rgba(16, 214, 160, 0.19);
+}
+
+.project-tech-pill:hover {
+  background: rgba(16, 214, 160, 0.07);
+  color: #effff8;
+}
+
+.project-primary-link {
+  background: linear-gradient(115deg, #10d6a0, #68f5c4);
+  box-shadow: 0 0 22px rgba(16, 214, 160, 0.09);
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease,
+    filter 220ms ease;
+}
+
+.project-primary-link:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.06);
+  box-shadow: 0 8px 28px rgba(16, 214, 160, 0.2);
+}
+
+@media (max-width: 640px) {
+  #project.project-showcase {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+
+  .project-ambient-glow {
+    filter: blur(60px);
+  }
+
+  .project-glass-card:hover {
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-glass-card,
+  .project-tech-pill,
+  .project-primary-link {
+    transition: none;
+  }
+
+  .project-primary-link:hover {
+    transform: none;
+  }
+}
+
+
+/* ===== CONTACT: EMERALD GLASS SHOWCASE ===== */
+
+#contact.contact-showcase {
+  isolation: isolate;
+  background:
+    radial-gradient(ellipse at 15% 25%, rgba(0, 180, 125, 0.055), transparent 28rem),
+    radial-gradient(ellipse at 85% 75%, rgba(0, 220, 160, 0.065), transparent 30rem),
+    linear-gradient(115deg, #020807 0%, #03100e 50%, #010605 100%);
+}
+
+.contact-ambient-glow {
+  position: absolute;
+  z-index: 0;
+  width: clamp(220px, 30vw, 390px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: rgba(0, 220, 160, 0.07);
+  filter: blur(90px);
+  pointer-events: none;
+}
+
+.contact-ambient-glow-left {
+  top: 10%;
+  left: -18%;
+}
+
+.contact-ambient-glow-right {
+  right: -18%;
+  bottom: 8%;
+}
+
+.contact-gradient-text {
+  background: linear-gradient(115deg, #d8fff1 0%, #10d6a0 72%, #00a979 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.contact-glass-panel {
+  background: linear-gradient(
+    140deg,
+    rgba(255, 255, 255, 0.035),
+    rgba(255, 255, 255, 0.012)
+  );
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.2);
+}
+
+.contact-input {
+  border-color: rgba(255, 255, 255, 0.1);
+  transition:
+    border-color 220ms ease,
+    background-color 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.contact-input:focus {
+  border-color: rgba(16, 214, 160, 0.55);
+  background-color: rgba(16, 214, 160, 0.035);
+  box-shadow: 0 0 0 3px rgba(16, 214, 160, 0.07);
+}
+
+.contact-input:focus-visible {
+  outline: 2px solid rgba(16, 214, 160, 0.45);
+  outline-offset: 2px;
+}
+
+.contact-submit-button {
+  background: linear-gradient(115deg, #10d6a0, #68f5c4);
+  box-shadow: 0 0 25px rgba(16, 214, 160, 0.1);
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease,
+    filter 220ms ease;
+}
+
+.contact-submit-button:hover:not(:disabled) {
+  filter: brightness(1.06);
+  box-shadow: 0 8px 30px rgba(16, 214, 160, 0.2);
+}
+
+.contact-submit-button:focus-visible {
+  outline: 2px solid #68f5c4;
+  outline-offset: 4px;
+}
+
+@media (max-width: 640px) {
+  #contact.contact-showcase {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+
+  .contact-ambient-glow {
+    filter: blur(60px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-input,
+  .contact-submit-button {
+    transition: none;
+  }
+}
+
+
+/* ===== GLOBAL PORTFOLIO WIDTH FIX ===== */
+
+:root {
+  --portfolio-max-width: 1440px;
+  --portfolio-side-padding: clamp(20px, 5vw, 88px);
+}
+
+/* Prevent accidental horizontal overflow */
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+}
+
+body {
+  overflow-x: clip;
+}
+
+/* Give all major sections a consistent, generous layout */
+#home,
+#about,
+#experience,
+#project,
+#contact {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Widen common section containers without changing mobile layouts */
+#home > .mx-auto,
+#about > .mx-auto,
+#experience > .mx-auto,
+#project > .mx-auto,
+#contact > .mx-auto {
+  width: 100%;
+  max-width: var(--portfolio-max-width);
+  padding-left: var(--portfolio-side-padding);
+  padding-right: var(--portfolio-side-padding);
+}
+
+/* Keep grids from forcing their parent to shrink */
+#home *,
+#about *,
+#experience *,
+#project *,
+#contact * {
+  min-width: 0;
+}
+
+/* Larger desktop canvas */
+@media (min-width: 1280px) {
+  :root {
+    --portfolio-side-padding: clamp(48px, 5vw, 88px);
+  }
+}
+
+/* Compact but comfortable on phones */
+@media (max-width: 640px) {
+  :root {
+    --portfolio-side-padding: 20px;
+  }
+}

@@ -192,7 +192,7 @@ export default function Navbar() {
       </header>
 
       {/* Mobile Bottom Navigation */}
-      <nav className="fixed bottom-4 left-4 right-4 z-50 md:hidden">
+      <nav className="fixed top-20 left-4 right-4 z-50 md:hidden">
         <div
           className="
             glass

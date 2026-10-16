@@ -139,7 +139,7 @@ export default function Navbar() {
             onClick={handleContact}
             className="hidden rounded-full border border-[#0DB760]/30 bg-[#0DB760]/10 px-4 py-2 text-sm font-semibold text-[#19D879] transition-all duration-300 hover:border-[#0DB760]/60 hover:bg-[#0DB760]/20 hover:shadow-[0_0_25px_rgba(13,183,96,0.15)] md:block"
           >
-            Let's Talk
+            Lets Talk
           </button>
 
           {/* Mobile Controls */}

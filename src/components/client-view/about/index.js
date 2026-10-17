@@ -1,4 +1,3 @@
-
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
@@ -10,7 +9,10 @@ export default function AboutClientView({ data }) {
   const reduceMotion = useReducedMotion();
 
   const skills = aboutData?.skills
-    ? aboutData.skills.split(",").map((skill) => skill.trim()).filter(Boolean)
+    ? aboutData.skills
+        .split(",")
+        .map((skill) => skill.trim())
+        .filter(Boolean)
     : [];
 
   const reveal = (x = 0, y = 24) => ({
@@ -30,7 +32,7 @@ export default function AboutClientView({ data }) {
   return (
     <section
       id="about"
-      className="about-showcase relative isolate mx-auto max-w-7xl overflow-hidden px-5 py-24 sm:px-8 lg:px-12"
+      className="about-showcase relative isolate mx-auto w-full max-w-6xl overflow-hidden px-5 py-24 sm:px-8 lg:px-10"
     >
       <div aria-hidden="true" className="about-dots about-dots-left" />
       <div aria-hidden="true" className="about-dots about-dots-right" />
@@ -43,9 +45,7 @@ export default function AboutClientView({ data }) {
 
         <h2 className="text-3xl font-semibold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
           Building ideas into{" "}
-          <span className="about-gradient-text">
-            digital experiences.
-          </span>
+          <span className="about-gradient-text">digital experiences.</span>
         </h2>
 
         <p className="mt-5 max-w-2xl text-sm leading-7 text-zinc-400 sm:text-base">
@@ -158,7 +158,9 @@ export default function AboutClientView({ data }) {
               {skills.map((skill, index) => (
                 <motion.span
                   key={`${skill}-${index}`}
-                  whileHover={reduceMotion ? undefined : { y: -3, scale: 1.025 }}
+                  whileHover={
+                    reduceMotion ? undefined : { y: -3, scale: 1.025 }
+                  }
                   transition={{ duration: 0.2 }}
                   className="about-skill-pill"
                 >

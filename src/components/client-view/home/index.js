@@ -1,4 +1,3 @@
-
 "use client";
 
 import AnimationWrapper from "../animation-wrapper";
@@ -9,7 +8,7 @@ import { Link as LinkScroll } from "react-scroll";
 import home from "../../../assets/home.png";
 
 const socialLinks = [
-  { id: "github", label: "GitHub", icon: <FaGithub />, href: "#" },
+  { id: "github", label: "GitHub", icon: <FaGithub />, href: "https://github.com/mohammedmuqtadir41-cmyk" },
   { id: "linkedin", label: "LinkedIn", icon: <FaLinkedin />, href: "#" },
   { id: "instagram", label: "Instagram", icon: <FaInstagram />, href: "#" },
 ];
@@ -41,10 +40,7 @@ export default function HomeClientView({ data }) {
   });
 
   return (
-    <section
-      id="home"
-      className="relative isolate flex min-h-screen items-center overflow-hidden px-5 pb-24 pt-28 sm:px-8 lg:px-12"
-    >
+    <section id="home" className="page-section page-section-hero">
       <div
         aria-hidden="true"
         className="home-ambient-glow home-ambient-glow-left"
@@ -62,9 +58,9 @@ export default function HomeClientView({ data }) {
         className="home-corner-dots home-corner-dots-right"
       />
 
-      <div className="relative z-10 mx-auto w-full max-w-6xl">
+      <div className="page-container relative z-10">
         <AnimationWrapper>
-          <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10">
+          <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-12 xl:gap-16">
             {/* INTRODUCTION */}
             <motion.div
               {...enterFrom(-35, 0)}

@@ -13,6 +13,24 @@
   --text-primary: #f5f5f5;
   --text-secondary: #a1a1aa;
   --border: rgba(255, 255, 255, 0.08);
+
+  /* ===== Shared layout system ===== */
+  --page-max-width: 80rem; /* 1280px incl. gutters -> 1200px content */
+  --page-gutter: 1.25rem; /* 20px */
+  --section-y: clamp(3.5rem, 6vw, 5.5rem); /* 56px -> 88px */
+  --section-header-gap: clamp(2.5rem, 4vw, 3.5rem); /* 40px -> 56px */
+}
+
+@media (min-width: 640px) {
+  :root {
+    --page-gutter: 2rem; /* 32px */
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --page-gutter: 2.5rem; /* 40px */
+  }
 }
 
 * {
@@ -24,12 +42,19 @@ html {
   background: var(--background);
 }
 
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+}
+
 body {
   margin: 0;
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
   overflow-x: hidden;
+  overflow-x: clip;
 }
 
 /* Selection */
@@ -59,6 +84,43 @@ body::-webkit-scrollbar-thumb {
 
 body::-webkit-scrollbar-thumb:hover {
   background: var(--accent);
+}
+
+/* ===== SHARED LAYOUT PRIMITIVES =====
+   Kept in @layer components so Tailwind utilities can still override them.
+
+   <section class="page-section">            full-width: background + decor
+     <div class="page-container">            aligned content (max 80rem)
+   </section>
+*/
+@layer components {
+  .page-container {
+    width: 100%;
+    max-width: var(--page-max-width);
+    margin-inline: auto;
+    padding-inline: var(--page-gutter);
+  }
+
+  .page-section {
+    position: relative;
+    isolation: isolate;
+    width: 100%;
+    overflow: hidden;
+    padding-block: var(--section-y);
+  }
+
+  /* Hero: fills a laptop screen, but never stretches on tall monitors.
+     Extra top padding clears the fixed navbar. */
+  .page-section-hero {
+    display: flex;
+    align-items: center;
+    min-height: min(100svh, 56rem);
+    padding-top: calc(var(--section-y) + 4.5rem);
+  }
+
+  .page-section-header {
+    margin-bottom: var(--section-header-gap);
+  }
 }
 
 /* Subtle grid background */
@@ -173,22 +235,12 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 
-/* ===== DARK EMERALD CYBER-TECH BACKGROUND ===== */
+/* ===== HOME ===== */
 
 #home {
-  isolation: isolate;
-  overflow: hidden;
   background:
-    radial-gradient(
-      ellipse at 74% 45%,
-      rgba(0, 220, 160, 0.11),
-      transparent 31rem
-    ),
-    radial-gradient(
-      ellipse at 8% 82%,
-      rgba(0, 90, 65, 0.08),
-      transparent 25rem
-    ),
+    radial-gradient(ellipse at 75% 45%, rgba(0, 220, 160, 0.09), transparent 32rem),
+    radial-gradient(ellipse at 8% 82%, rgba(0, 90, 65, 0.08), transparent 25rem),
     linear-gradient(115deg, #020807 0%, #03100e 50%, #010605 100%);
 }
 
@@ -250,211 +302,6 @@ body::-webkit-scrollbar-thumb:hover {
   transform: rotate(90deg);
 }
 
-/* Home portrait lighting */
-.home-portrait-halo {
-  position: absolute;
-  z-index: 0;
-  width: 78%;
-  aspect-ratio: 1;
-  left: 11%;
-  top: 10%;
-  border-radius: 50%;
-  background: rgba(0, 220, 160, 0.18);
-  filter: blur(58px);
-  pointer-events: none;
-}
-
-.home-portrait-ring {
-  position: absolute;
-  z-index: 0;
-  top: 50%;
-  left: 50%;
-  aspect-ratio: 1;
-  border: 1px solid rgba(16, 214, 160, 0.25);
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-}
-
-.home-portrait-ring-outer {
-  width: 105%;
-  box-shadow: 0 0 45px rgba(16, 214, 160, 0.06);
-}
-
-.home-portrait-ring-inner {
-  width: 94%;
-  border-color: rgba(16, 214, 160, 0.16);
-}
-
-/* About section backdrop */
-#about.about-showcase {
-  isolation: isolate;
-  background:
-    radial-gradient(
-      circle at 72% 42%,
-      rgba(0, 220, 160, 0.13),
-      transparent 30%
-    ),
-    radial-gradient(
-      ellipse at 50% 50%,
-      rgba(0, 75, 55, 0.13),
-      transparent 65%
-    ),
-    linear-gradient(115deg, #020807 0%, #03100e 50%, #010605 100%);
-}
-
-.about-gradient-text {
-  background: linear-gradient(115deg, #d8fff1 0%, #10d6a0 75%, #00a979 100%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-}
-
-.about-portrait-glow {
-  position: absolute;
-  z-index: 0;
-  top: 12%;
-  left: 12%;
-  width: 76%;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: rgba(0, 218, 157, 0.24);
-  filter: blur(58px);
-  pointer-events: none;
-}
-
-.about-ring {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  aspect-ratio: 1;
-  border: 1px solid rgba(16, 214, 160, 0.35);
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-}
-
-.about-ring-outer {
-  width: 112%;
-  box-shadow: 0 0 25px rgba(16, 214, 160, 0.045);
-}
-
-.about-ring-middle {
-  width: 103%;
-  border-color: rgba(16, 214, 160, 0.28);
-}
-
-.about-ring-inner {
-  width: 94%;
-  border-color: rgba(16, 214, 160, 0.42);
-}
-
-.about-portrait {
-  aspect-ratio: 1 !important;
-  border-radius: 50% !important;
-  overflow: hidden;
-}
-
-.about-portrait-image {
-  object-position: center 30%;
-}
-
-.about-role-chip {
-  position: absolute;
-  z-index: 3;
-  right: 2%;
-  bottom: 4%;
-  display: flex;
-  align-items: center;
-  gap: 11px;
-  padding: 13px 16px;
-  border: 1px solid rgba(99, 255, 205, 0.2);
-  border-radius: 14px;
-  background: rgba(3, 13, 11, 0.9);
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.28);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-}
-
-.about-status-dot,
-.about-skill-dot {
-  flex: 0 0 auto;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #10d6a0;
-}
-
-.about-status-dot {
-  box-shadow: 0 0 12px rgba(16, 214, 160, 0.85);
-}
-
-.about-skill-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  padding: 10px 13px;
-  border: 1px solid rgba(99, 255, 205, 0.13);
-  border-radius: 10px;
-  background: rgba(11, 30, 24, 0.6);
-  color: #c2d1cb;
-  font-size: 12px;
-  transition: transform 220ms ease, border-color 220ms ease,
-    background-color 220ms ease, color 220ms ease;
-}
-
-.about-skill-pill:hover {
-  transform: translateY(-2px);
-  border-color: rgba(16, 214, 160, 0.48);
-  background: rgba(16, 214, 160, 0.075);
-  color: #f5fff9;
-}
-
-.about-circuit-line {
-  z-index: 0;
-  opacity: 0.8;
-}
-
-.about-composition {
-  isolation: isolate;
-}
-
-@media (max-width: 767px) {
-  .home-corner-dots,
-  .about-dots {
-    width: 70px;
-    height: 90px;
-    background-size: 20px 20px;
-  }
-
-  .home-portrait-ring-outer {
-    width: 108%;
-  }
-
-  .home-portrait-ring-inner {
-    width: 95%;
-  }
-
-  .about-portrait-glow {
-    filter: blur(40px);
-  }
-
-  .about-role-chip {
-    padding: 10px 12px;
-  }
-}
-
-
-/* ===== EMERALD HOME FINISH ===== */
-
-#home {
-  isolation: isolate;
-  background:
-    radial-gradient(ellipse at 75% 45%, rgba(0, 220, 160, 0.09), transparent 32rem),
-    radial-gradient(ellipse at 8% 82%, rgba(0, 90, 65, 0.08), transparent 25rem),
-    linear-gradient(115deg, #020807 0%, #03100e 50%, #010605 100%);
-}
-
 .home-gradient-text {
   background: linear-gradient(115deg, #d8fff1 0%, #10d6a0 72%, #00a979 100%);
   background-clip: text;
@@ -502,6 +349,7 @@ body::-webkit-scrollbar-thumb:hover {
   box-shadow: 0 0 8px rgba(16, 214, 160, 0.45);
 }
 
+/* Home portrait lighting */
 .home-portrait-halo {
   position: absolute;
   z-index: 0;
@@ -587,6 +435,13 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 @media (max-width: 767px) {
+  .home-corner-dots,
+  .about-dots {
+    width: 70px;
+    height: 90px;
+    background-size: 20px 20px;
+  }
+
   .home-portrait-ring-outer {
     width: 106%;
   }
@@ -612,8 +467,151 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 
-/* ===== PORTRAIT CARD + PREMIUM MOTION FIX ===== */
+/* ===== ABOUT ===== */
 
+#about.about-showcase {
+  background:
+    radial-gradient(
+      circle at 72% 42%,
+      rgba(0, 220, 160, 0.13),
+      transparent 30%
+    ),
+    radial-gradient(
+      ellipse at 50% 50%,
+      rgba(0, 75, 55, 0.13),
+      transparent 65%
+    ),
+    linear-gradient(115deg, #020807 0%, #03100e 50%, #010605 100%);
+}
+
+.about-gradient-text {
+  background: linear-gradient(115deg, #d8fff1 0%, #10d6a0 75%, #00a979 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.about-portrait-glow {
+  position: absolute;
+  z-index: 0;
+  top: 12%;
+  left: 12%;
+  width: 76%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: rgba(0, 218, 157, 0.24);
+  filter: blur(58px);
+  pointer-events: none;
+  animation: emerald-glow-pulse 6s ease-in-out infinite;
+}
+
+.about-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  aspect-ratio: 1;
+  border: 1px solid rgba(16, 214, 160, 0.35);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.about-ring-outer {
+  width: 112%;
+  box-shadow: 0 0 25px rgba(16, 214, 160, 0.045);
+}
+
+.about-ring-middle {
+  width: 103%;
+  border-color: rgba(16, 214, 160, 0.28);
+}
+
+.about-ring-inner {
+  width: 94%;
+  border-color: rgba(16, 214, 160, 0.42);
+}
+
+.about-portrait {
+  aspect-ratio: 1;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.about-portrait-image {
+  object-position: center 30%;
+}
+
+.about-role-chip {
+  position: absolute;
+  z-index: 3;
+  right: 2%;
+  bottom: 4%;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 13px 16px;
+  border: 1px solid rgba(99, 255, 205, 0.2);
+  border-radius: 14px;
+  background: rgba(3, 13, 11, 0.9);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.about-status-dot,
+.about-skill-dot {
+  flex: 0 0 auto;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10d6a0;
+}
+
+.about-status-dot {
+  box-shadow: 0 0 12px rgba(16, 214, 160, 0.85);
+}
+
+.about-skill-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 13px;
+  border: 1px solid rgba(99, 255, 205, 0.13);
+  border-radius: 10px;
+  background: rgba(11, 30, 24, 0.6);
+  color: #c2d1cb;
+  font-size: 12px;
+  transition: transform 220ms ease, border-color 220ms ease,
+    background-color 220ms ease, color 220ms ease;
+}
+
+.about-skill-pill:hover {
+  transform: translateY(-2px);
+  border-color: rgba(16, 214, 160, 0.48);
+  background: rgba(16, 214, 160, 0.075);
+  color: #f5fff9;
+}
+
+.about-circuit-line {
+  z-index: 0;
+  opacity: 0.8;
+}
+
+.about-composition {
+  isolation: isolate;
+}
+
+@media (max-width: 767px) {
+  .about-portrait-glow {
+    filter: blur(40px);
+  }
+
+  .about-role-chip {
+    padding: 10px 12px;
+  }
+}
+
+/* About: floating chip + glow motion */
 .about-role-chip-floating {
   right: -8px;
   bottom: 8%;
@@ -631,11 +629,6 @@ body::-webkit-scrollbar-thumb:hover {
   }
 }
 
-/* Subtle portrait lighting */
-.about-portrait-glow {
-  animation: emerald-glow-pulse 6s ease-in-out infinite;
-}
-
 @keyframes emerald-glow-pulse {
   0%, 100% {
     opacity: 0.65;
@@ -647,14 +640,6 @@ body::-webkit-scrollbar-thumb:hover {
   }
 }
 
-/* Keep animations comfortable for reduced-motion users */
-@media (prefers-reduced-motion: reduce) {
-  .about-role-chip-floating,
-  .about-portrait-glow {
-    animation: none !important;
-  }
-}
-
 @media (max-width: 767px) {
   .about-role-chip-floating {
     right: 0;
@@ -662,10 +647,18 @@ body::-webkit-scrollbar-thumb:hover {
   }
 }
 
-/* ===== EXPERIENCE & EDUCATION: EMERALD SHOWCASE ===== */
+/* Keep animations comfortable for reduced-motion users */
+@media (prefers-reduced-motion: reduce) {
+  .about-role-chip-floating,
+  .about-portrait-glow {
+    animation: none;
+  }
+}
+
+
+/* ===== EXPERIENCE & EDUCATION ===== */
 
 #experience.experience-showcase {
-  isolation: isolate;
   background:
     radial-gradient(ellipse at 12% 25%, rgba(0, 180, 125, 0.055), transparent 28rem),
     radial-gradient(ellipse at 90% 75%, rgba(0, 220, 160, 0.055), transparent 30rem),
@@ -733,11 +726,6 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 @media (max-width: 640px) {
-  #experience.experience-showcase {
-    padding-top: 5rem;
-    padding-bottom: 5rem;
-  }
-
   .experience-ambient-glow {
     filter: blur(60px);
   }
@@ -757,10 +745,10 @@ body::-webkit-scrollbar-thumb:hover {
   }
 }
 
-/* ===== PROJECTS: EMERALD GLASS SHOWCASE ===== */
+
+/* ===== PROJECTS ===== */
 
 #project.project-showcase {
-  isolation: isolate;
   background:
     radial-gradient(ellipse at 10% 15%, rgba(0, 180, 125, 0.055), transparent 30rem),
     radial-gradient(ellipse at 92% 78%, rgba(0, 220, 160, 0.06), transparent 28rem),
@@ -856,11 +844,6 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 @media (max-width: 640px) {
-  #project.project-showcase {
-    padding-top: 5rem;
-    padding-bottom: 5rem;
-  }
-
   .project-ambient-glow {
     filter: blur(60px);
   }
@@ -883,10 +866,9 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 
-/* ===== CONTACT: EMERALD GLASS SHOWCASE ===== */
+/* ===== CONTACT ===== */
 
 #contact.contact-showcase {
-  isolation: isolate;
   background:
     radial-gradient(ellipse at 15% 25%, rgba(0, 180, 125, 0.055), transparent 28rem),
     radial-gradient(ellipse at 85% 75%, rgba(0, 220, 160, 0.065), transparent 30rem),
@@ -969,11 +951,6 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 @media (max-width: 640px) {
-  #contact.contact-showcase {
-    padding-top: 5rem;
-    padding-bottom: 5rem;
-  }
-
   .contact-ambient-glow {
     filter: blur(60px);
   }
@@ -983,69 +960,5 @@ body::-webkit-scrollbar-thumb:hover {
   .contact-input,
   .contact-submit-button {
     transition: none;
-  }
-}
-
-
-/* ===== GLOBAL PORTFOLIO WIDTH FIX ===== */
-
-:root {
-  --portfolio-max-width: 1440px;
-  --portfolio-side-padding: clamp(20px, 5vw, 88px);
-}
-
-/* Prevent accidental horizontal overflow */
-html,
-body {
-  width: 100%;
-  max-width: 100%;
-}
-
-body {
-  overflow-x: clip;
-}
-
-/* Give all major sections a consistent, generous layout */
-#home,
-#about,
-#experience,
-#project,
-#contact {
-  width: 100%;
-  max-width: 100%;
-}
-
-/* Widen common section containers without changing mobile layouts */
-#home > .mx-auto,
-#about > .mx-auto,
-#experience > .mx-auto,
-#project > .mx-auto,
-#contact > .mx-auto {
-  width: 100%;
-  max-width: var(--portfolio-max-width);
-  padding-left: var(--portfolio-side-padding);
-  padding-right: var(--portfolio-side-padding);
-}
-
-/* Keep grids from forcing their parent to shrink */
-#home *,
-#about *,
-#experience *,
-#project *,
-#contact * {
-  min-width: 0;
-}
-
-/* Larger desktop canvas */
-@media (min-width: 1280px) {
-  :root {
-    --portfolio-side-padding: clamp(48px, 5vw, 88px);
-  }
-}
-
-/* Compact but comfortable on phones */
-@media (max-width: 640px) {
-  :root {
-    --portfolio-side-padding: 20px;
   }
 }

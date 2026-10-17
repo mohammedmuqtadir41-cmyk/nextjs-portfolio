@@ -1,0 +1,2559 @@
+
+--- File: src\app\globals.css ---
+@import "tailwindcss";
+
+:root {
+  --background: #050505;
+  --foreground: #f5f5f5;
+
+  --surface: #0a0a0a;
+  --surface-light: #111111;
+
+  --accent: #0db760;
+  --accent-light: #19d879;
+
+  --text-primary: #f5f5f5;
+  --text-secondary: #a1a1aa;
+  --border: rgba(255, 255, 255, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--background);
+}
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Selection */
+::selection {
+  background: rgba(13, 183, 96, 0.25);
+  color: #ffffff;
+}
+
+/* Smooth anchor positioning */
+section[id] {
+  scroll-margin-top: 100px;
+}
+
+/* Premium scrollbar */
+body::-webkit-scrollbar {
+  width: 6px;
+}
+
+body::-webkit-scrollbar-track {
+  background: #050505;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: #27272a;
+  border-radius: 999px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+/* Subtle grid background */
+.portfolio-grid {
+  background-image:
+    linear-gradient(
+      rgba(255, 255, 255, 0.025) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.025) 1px,
+      transparent 1px
+    );
+
+  background-size: 50px 50px;
+}
+
+/* Green ambient glow */
+.portfolio-glow {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 9999px;
+  background: rgba(13, 183, 96, 0.08);
+  filter: blur(120px);
+  pointer-events: none;
+}
+
+/* Glass surface */
+.glass {
+  background: rgba(10, 10, 10, 0.72);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid var(--border);
+}
+
+/* Premium border */
+.premium-border {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Green glow */
+.green-glow {
+  box-shadow:
+    0 0 30px rgba(13, 183, 96, 0.08),
+    inset 0 0 30px rgba(13, 183, 96, 0.02);
+}
+
+/* Accent text */
+.accent-text {
+  color: var(--accent);
+}
+
+/* Gradient accent text */
+.gradient-text {
+  background: linear-gradient(
+    135deg,
+    #ffffff 20%,
+    #0db760 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* Floating animation */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.float-animation {
+  animation: float 5s ease-in-out infinite;
+}
+
+/* Subtle pulse */
+@keyframes glow-pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+
+  50% {
+    opacity: 0.65;
+  }
+}
+
+.glow-pulse {
+  animation: glow-pulse 4s ease-in-out infinite;
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+
+/* ===== DARK EMERALD CYBER-TECH BACKGROUND ===== */
+
+#home {
+  isolation: isolate;
+  overflow: hidden;
+  background:
+    radial-gradient(
+      ellipse at 74% 45%,
+      rgba(0, 220, 160, 0.11),
+      transparent 31rem
+    ),
+    radial-gradient(
+      ellipse at 8% 82%,
+      rgba(0, 90, 65, 0.08),
+      transparent 25rem
+    ),
+    linear-gradient(115deg, #020807 0%, #03100e 50%, #010605 100%);
+}
+
+.home-ambient-glow {
+  position: absolute;
+  z-index: 0;
+  width: clamp(240px, 32vw, 460px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: rgba(0, 220, 160, 0.1);
+  filter: blur(90px);
+  pointer-events: none;
+}
+
+.home-ambient-glow-left {
+  left: -12%;
+  bottom: 0;
+  opacity: 0.45;
+}
+
+.home-ambient-glow-right {
+  right: 5%;
+  top: 18%;
+  opacity: 0.8;
+}
+
+.home-corner-dots,
+.about-dots {
+  position: absolute;
+  z-index: 0;
+  width: 110px;
+  height: 130px;
+  opacity: 0.42;
+  background-image: radial-gradient(circle, #10d6a0 1.7px, transparent 2px);
+  background-size: 24px 24px;
+  pointer-events: none;
+  mask-image: linear-gradient(to bottom, #000, transparent);
+}
+
+.home-corner-dots-left {
+  left: 2%;
+  top: 8%;
+}
+
+.home-corner-dots-right {
+  right: 2%;
+  bottom: 8%;
+  transform: rotate(180deg);
+}
+
+.about-dots-left {
+  top: 18px;
+  left: 18px;
+}
+
+.about-dots-right {
+  top: 35px;
+  right: 15px;
+  transform: rotate(90deg);
+}
+
+/* Home portrait lighting */
+.home-portrait-halo {
+  position: absolute;
+  z-index: 0;
+  width: 78%;
+  aspect-ratio: 1;
+  left: 11%;
+  top: 10%;
+  border-radius: 50%;
+  background: rgba(0, 220, 160, 0.18);
+  filter: blur(58px);
+  pointer-events: none;
+}
+
+.home-portrait-ring {
+  position: absolute;
+  z-index: 0;
+  top: 50%;
+  left: 50%;
+  aspect-ratio: 1;
+  border: 1px solid rgba(16, 214, 160, 0.25);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.home-portrait-ring-outer {
+  width: 105%;
+  box-shadow: 0 0 45px rgba(16, 214, 160, 0.06);
+}
+
+.home-portrait-ring-inner {
+  width: 94%;
+  border-color: rgba(16, 214, 160, 0.16);
+}
+
+/* About section backdrop */
+#about.about-showcase {
+  isolation: isolate;
+  background:
+    radial-gradient(
+      circle at 72% 42%,
+      rgba(0, 220, 160, 0.13),
+      transparent 30%
+    ),
+    radial-gradient(
+      ellipse at 50% 50%,
+      rgba(0, 75, 55, 0.13),
+      transparent 65%
+    ),
+    linear-gradient(115deg, #020807 0%, #03100e 50%, #010605 100%);
+}
+
+.about-gradient-text {
+  background: linear-gradient(115deg, #d8fff1 0%, #10d6a0 75%, #00a979 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.about-portrait-glow {
+  position: absolute;
+  z-index: 0;
+  top: 12%;
+  left: 12%;
+  width: 76%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: rgba(0, 218, 157, 0.24);
+  filter: blur(58px);
+  pointer-events: none;
+}
+
+.about-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  aspect-ratio: 1;
+  border: 1px solid rgba(16, 214, 160, 0.35);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.about-ring-outer {
+  width: 112%;
+  box-shadow: 0 0 25px rgba(16, 214, 160, 0.045);
+}
+
+.about-ring-middle {
+  width: 103%;
+  border-color: rgba(16, 214, 160, 0.28);
+}
+
+.about-ring-inner {
+  width: 94%;
+  border-color: rgba(16, 214, 160, 0.42);
+}
+
+.about-portrait {
+  aspect-ratio: 1 !important;
+  border-radius: 50% !important;
+  overflow: hidden;
+}
+
+.about-portrait-image {
+  object-position: center 30%;
+}
+
+.about-role-chip {
+  position: absolute;
+  z-index: 3;
+  right: 2%;
+  bottom: 4%;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 13px 16px;
+  border: 1px solid rgba(99, 255, 205, 0.2);
+  border-radius: 14px;
+  background: rgba(3, 13, 11, 0.9);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.about-status-dot,
+.about-skill-dot {
+  flex: 0 0 auto;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10d6a0;
+}
+
+.about-status-dot {
+  box-shadow: 0 0 12px rgba(16, 214, 160, 0.85);
+}
+
+.about-skill-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 13px;
+  border: 1px solid rgba(99, 255, 205, 0.13);
+  border-radius: 10px;
+  background: rgba(11, 30, 24, 0.6);
+  color: #c2d1cb;
+  font-size: 12px;
+  transition: transform 220ms ease, border-color 220ms ease,
+    background-color 220ms ease, color 220ms ease;
+}
+
+.about-skill-pill:hover {
+  transform: translateY(-2px);
+  border-color: rgba(16, 214, 160, 0.48);
+  background: rgba(16, 214, 160, 0.075);
+  color: #f5fff9;
+}
+
+.about-circuit-line {
+  z-index: 0;
+  opacity: 0.8;
+}
+
+.about-composition {
+  isolation: isolate;
+}
+
+@media (max-width: 767px) {
+  .home-corner-dots,
+  .about-dots {
+    width: 70px;
+    height: 90px;
+    background-size: 20px 20px;
+  }
+
+  .home-portrait-ring-outer {
+    width: 108%;
+  }
+
+  .home-portrait-ring-inner {
+    width: 95%;
+  }
+
+  .about-portrait-glow {
+    filter: blur(40px);
+  }
+
+  .about-role-chip {
+    padding: 10px 12px;
+  }
+}
+
+
+/* ===== EMERALD HOME FINISH ===== */
+
+#home {
+  isolation: isolate;
+  background:
+    radial-gradient(ellipse at 75% 45%, rgba(0, 220, 160, 0.09), transparent 32rem),
+    radial-gradient(ellipse at 8% 82%, rgba(0, 90, 65, 0.08), transparent 25rem),
+    linear-gradient(115deg, #020807 0%, #03100e 50%, #010605 100%);
+}
+
+.home-gradient-text {
+  background: linear-gradient(115deg, #d8fff1 0%, #10d6a0 72%, #00a979 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.home-primary-button {
+  background: linear-gradient(115deg, #10d6a0, #68f5c4);
+  box-shadow: 0 0 28px rgba(16, 214, 160, 0.13);
+  transition: transform 220ms ease, box-shadow 220ms ease, filter 220ms ease;
+}
+
+.home-primary-button:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.06);
+  box-shadow: 0 8px 34px rgba(16, 214, 160, 0.25);
+}
+
+.home-tech-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid rgba(99, 255, 205, 0.12);
+  border-radius: 999px;
+  background: rgba(11, 30, 24, 0.55);
+  padding: 8px 11px;
+  color: #a9bcb4;
+  font-size: 11px;
+  transition: border-color 220ms ease, background-color 220ms ease, color 220ms ease;
+}
+
+.home-tech-pill:hover {
+  border-color: rgba(16, 214, 160, 0.4);
+  background: rgba(16, 214, 160, 0.07);
+  color: #effff8;
+}
+
+.home-tech-dot {
+  width: 5px;
+  height: 5px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: #10d6a0;
+  box-shadow: 0 0 8px rgba(16, 214, 160, 0.45);
+}
+
+.home-portrait-halo {
+  position: absolute;
+  z-index: 0;
+  top: 12%;
+  left: 10%;
+  width: 80%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: rgba(0, 220, 160, 0.19);
+  filter: blur(70px);
+  pointer-events: none;
+}
+
+.home-portrait-ring {
+  position: absolute;
+  z-index: 0;
+  top: 50%;
+  left: 50%;
+  aspect-ratio: 1;
+  border: 1px solid rgba(16, 214, 160, 0.27);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.home-portrait-ring-outer {
+  width: 110%;
+  border-color: rgba(16, 214, 160, 0.16);
+  box-shadow: 0 0 55px rgba(16, 214, 160, 0.05);
+}
+
+.home-portrait-ring-inner {
+  width: 102%;
+  border-color: rgba(16, 214, 160, 0.28);
+}
+
+.home-frame-corner {
+  position: absolute;
+  z-index: 11;
+  width: 36px;
+  height: 36px;
+  pointer-events: none;
+}
+
+.home-frame-corner-tl {
+  top: -7px;
+  left: -7px;
+  border-top: 2px solid #10d6a0;
+  border-left: 2px solid #10d6a0;
+  border-top-left-radius: 12px;
+}
+
+.home-frame-corner-br {
+  right: -7px;
+  bottom: -7px;
+  border-right: 2px solid #10d6a0;
+  border-bottom: 2px solid #10d6a0;
+  border-bottom-right-radius: 12px;
+}
+
+.home-portrait-frame {
+  border: 1px solid rgba(99, 255, 205, 0.2);
+  background: #04100d;
+  box-shadow: 0 25px 90px rgba(0, 0, 0, 0.38), 0 0 40px rgba(16, 214, 160, 0.055);
+}
+
+.home-portrait-image {
+  object-position: center 30%;
+}
+
+.home-developer-card {
+  padding: 14px 17px;
+  border: 1px solid rgba(99, 255, 205, 0.19);
+  border-radius: 16px;
+  background: rgba(3, 13, 11, 0.92);
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.32);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.home-code-label {
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 767px) {
+  .home-portrait-ring-outer {
+    width: 106%;
+  }
+
+  .home-portrait-ring-inner {
+    width: 100%;
+  }
+
+  .home-portrait-halo {
+    filter: blur(48px);
+  }
+
+  .home-developer-card {
+    padding: 11px 13px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-primary-button,
+  .home-tech-pill {
+    transition: none;
+  }
+}
+
+
+/* ===== PORTRAIT CARD + PREMIUM MOTION FIX ===== */
+
+.about-role-chip-floating {
+  right: -8px;
+  bottom: 8%;
+  z-index: 20;
+  max-width: calc(100% - 12px);
+  animation: emerald-card-float 5s ease-in-out infinite;
+}
+
+@keyframes emerald-card-float {
+  0%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -7px, 0);
+  }
+}
+
+/* Subtle portrait lighting */
+.about-portrait-glow {
+  animation: emerald-glow-pulse 6s ease-in-out infinite;
+}
+
+@keyframes emerald-glow-pulse {
+  0%, 100% {
+    opacity: 0.65;
+    transform: scale(0.96);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+}
+
+/* Keep animations comfortable for reduced-motion users */
+@media (prefers-reduced-motion: reduce) {
+  .about-role-chip-floating,
+  .about-portrait-glow {
+    animation: none !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .about-role-chip-floating {
+    right: 0;
+    bottom: 3%;
+  }
+}
+
+/* ===== EXPERIENCE & EDUCATION: EMERALD SHOWCASE ===== */
+
+#experience.experience-showcase {
+  isolation: isolate;
+  background:
+    radial-gradient(ellipse at 12% 25%, rgba(0, 180, 125, 0.055), transparent 28rem),
+    radial-gradient(ellipse at 90% 75%, rgba(0, 220, 160, 0.055), transparent 30rem),
+    linear-gradient(115deg, #020807 0%, #03100e 50%, #010605 100%);
+}
+
+.experience-ambient-glow {
+  position: absolute;
+  z-index: 0;
+  width: clamp(220px, 30vw, 380px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: rgba(0, 220, 160, 0.07);
+  filter: blur(90px);
+  pointer-events: none;
+}
+
+.experience-ambient-glow-left {
+  top: 14%;
+  left: -16%;
+}
+
+.experience-ambient-glow-right {
+  right: -16%;
+  bottom: 8%;
+}
+
+.experience-gradient-text {
+  background: linear-gradient(115deg, #d8fff1 0%, #10d6a0 72%, #00a979 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.experience-heading-amp {
+  color: rgba(255, 255, 255, 0.48);
+}
+
+.timeline-node {
+  background: #10d6a0;
+  box-shadow: 0 0 0 5px rgba(16, 214, 160, 0.07),
+    0 0 16px rgba(16, 214, 160, 0.5);
+}
+
+.timeline-glass-card {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.035),
+    rgba(255, 255, 255, 0.012)
+  );
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+  transition:
+    border-color 260ms ease,
+    background-color 260ms ease,
+    transform 260ms ease,
+    box-shadow 260ms ease;
+}
+
+.timeline-glass-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(16, 214, 160, 0.27);
+  background-color: rgba(16, 214, 160, 0.025);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.2),
+    0 0 24px rgba(16, 214, 160, 0.035);
+}
+
+@media (max-width: 640px) {
+  #experience.experience-showcase {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+
+  .experience-ambient-glow {
+    filter: blur(60px);
+  }
+
+  .timeline-glass-card:hover {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .timeline-glass-card {
+    transition: none;
+  }
+
+  .timeline-glass-card:hover {
+    transform: none;
+  }
+}
+
+/* ===== PROJECTS: EMERALD GLASS SHOWCASE ===== */
+
+#project.project-showcase {
+  isolation: isolate;
+  background:
+    radial-gradient(ellipse at 10% 15%, rgba(0, 180, 125, 0.055), transparent 30rem),
+    radial-gradient(ellipse at 92% 78%, rgba(0, 220, 160, 0.06), transparent 28rem),
+    linear-gradient(115deg, #020807 0%, #03100e 50%, #010605 100%);
+}
+
+.project-ambient-glow {
+  position: absolute;
+  z-index: 0;
+  width: clamp(220px, 28vw, 380px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: rgba(0, 220, 160, 0.065);
+  filter: blur(90px);
+  pointer-events: none;
+}
+
+.project-ambient-glow-left {
+  top: 10%;
+  left: -18%;
+}
+
+.project-ambient-glow-right {
+  right: -18%;
+  bottom: 5%;
+}
+
+.project-gradient-text {
+  background: linear-gradient(115deg, #d8fff1 0%, #10d6a0 72%, #00a979 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.project-glass-card {
+  background: linear-gradient(
+    140deg,
+    rgba(255, 255, 255, 0.035),
+    rgba(255, 255, 255, 0.012)
+  );
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+  transition:
+    border-color 280ms ease,
+    background-color 280ms ease,
+    box-shadow 280ms ease;
+}
+
+.project-glass-card:hover {
+  border-color: rgba(16, 214, 160, 0.28);
+  background-color: rgba(16, 214, 160, 0.025);
+  box-shadow:
+    0 22px 55px rgba(0, 0, 0, 0.22),
+    0 0 30px rgba(16, 214, 160, 0.035);
+}
+
+.project-card-glow {
+  background: rgba(16, 214, 160, 0.09);
+  filter: blur(55px);
+}
+
+.project-tech-pill {
+  border-color: rgba(99, 255, 205, 0.12);
+  background: rgba(11, 30, 24, 0.48);
+  color: #aebfb7;
+  transition:
+    border-color 220ms ease,
+    background-color 220ms ease,
+    color 220ms ease;
+}
+
+.project-glass-card:hover .project-tech-pill {
+  border-color: rgba(16, 214, 160, 0.19);
+}
+
+.project-tech-pill:hover {
+  background: rgba(16, 214, 160, 0.07);
+  color: #effff8;
+}
+
+.project-primary-link {
+  background: linear-gradient(115deg, #10d6a0, #68f5c4);
+  box-shadow: 0 0 22px rgba(16, 214, 160, 0.09);
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease,
+    filter 220ms ease;
+}
+
+.project-primary-link:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.06);
+  box-shadow: 0 8px 28px rgba(16, 214, 160, 0.2);
+}
+
+@media (max-width: 640px) {
+  #project.project-showcase {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+
+  .project-ambient-glow {
+    filter: blur(60px);
+  }
+
+  .project-glass-card:hover {
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-glass-card,
+  .project-tech-pill,
+  .project-primary-link {
+    transition: none;
+  }
+
+  .project-primary-link:hover {
+    transform: none;
+  }
+}
+
+
+/* ===== CONTACT: EMERALD GLASS SHOWCASE ===== */
+
+#contact.contact-showcase {
+  isolation: isolate;
+  background:
+    radial-gradient(ellipse at 15% 25%, rgba(0, 180, 125, 0.055), transparent 28rem),
+    radial-gradient(ellipse at 85% 75%, rgba(0, 220, 160, 0.065), transparent 30rem),
+    linear-gradient(115deg, #020807 0%, #03100e 50%, #010605 100%);
+}
+
+.contact-ambient-glow {
+  position: absolute;
+  z-index: 0;
+  width: clamp(220px, 30vw, 390px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: rgba(0, 220, 160, 0.07);
+  filter: blur(90px);
+  pointer-events: none;
+}
+
+.contact-ambient-glow-left {
+  top: 10%;
+  left: -18%;
+}
+
+.contact-ambient-glow-right {
+  right: -18%;
+  bottom: 8%;
+}
+
+.contact-gradient-text {
+  background: linear-gradient(115deg, #d8fff1 0%, #10d6a0 72%, #00a979 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.contact-glass-panel {
+  background: linear-gradient(
+    140deg,
+    rgba(255, 255, 255, 0.035),
+    rgba(255, 255, 255, 0.012)
+  );
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.2);
+}
+
+.contact-input {
+  border-color: rgba(255, 255, 255, 0.1);
+  transition:
+    border-color 220ms ease,
+    background-color 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.contact-input:focus {
+  border-color: rgba(16, 214, 160, 0.55);
+  background-color: rgba(16, 214, 160, 0.035);
+  box-shadow: 0 0 0 3px rgba(16, 214, 160, 0.07);
+}
+
+.contact-input:focus-visible {
+  outline: 2px solid rgba(16, 214, 160, 0.45);
+  outline-offset: 2px;
+}
+
+.contact-submit-button {
+  background: linear-gradient(115deg, #10d6a0, #68f5c4);
+  box-shadow: 0 0 25px rgba(16, 214, 160, 0.1);
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease,
+    filter 220ms ease;
+}
+
+.contact-submit-button:hover:not(:disabled) {
+  filter: brightness(1.06);
+  box-shadow: 0 8px 30px rgba(16, 214, 160, 0.2);
+}
+
+.contact-submit-button:focus-visible {
+  outline: 2px solid #68f5c4;
+  outline-offset: 4px;
+}
+
+@media (max-width: 640px) {
+  #contact.contact-showcase {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+
+  .contact-ambient-glow {
+    filter: blur(60px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-input,
+  .contact-submit-button {
+    transition: none;
+  }
+}
+
+
+/* ===== GLOBAL PORTFOLIO WIDTH FIX ===== */
+
+:root {
+  --portfolio-max-width: 1440px;
+  --portfolio-side-padding: clamp(20px, 5vw, 88px);
+}
+
+/* Prevent accidental horizontal overflow */
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+}
+
+body {
+  overflow-x: clip;
+}
+
+/* Give all major sections a consistent, generous layout */
+#home,
+#about,
+#experience,
+#project,
+#contact {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Widen common section containers without changing mobile layouts */
+#home > .mx-auto,
+#about > .mx-auto,
+#experience > .mx-auto,
+#project > .mx-auto,
+#contact > .mx-auto {
+  width: 100%;
+  max-width: var(--portfolio-max-width);
+  padding-left: var(--portfolio-side-padding);
+  padding-right: var(--portfolio-side-padding);
+}
+
+/* Keep grids from forcing their parent to shrink */
+#home *,
+#about *,
+#experience *,
+#project *,
+#contact * {
+  min-width: 0;
+}
+
+/* Larger desktop canvas */
+@media (min-width: 1280px) {
+  :root {
+    --portfolio-side-padding: clamp(48px, 5vw, 88px);
+  }
+}
+
+/* Compact but comfortable on phones */
+@media (max-width: 640px) {
+  :root {
+    --portfolio-side-padding: 20px;
+  }
+}
+
+--- File: src\components\client-view\about\index.js ---
+"use client";
+
+import { motion, useReducedMotion } from "framer-motion";
+import Image from "next/image";
+import about from "../../../assets/about.png";
+
+export default function AboutClientView({ data }) {
+  const aboutData = data?.[0];
+  const reduceMotion = useReducedMotion();
+
+  const skills = aboutData?.skills
+    ? aboutData.skills
+        .split(",")
+        .map((skill) => skill.trim())
+        .filter(Boolean)
+    : [];
+
+  const reveal = (x = 0, y = 24) => ({
+    initial: {
+      opacity: 0,
+      x: reduceMotion ? 0 : x,
+      y: reduceMotion ? 0 : y,
+    },
+    whileInView: { opacity: 1, x: 0, y: 0 },
+    viewport: { once: true, amount: 0.2 },
+    transition: {
+      duration: reduceMotion ? 0 : 0.65,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  });
+
+  return (
+    <section
+      id="about"
+      className="about-showcase relative isolate mx-auto w-full max-w-6xl overflow-hidden px-5 py-24 sm:px-8 lg:px-10"
+    >
+      <div aria-hidden="true" className="about-dots about-dots-left" />
+      <div aria-hidden="true" className="about-dots about-dots-right" />
+
+      <motion.div {...reveal()} className="relative z-10 mb-14 max-w-3xl">
+        <span className="mb-4 inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.28em] text-emerald-400">
+          <span className="h-px w-8 bg-emerald-400" />
+          About me
+        </span>
+
+        <h2 className="text-3xl font-semibold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
+          Building ideas into{" "}
+          <span className="about-gradient-text">digital experiences.</span>
+        </h2>
+
+        <p className="mt-5 max-w-2xl text-sm leading-7 text-zinc-400 sm:text-base">
+          {aboutData?.aboutme ||
+            "I enjoy building modern, responsive and user-friendly web applications."}
+        </p>
+      </motion.div>
+
+      <motion.div
+        {...reveal(0, 18)}
+        className="relative z-10 mb-16 grid grid-cols-3 border-y border-emerald-300/10 py-6"
+      >
+        {[
+          { value: aboutData?.noofclients || "0", label: "Clients" },
+          { value: aboutData?.noofprojects || "0", label: "Projects" },
+          {
+            value: aboutData?.yearsofexperience || "0",
+            label: "Experience",
+          },
+        ].map((stat, index) => (
+          <div
+            key={stat.label}
+            className={`text-center ${
+              index !== 2 ? "border-r border-white/10" : ""
+            }`}
+          >
+            <p className="text-2xl font-semibold tracking-tight text-white sm:text-4xl">
+              {stat.value}
+              <span className="text-emerald-400">+</span>
+            </p>
+            <p className="mt-2 text-[10px] uppercase tracking-[0.2em] text-zinc-500 sm:text-xs">
+              {stat.label}
+            </p>
+          </div>
+        ))}
+      </motion.div>
+
+      <div className="about-composition relative grid items-center gap-12 md:grid-cols-[1fr_0.85fr] md:gap-16 lg:gap-24">
+        <svg
+          aria-hidden="true"
+          className="about-circuit-line pointer-events-none absolute inset-0 hidden h-full w-full md:block"
+          viewBox="0 0 1200 560"
+          preserveAspectRatio="none"
+          fill="none"
+        >
+          <path
+            d="M 390 340 H 510 L 565 285 V 245 H 650"
+            stroke="rgba(16,214,160,0.42)"
+            strokeWidth="1.5"
+          />
+          <circle cx="390" cy="340" r="3" fill="#10d6a0" />
+          <circle cx="650" cy="245" r="3" fill="#10d6a0" />
+        </svg>
+
+        <motion.div
+          {...reveal(-24, 0)}
+          className="relative mx-auto w-full max-w-[500px]"
+        >
+          <div aria-hidden="true" className="about-portrait-glow" />
+          <div aria-hidden="true" className="about-ring about-ring-outer" />
+          <div aria-hidden="true" className="about-ring about-ring-middle" />
+          <div aria-hidden="true" className="about-ring about-ring-inner" />
+
+          <div className="about-portrait relative z-10 mx-auto aspect-square w-[min(72vw,390px)] max-w-[390px]">
+            <Image
+              src={about}
+              alt="Portrait"
+              fill
+              sizes="(max-width: 768px) 75vw, 380px"
+              className="about-portrait-image object-cover"
+            />
+          </div>
+
+          <div className="about-role-chip about-role-chip-floating">
+            <span className="about-status-dot" />
+            <div>
+              <p className="text-xs font-semibold text-white">
+                Software Developer
+              </p>
+              <p className="mt-1 text-[10px] text-zinc-400">
+                Building for the web
+              </p>
+            </div>
+          </div>
+        </motion.div>
+
+        <motion.div {...reveal(24, 0)} className="relative z-10">
+          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-emerald-400">
+            A little about me
+          </p>
+
+          <h3 className="mt-4 text-2xl font-semibold leading-snug text-white sm:text-3xl">
+            Turning complex ideas into clean, useful products.
+          </h3>
+
+          <p className="mt-5 text-sm leading-8 text-zinc-400 sm:text-base">
+            {aboutData?.aboutme ||
+              "I build modern web applications with a focus on clean interfaces, responsive experiences and maintainable code."}
+          </p>
+
+          <div className="mt-9">
+            <div className="mb-4 flex items-center justify-between gap-4">
+              <h4 className="text-sm font-semibold text-white">My toolkit</h4>
+              <span className="text-[10px] uppercase tracking-[0.16em] text-zinc-500">
+                Technologies & tools
+              </span>
+            </div>
+
+            <div className="flex flex-wrap gap-2.5">
+              {skills.map((skill, index) => (
+                <motion.span
+                  key={`${skill}-${index}`}
+                  whileHover={
+                    reduceMotion ? undefined : { y: -3, scale: 1.025 }
+                  }
+                  transition={{ duration: 0.2 }}
+                  className="about-skill-pill"
+                >
+                  <span className="about-skill-dot" />
+                  {skill}
+                </motion.span>
+              ))}
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+
+--- File: src\components\client-view\animation-wrapper\index.js ---
+'use client'
+
+import { motion } from 'framer-motion';
+
+export default function AnimationWrapper({children, className, ...props}) {
+return (
+    <motion.div
+    initial='offscreen'
+    whileInView={'onscreen'}
+     viewport={{once:true, amount:'0.8'}}
+     className={className}
+     {...props}
+    >
+        {children}
+    </motion.div>
+)
+}
+
+--- File: src\components\client-view\common-layout\index.js ---
+'use client'
+import { usePathname } from "next/navigation";
+import Navbar from "../navbar";
+
+export default function CommonLayout({children}){
+    const pathName = usePathname();
+    return ( 
+        <div>
+            {pathName!=='/admin' ? <Navbar/> : null}
+            {children}
+        </div>
+    )
+}
+
+--- File: src\components\client-view\contact\index.js ---
+"use client";
+
+import { useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
+import { FaPaperPlane, FaCheckCircle } from "react-icons/fa";
+
+export default function ContactClientView() {
+  const reduceMotion = useReducedMotion();
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState("");
+  const [success, setSuccess] = useState(false);
+
+  function handleChange(e) {
+    const { name, value } = e.target;
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+
+    if (status) {
+      setStatus("");
+      setSuccess(false);
+    }
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+
+    if (loading) return;
+
+    setLoading(true);
+    setStatus("");
+    setSuccess(false);
+
+    try {
+      const response = await fetch("/api/contact/add", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        setStatus("Message sent successfully! I'll be in touch soon.");
+        setSuccess(true);
+
+        setFormData({
+          name: "",
+          email: "",
+          message: "",
+        });
+      } else {
+        setStatus(
+          result.message || "Something went wrong. Please try again."
+        );
+      }
+    } catch (error) {
+      console.error("Contact Form Error:", error);
+      setStatus("Unable to send your message. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  const fieldClass =
+    "contact-input w-full rounded-xl border bg-black/25 px-4 py-3.5 text-sm text-white placeholder:text-zinc-600 outline-none transition-all duration-300";
+
+  const reveal = {
+    initial: {
+      opacity: 0,
+      y: reduceMotion ? 0 : 22,
+    },
+    whileInView: {
+      opacity: 1,
+      y: 0,
+    },
+    viewport: {
+      once: true,
+      amount: 0.15,
+    },
+    transition: {
+      duration: reduceMotion ? 0 : 0.6,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  };
+
+  return (
+    <section
+      id="contact"
+      className="contact-showcase relative isolate mx-auto max-w-7xl overflow-hidden px-5 py-24 sm:px-8 lg:px-12"
+    >
+      {/* AMBIENT LIGHTING */}
+      <div
+        aria-hidden="true"
+        className="contact-ambient-glow contact-ambient-glow-left"
+      />
+      <div
+        aria-hidden="true"
+        className="contact-ambient-glow contact-ambient-glow-right"
+      />
+
+      {/* HEADER */}
+      <motion.div
+        {...reveal}
+        className="relative z-10 mb-12 text-center sm:mb-14"
+      >
+        <div className="mb-5 flex items-center justify-center gap-3">
+          <span className="h-px w-8 bg-emerald-400" />
+
+          <span className="text-[10px] font-semibold uppercase tracking-[0.28em] text-emerald-300 sm:text-xs">
+            Get in touch
+          </span>
+
+          <span className="h-px w-8 bg-emerald-400" />
+        </div>
+
+        <h2 className="text-3xl font-semibold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
+          Have an idea?
+          <br />
+          <span className="contact-gradient-text">
+            Lets build it together.
+          </span>
+        </h2>
+
+        <p className="mx-auto mt-5 max-w-xl text-sm leading-7 text-zinc-400 sm:text-base sm:leading-8">
+          Have a project, opportunity, or idea to discuss? Send me a
+          message and lets explore what we can create.
+        </p>
+      </motion.div>
+
+      {/* CONTACT FORM */}
+      <motion.div
+        {...reveal}
+        transition={{
+          ...reveal.transition,
+          delay: reduceMotion ? 0 : 0.1,
+        }}
+        className="contact-glass-panel relative z-10 mx-auto max-w-3xl overflow-hidden rounded-3xl border border-white/[0.09] p-5 sm:p-8 md:p-10"
+      >
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-10 top-0 h-px bg-gradient-to-r from-transparent via-emerald-300/50 to-transparent"
+        />
+
+        <div className="mb-8 flex items-center gap-4">
+          <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-emerald-300/15 bg-emerald-300/[0.06] text-emerald-300">
+            <FaPaperPlane size={15} />
+          </div>
+
+          <div>
+            <h3 className="text-base font-semibold text-white sm:text-lg">
+              Send a message
+            </h3>
+            <p className="mt-1 text-xs text-zinc-500">
+              I will get back to you as soon as I can.
+            </p>
+          </div>
+        </div>
+
+        <form onSubmit={handleSubmit}>
+          {/* NAME + EMAIL */}
+          <div className="grid gap-5 sm:grid-cols-2">
+            <div>
+              <label
+                htmlFor="contact-name"
+                className="mb-2.5 block text-xs font-medium text-zinc-300"
+              >
+                Your name <span className="text-emerald-400">*</span>
+              </label>
+
+              <input
+                id="contact-name"
+                name="name"
+                type="text"
+                autoComplete="name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+                maxLength={100}
+                placeholder="John Doe"
+                className={fieldClass}
+              />
+            </div>
+
+            <div>
+              <label
+                htmlFor="contact-email"
+                className="mb-2.5 block text-xs font-medium text-zinc-300"
+              >
+                Email address <span className="text-emerald-400">*</span>
+              </label>
+
+              <input
+                id="contact-email"
+                name="email"
+                type="email"
+                autoComplete="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+                maxLength={254}
+                placeholder="you@example.com"
+                className={fieldClass}
+              />
+            </div>
+          </div>
+
+          {/* MESSAGE */}
+          <div className="mt-6">
+            <div className="mb-2.5 flex items-center justify-between gap-3">
+              <label
+                htmlFor="contact-message"
+                className="text-xs font-medium text-zinc-300"
+              >
+                Your message <span className="text-emerald-400">*</span>
+              </label>
+
+              <span className="text-[10px] tabular-nums text-zinc-600">
+                {formData.message.length}/2000
+              </span>
+            </div>
+
+            <textarea
+              id="contact-message"
+              name="message"
+              value={formData.message}
+              onChange={handleChange}
+              required
+              maxLength={2000}
+              placeholder="Tell me about your idea, project, or opportunity..."
+              rows={6}
+              className={`${fieldClass} resize-y leading-7`}
+            />
+          </div>
+
+          {/* STATUS */}
+          {status && (
+            <motion.div
+              initial={{
+                opacity: 0,
+                y: reduceMotion ? 0 : 6,
+              }}
+              animate={{ opacity: 1, y: 0 }}
+              role={success ? "status" : "alert"}
+              aria-live={success ? "polite" : "assertive"}
+              className={`mt-5 flex items-start gap-3 rounded-xl border px-4 py-3.5 text-sm ${
+                success
+                  ? "border-emerald-300/20 bg-emerald-300/[0.05] text-emerald-300"
+                  : "border-red-400/20 bg-red-400/[0.05] text-red-300"
+              }`}
+            >
+              {success && (
+                <FaCheckCircle className="mt-0.5 shrink-0" />
+              )}
+              <p>{status}</p>
+            </motion.div>
+          )}
+
+          {/* SUBMIT */}
+          <div className="mt-7 flex flex-col gap-4 border-t border-white/[0.07] pt-6 sm:flex-row sm:items-center sm:justify-between">
+            <p className="text-[11px] leading-5 text-zinc-500">
+              Your details will only be used to respond to your message.
+            </p>
+
+            <motion.button
+              type="submit"
+              disabled={loading}
+              whileHover={
+                reduceMotion || loading ? undefined : { y: -2 }
+              }
+              whileTap={
+                reduceMotion || loading ? undefined : { scale: 0.98 }
+              }
+              className="contact-submit-button inline-flex min-h-12 items-center justify-center gap-3 rounded-full px-6 py-3 text-sm font-semibold text-black disabled:cursor-not-allowed disabled:opacity-60"
+            >
+              {loading ? (
+                <>
+                  <span className="h-4 w-4 animate-spin rounded-full border-2 border-black/25 border-t-black" />
+                  Sending...
+                </>
+              ) : (
+                <>
+                  Send Message
+                  <FaPaperPlane size={12} />
+                </>
+              )}
+            </motion.button>
+          </div>
+        </form>
+      </motion.div>
+
+      {/* FOOTER ACCENT */}
+      <div className="relative z-10 mx-auto mt-16 flex max-w-4xl items-center gap-4">
+        <div className="h-px flex-1 bg-gradient-to-r from-transparent to-emerald-300/20" />
+        <span className="text-[9px] uppercase tracking-[0.25em] text-zinc-600">
+          Lets connect
+        </span>
+        <div className="h-px flex-1 bg-gradient-to-l from-transparent to-emerald-300/20" />
+      </div>
+    </section>
+  );
+}
+
+
+--- File: src\components\client-view\experience\index.js ---
+"use client";
+
+import { motion, useReducedMotion } from "framer-motion";
+
+function TimelineItem({ children, isLast, index, reduceMotion }) {
+  return (
+    <motion.div
+      initial={{
+        opacity: 0,
+        x: reduceMotion ? 0 : 18,
+        y: reduceMotion ? 0 : 8,
+      }}
+      whileInView={{ opacity: 1, x: 0, y: 0 }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{
+        duration: reduceMotion ? 0 : 0.55,
+        delay: reduceMotion ? 0 : Math.min(index * 0.1, 0.3),
+        ease: [0.22, 1, 0.36, 1],
+      }}
+      className="relative flex gap-4 sm:gap-5"
+    >
+      {/* TIMELINE */}
+      <div className="relative flex w-4 shrink-0 justify-center">
+        <span className="timeline-node relative z-10 mt-6 h-2.5 w-2.5 rounded-full" />
+
+        {!isLast && (
+          <span
+            aria-hidden="true"
+            className="absolute bottom-0 left-1/2 top-9 w-px -translate-x-1/2 bg-gradient-to-b from-emerald-400/50 via-emerald-400/15 to-transparent"
+          />
+        )}
+      </div>
+
+      {/* CARD */}
+      <div className="mb-6 min-w-0 flex-1">{children}</div>
+    </motion.div>
+  );
+}
+
+function SectionIcon({ children }) {
+  return (
+    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-emerald-300/15 bg-emerald-300/[0.06] text-sm text-emerald-300 shadow-[0_0_24px_rgba(16,214,160,0.04)]">
+      {children}
+    </div>
+  );
+}
+
+function TimelineCard({ children }) {
+  return (
+    <div className="timeline-glass-card group relative overflow-hidden rounded-2xl border border-white/[0.09] p-5 sm:p-6">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute left-0 top-5 h-10 w-px bg-emerald-400/0 transition-colors duration-300 group-hover:bg-emerald-400/80"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-5 top-0 h-px bg-gradient-to-r from-transparent via-emerald-300/0 to-transparent transition-colors duration-300 group-hover:via-emerald-300/40"
+      />
+      {children}
+    </div>
+  );
+}
+
+export default function ExperienceAndEducationClientView({
+  experience,
+  education,
+}) {
+  const reduceMotion = useReducedMotion();
+
+  const introAnimation = {
+    initial: { opacity: 0, y: reduceMotion ? 0 : 18 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true },
+    transition: { duration: reduceMotion ? 0 : 0.6 },
+  };
+
+  return (
+    <section
+      id="experience"
+      className="experience-showcase relative isolate mx-auto max-w-7xl overflow-hidden px-5 py-24 sm:px-8 lg:px-12"
+    >
+      {/* BACKGROUND DECOR */}
+      <div
+        aria-hidden="true"
+        className="experience-ambient-glow experience-ambient-glow-left"
+      />
+      <div
+        aria-hidden="true"
+        className="experience-ambient-glow experience-ambient-glow-right"
+      />
+
+      {/* HEADER */}
+      <motion.div
+        {...introAnimation}
+        className="relative z-10 mb-14 max-w-3xl sm:mb-16"
+      >
+        <div className="mb-4 flex items-center gap-3">
+          <span className="h-px w-8 bg-emerald-400" />
+          <span className="text-[10px] font-semibold uppercase tracking-[0.28em] text-emerald-300 sm:text-xs">
+            The journey so far
+          </span>
+        </div>
+
+        <h2 className="text-3xl font-semibold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
+          Experience <span className="experience-heading-amp">&</span>
+          <br className="hidden sm:block" />{" "}
+          <span className="experience-gradient-text">Education.</span>
+        </h2>
+
+        <p className="mt-5 max-w-2xl text-sm leading-7 text-zinc-400 sm:text-base sm:leading-8">
+          The milestones, experiences and learning that continue to
+          shape my journey as a developer.
+        </p>
+      </motion.div>
+
+      {/* EXPERIENCE + EDUCATION */}
+      <div className="relative z-10 grid gap-12 lg:grid-cols-2 lg:gap-14">
+        {/* EXPERIENCE */}
+        <motion.div {...introAnimation}>
+          <div className="mb-7 flex items-center gap-4">
+            <SectionIcon>{"</>"}</SectionIcon>
+            <div>
+              <h3 className="text-lg font-semibold text-white sm:text-xl">
+                Experience
+              </h3>
+              <p className="mt-1 text-xs text-zinc-500">
+                Professional journey
+              </p>
+            </div>
+          </div>
+
+          {experience?.length ? (
+            <div>
+              {experience.map((item, index) => (
+                <TimelineItem
+                  key={item._id || index}
+                  index={index}
+                  reduceMotion={reduceMotion}
+                  isLast={index === experience.length - 1}
+                >
+                  <TimelineCard>
+                    <p className="mb-3 inline-flex rounded-full border border-emerald-300/15 bg-emerald-300/[0.06] px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.15em] text-emerald-300 sm:text-xs">
+                      {item.duration}
+                    </p>
+
+                    <h4 className="text-base font-semibold leading-snug text-white sm:text-lg">
+                      {item.company}
+                    </h4>
+
+                    <p className="mt-2 text-sm font-medium text-emerald-100/80">
+                      {item.position}
+                    </p>
+
+                    {item.jobprofile && (
+                      <p className="mt-4 whitespace-pre-line text-sm leading-7 text-zinc-400">
+                        {item.jobprofile}
+                      </p>
+                    )}
+
+                    {item.location && (
+                      <div className="mt-5 flex items-center gap-2 border-t border-white/[0.07] pt-4 text-xs text-zinc-500">
+                        <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                        {item.location}
+                      </div>
+                    )}
+                  </TimelineCard>
+                </TimelineItem>
+              ))}
+            </div>
+          ) : (
+            <div className="timeline-glass-card rounded-2xl border border-white/[0.09] p-6">
+              <p className="text-sm leading-7 text-zinc-400">
+                Experience details will be added here.
+              </p>
+            </div>
+          )}
+        </motion.div>
+
+        {/* EDUCATION */}
+        <motion.div {...introAnimation}>
+          <div className="mb-7 flex items-center gap-4">
+            <SectionIcon>✦</SectionIcon>
+            <div>
+              <h3 className="text-lg font-semibold text-white sm:text-xl">
+                Education
+              </h3>
+              <p className="mt-1 text-xs text-zinc-500">
+                Academic background
+              </p>
+            </div>
+          </div>
+
+          {education?.length ? (
+            <div>
+              {education.map((item, index) => (
+                <TimelineItem
+                  key={item._id || index}
+                  index={index}
+                  reduceMotion={reduceMotion}
+                  isLast={index === education.length - 1}
+                >
+                  <TimelineCard>
+                    <p className="mb-3 inline-flex rounded-full border border-emerald-300/15 bg-emerald-300/[0.06] px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.15em] text-emerald-300 sm:text-xs">
+                      {item.year}
+                    </p>
+
+                    <h4 className="text-base font-semibold leading-snug text-white sm:text-lg">
+                      {item.college}
+                    </h4>
+
+                    <p className="mt-2 text-sm leading-7 text-zinc-400">
+                      {item.degree}
+                    </p>
+                  </TimelineCard>
+                </TimelineItem>
+              ))}
+            </div>
+          ) : (
+            <div className="timeline-glass-card rounded-2xl border border-white/[0.09] p-6">
+              <p className="text-sm leading-7 text-zinc-400">
+                Education details will be added here.
+              </p>
+            </div>
+          )}
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+
+--- File: src\components\client-view\home\index.js ---
+
+"use client";
+
+import AnimationWrapper from "../animation-wrapper";
+import { motion, useReducedMotion } from "framer-motion";
+import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa";
+import Image from "next/image";
+import { Link as LinkScroll } from "react-scroll";
+import home from "../../../assets/home.png";
+
+const socialLinks = [
+  { id: "github", label: "GitHub", icon: <FaGithub />, href: "https://github.com/mohammedmuqtadir41-cmyk" },
+  { id: "linkedin", label: "LinkedIn", icon: <FaLinkedin />, href: "#" },
+  { id: "instagram", label: "Instagram", icon: <FaInstagram />, href: "#" },
+];
+
+const technologies = [
+  "React",
+  "Next.js",
+  "JavaScript",
+  "Node.js",
+  "MongoDB",
+  "Tailwind CSS",
+];
+
+export default function HomeClientView({ data }) {
+  const homeData = data?.[0];
+  const reduceMotion = useReducedMotion();
+
+  const enterFrom = (x, y = 0) => ({
+    initial: {
+      opacity: 0,
+      x: reduceMotion ? 0 : x,
+      y: reduceMotion ? 0 : y,
+    },
+    animate: { opacity: 1, x: 0, y: 0 },
+    transition: {
+      duration: reduceMotion ? 0 : 0.8,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  });
+
+  return (
+    <section
+      id="home"
+      className="relative isolate flex min-h-screen items-center overflow-hidden px-5 pb-24 pt-28 sm:px-8 lg:px-12"
+    >
+      <div
+        aria-hidden="true"
+        className="home-ambient-glow home-ambient-glow-left"
+      />
+      <div
+        aria-hidden="true"
+        className="home-ambient-glow home-ambient-glow-right"
+      />
+      <div
+        aria-hidden="true"
+        className="home-corner-dots home-corner-dots-left"
+      />
+      <div
+        aria-hidden="true"
+        className="home-corner-dots home-corner-dots-right"
+      />
+
+      <div className="relative z-10 mx-auto w-full max-w-none">
+        <AnimationWrapper>
+          <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10">
+            {/* INTRODUCTION */}
+            <motion.div
+              {...enterFrom(-35, 0)}
+              className="order-2 min-w-0 lg:order-1"
+            >
+              <div className="mb-7 inline-flex max-w-full items-center gap-3 rounded-full border border-emerald-300/15 bg-emerald-300/[0.05] px-4 py-2.5 backdrop-blur-xl">
+                <span className="relative flex h-2 w-2 shrink-0">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+                </span>
+                <span className="text-[10px] font-medium uppercase tracking-[0.15em] text-emerald-100/80 sm:text-xs sm:tracking-[0.2em]">
+                  Available for opportunities
+                </span>
+              </div>
+
+              <h1 className="max-w-3xl text-4xl font-semibold leading-[1.08] tracking-[-0.045em] text-white sm:text-5xl md:text-6xl lg:text-7xl">
+                {homeData?.heading ? (
+                  homeData.heading.split(" ").map((word, index) => (
+                    <span
+                      key={`${word}-${index}`}
+                      className={
+                        index === 2 || index === 3
+                          ? "home-gradient-text"
+                          : ""
+                      }
+                    >
+                      {word}{" "}
+                    </span>
+                  ))
+                ) : (
+                  <>
+                    Building digital
+                    <br />
+                    <span className="home-gradient-text">
+                      experiences.
+                    </span>
+                  </>
+                )}
+              </h1>
+
+              <p className="mt-7 max-w-xl text-sm leading-8 text-zinc-400 sm:text-base sm:leading-8">
+                {homeData?.summary ||
+                  "I build modern, responsive and scalable web applications using React, Next.js and Node.js."}
+              </p>
+
+              {/* CALL TO ACTION */}
+              <div className="mt-9 flex flex-wrap items-center gap-4">
+                <LinkScroll
+                  to="project"
+                  smooth
+                  duration={800}
+                  offset={-80}
+                  className="home-primary-button group inline-flex cursor-pointer items-center gap-3 rounded-full px-6 py-3.5 text-sm font-semibold text-black"
+                >
+                  View My Work
+                  <span className="transition-transform duration-300 group-hover:translate-x-1">
+                    ↗
+                  </span>
+                </LinkScroll>
+
+                <LinkScroll
+                  to="contact"
+                  smooth
+                  duration={800}
+                  offset={-80}
+                  className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-white/10 bg-white/[0.025] px-6 py-3.5 text-sm font-medium text-white backdrop-blur-xl transition-all duration-300 hover:border-emerald-300/40 hover:bg-emerald-300/[0.06]"
+                >
+                  Lets Talk
+                  <span className="text-emerald-400">↗</span>
+                </LinkScroll>
+              </div>
+
+              {/* SOCIAL LINKS */}
+              <div className="mt-9 flex items-center gap-3">
+                {socialLinks.map((social) => (
+                  <a
+                    key={social.id}
+                    href={social.href}
+                    aria-label={social.label}
+                    target={social.href !== "#" ? "_blank" : undefined}
+                    rel={
+                      social.href !== "#" ? "noopener noreferrer" : undefined
+                    }
+                    className="flex h-11 w-11 items-center justify-center rounded-full border border-white/[0.09] bg-white/[0.025] text-zinc-400 transition-all duration-300 hover:-translate-y-1 hover:border-emerald-300/40 hover:bg-emerald-300/[0.07] hover:text-emerald-300"
+                  >
+                    {social.icon}
+                  </a>
+                ))}
+              </div>
+
+              {/* TECHNOLOGY STACK */}
+              <div className="mt-11 border-t border-emerald-100/10 pt-6">
+                <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.24em] text-zinc-500 sm:text-xs">
+                  Currently working with
+                </p>
+
+                <div className="flex flex-wrap gap-2">
+                  {technologies.map((tech, index) => (
+                    <motion.span
+                      key={tech}
+                      initial={{ opacity: 0, y: reduceMotion ? 0 : 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{
+                        duration: reduceMotion ? 0 : 0.4,
+                        delay: reduceMotion ? 0 : 0.4 + index * 0.07,
+                      }}
+                      whileHover={reduceMotion ? undefined : { y: -3 }}
+                      className="home-tech-pill"
+                    >
+                      <span className="home-tech-dot" />
+                      {tech}
+                    </motion.span>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+
+            {/* CIRCULAR PORTRAIT COMPOSITION */}
+            <motion.div
+              {...enterFrom(35, 0)}
+              transition={{
+                duration: reduceMotion ? 0 : 0.85,
+                delay: reduceMotion ? 0 : 0.12,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              className="order-1 flex min-w-0 justify-center px-2 pb-5 pt-2 sm:px-6 lg:order-2 lg:px-0 lg:pb-0"
+            >
+              {/* This outer wrapper must remain overflow-visible */}
+              <div className="relative w-full max-w-[450px] overflow-visible">
+                {/* Background glow and decorative rings */}
+                <div
+                  aria-hidden="true"
+                  className="home-portrait-halo pointer-events-none"
+                />
+
+                <div
+                  aria-hidden="true"
+                  className="home-portrait-ring home-portrait-ring-outer pointer-events-none"
+                />
+
+                <div
+                  aria-hidden="true"
+                  className="home-portrait-ring home-portrait-ring-inner pointer-events-none"
+                />
+
+                {/* Corner accents stay outside the circular image */}
+                <div
+                  aria-hidden="true"
+                  className="home-frame-corner home-frame-corner-tl pointer-events-none"
+                />
+
+                <div
+                  aria-hidden="true"
+                  className="home-frame-corner home-frame-corner-br pointer-events-none"
+                />
+
+                {/* Circular image only: clipping is isolated here */}
+                <div className="home-portrait-frame relative z-10 aspect-square overflow-hidden rounded-full">
+                  <Image
+                    src={home}
+                    alt="Mohammed Muqthadir Ahmed"
+                    fill
+                    priority
+                    sizes="(max-width: 768px) 90vw, 450px"
+                    className="home-portrait-image object-cover object-top"
+                  />
+
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-0 rounded-full bg-gradient-to-t from-[#020807]/50 via-transparent to-emerald-300/[0.04]"
+                  />
+
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-x-[15%] bottom-[8%] h-px bg-gradient-to-r from-transparent via-emerald-300/60 to-transparent"
+                  />
+                </div>
+
+                {/* Floating portfolio label, outside the clipped image */}
+                <div className="absolute left-[5%] top-[6%] z-20 flex max-w-[85%] items-center gap-2 rounded-full border border-white/10 bg-[#10231b]/95 px-3 py-2 shadow-lg backdrop-blur-xl">
+                  <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(16,214,160,0.9)]" />
+                  <span className="truncate text-[9px] uppercase tracking-[0.12em] text-white/85 sm:tracking-[0.2em]">
+                    Developer Portfolio
+                  </span>
+                </div>
+
+                {/* Bottom caption, positioned inside the circle */}
+                <div className="pointer-events-none absolute bottom-[7%] left-[9%] z-20 max-w-[65%]">
+                  <p className="text-[8px] font-medium uppercase tracking-[0.15em] text-emerald-300 sm:text-[10px] sm:tracking-[0.25em]">
+                    Design · Develop · Deliver
+                  </p>
+                </div>
+
+                {/* Floating developer card */}
+                <motion.div
+                  animate={reduceMotion ? undefined : { y: [0, -7, 0] }}
+                  transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                  className="home-developer-card absolute -bottom-3 right-0 z-30 max-w-[calc(100%-12px)] sm:-bottom-5 sm:-right-4"
+                >
+                  <div className="flex items-center gap-2 sm:gap-3">
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-emerald-300/15 bg-emerald-300/[0.08] text-sm font-semibold text-emerald-300 sm:h-10 sm:w-10">
+                      {"</>"}
+                    </span>
+
+                    <div className="min-w-0">
+                      <p className="text-[11px] font-semibold text-white sm:text-xs">
+                        Software Developer
+                      </p>
+                      <p className="mt-1 text-[9px] text-zinc-400 sm:text-[10px]">
+                        React · Next.js · Node
+                      </p>
+                    </div>
+                  </div>
+                </motion.div>
+
+                {/* Floating code label */}
+                <div className="home-code-label absolute -left-2 top-[20%] z-30 hidden rounded-xl border border-emerald-300/15 bg-[#04100d]/95 px-3 py-2.5 font-mono text-[10px] text-emerald-200/80 shadow-lg backdrop-blur-xl sm:block sm:-left-7">
+                  <span className="text-zinc-500">const</span> future ={" "}
+                  <span className="text-emerald-300">building</span>;
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </AnimationWrapper>
+      </div>
+    </section>
+  );
+}
+
+
+--- File: src\components\client-view\navbar\index.js ---
+
+"use client";
+
+import { useEffect, useState } from "react";
+import Image from "next/image";
+import { Link as LinkScroll, scroller } from "react-scroll";
+import { motion, AnimatePresence } from "framer-motion";
+
+const menuItems = [
+  { id: "home", label: "Home" },
+  { id: "about", label: "About" },
+  { id: "experience", label: "Experience" },
+  { id: "project", label: "Projects" },
+  { id: "contact", label: "Contact" },
+];
+
+function CreateMenus({ activeLink, getMenuItems, setActiveLink }) {
+  return getMenuItems.map((item) => (
+    <LinkScroll
+      key={item.id}
+      to={item.id}
+      spy
+      smooth
+      duration={800}
+      offset={-90}
+      onSetActive={() => setActiveLink(item.id)}
+      className="relative cursor-pointer px-3 py-2 text-sm font-medium"
+    >
+      <span
+        className={
+          activeLink === item.id
+            ? "text-white"
+            : "text-zinc-400 transition-colors hover:text-white"
+        }
+      >
+        {item.label}
+      </span>
+
+      {activeLink === item.id && (
+        <motion.span
+          layoutId="navbar-active"
+          className="absolute bottom-0 left-1/2 h-[2px] w-5 -translate-x-1/2 rounded-full bg-[#0DB760]"
+          transition={{ type: "spring", stiffness: 400, damping: 30 }}
+        />
+      )}
+    </LinkScroll>
+  ));
+}
+
+export default function Navbar() {
+  const [activeLink, setActiveLink] = useState("home");
+  const [scrollActive, setScrollActive] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollActive(window.scrollY > 30);
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const handleContact = () => {
+    setMobileMenuOpen(false);
+
+    scroller.scrollTo("contact", {
+      duration: 800,
+      smooth: true,
+      offset: -90,
+    });
+  };
+
+  const closeMobileMenu = () => setMobileMenuOpen(false);
+
+  return (
+    <>
+      {/* Main Navbar */}
+      <header className="fixed left-0 right-0 top-0 z-50 px-3 pt-3 sm:px-6 sm:pt-4 lg:px-8">
+        <motion.nav
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className={`
+            mx-auto flex w-full max-w-[1440px] items-center justify-between
+            rounded-2xl px-3 py-3 sm:rounded-full sm:px-4
+            transition-all duration-500
+            ${
+              scrollActive || mobileMenuOpen
+                ? "glass shadow-[0_10px_40px_rgba(0,0,0,0.25)]"
+                : "border border-transparent bg-transparent"
+            }
+          `}
+        >
+          {/* Logo */}
+          <LinkScroll
+            to="home"
+            smooth
+            duration={800}
+            offset={-90}
+            onClick={closeMobileMenu}
+            className="cursor-pointer"
+          >
+            <div className="flex items-center gap-3">
+              <div className="relative h-9 w-9 overflow-hidden rounded-full border border-white/10 bg-white/5">
+                <Image
+                  src="/logo.png"
+                  alt="Mohammed Muqthadir Ahmed"
+                  fill
+                  sizes="36px"
+                  className="object-cover"
+                />
+              </div>
+
+              <div className="hidden sm:block">
+                <p className="text-sm font-semibold text-white">
+                  Muqthadir Ahmed
+                </p>
+                <p className="text-[10px] uppercase tracking-[0.2em] text-zinc-500">
+                  Software Developer
+                </p>
+              </div>
+            </div>
+          </LinkScroll>
+
+          {/* Desktop Navigation */}
+          <div className="hidden items-center gap-1 md:flex">
+            <CreateMenus
+              setActiveLink={setActiveLink}
+              activeLink={activeLink}
+              getMenuItems={menuItems}
+            />
+          </div>
+
+          {/* Desktop CTA */}
+          <button
+            onClick={handleContact}
+            className="hidden rounded-full border border-[#0DB760]/30 bg-[#0DB760]/10 px-4 py-2 text-sm font-semibold text-[#19D879] transition-all duration-300 hover:border-[#0DB760]/60 hover:bg-[#0DB760]/20 hover:shadow-[0_0_25px_rgba(13,183,96,0.15)] md:block"
+          >
+            Lets Talk
+          </button>
+
+          {/* Mobile Controls */}
+          <div className="flex items-center gap-2 md:hidden">
+            <button
+              onClick={handleContact}
+              className="rounded-full border border-[#0DB760]/30 bg-[#0DB760]/10 px-3 py-2 text-xs font-semibold text-[#19D879]"
+            >
+              Contact
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setMobileMenuOpen((open) => !open)}
+              aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+              aria-expanded={mobileMenuOpen}
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white transition-colors hover:border-[#0DB760]/40 hover:bg-[#0DB760]/10"
+            >
+              <span className="flex w-4 flex-col gap-1.5">
+                <motion.span
+                  animate={
+                    mobileMenuOpen
+                      ? { rotate: 45, y: 4 }
+                      : { rotate: 0, y: 0 }
+                  }
+                  className="h-[2px] w-4 rounded-full bg-current"
+                />
+                <motion.span
+                  animate={{
+                    opacity: mobileMenuOpen ? 0 : 1,
+                    x: mobileMenuOpen ? 8 : 0,
+                  }}
+                  className="h-[2px] w-4 rounded-full bg-current"
+                />
+                <motion.span
+                  animate={
+                    mobileMenuOpen
+                      ? { rotate: -45, y: -4 }
+                      : { rotate: 0, y: 0 }
+                  }
+                  className="h-[2px] w-4 rounded-full bg-current"
+                />
+              </span>
+            </button>
+          </div>
+        </motion.nav>
+
+        {/* Mobile Dropdown */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -8, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -8, scale: 0.98 }}
+              transition={{ duration: 0.2 }}
+              className="glass mx-auto mt-2 max-w-[1440px] overflow-hidden rounded-2xl border border-white/10 p-2 shadow-[0_20px_60px_rgba(0,0,0,0.45)] md:hidden"
+            >
+              <div className="flex flex-col">
+                {menuItems.map((item, index) => (
+                  <motion.div
+                    key={item.id}
+                    initial={{ opacity: 0, x: -8 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.035 }}
+                  >
+                    <LinkScroll
+                      to={item.id}
+                      spy
+                      smooth
+                      duration={800}
+                      offset={-90}
+                      onSetActive={() => setActiveLink(item.id)}
+                      onClick={closeMobileMenu}
+                      className={`flex cursor-pointer items-center justify-between rounded-xl px-4 py-3 text-sm transition-colors ${
+                        activeLink === item.id
+                          ? "bg-[#0DB760]/10 font-semibold text-[#19D879]"
+                          : "text-zinc-300 hover:bg-white/5 hover:text-white"
+                      }`}
+                    >
+                      <span>{item.label}</span>
+                      {activeLink === item.id && (
+                        <span className="h-1.5 w-1.5 rounded-full bg-[#19D879]" />
+                      )}
+                    </LinkScroll>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </header>
+    </>
+  );
+}
+
+
+--- File: src\components\client-view\project\index.js ---
+"use client";
+
+import { motion, useReducedMotion } from "framer-motion";
+import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
+
+export default function ProjectClientView({ data }) {
+  const reduceMotion = useReducedMotion();
+
+  const projects = data || [];
+
+  return (
+    <section
+      id="project"
+      className="project-showcase relative isolate mx-auto max-w-7xl overflow-hidden px-5 py-24 sm:px-8 lg:px-12"
+    >
+      {/* AMBIENT BACKGROUND */}
+      <div
+        aria-hidden="true"
+        className="project-ambient-glow project-ambient-glow-left"
+      />
+      <div
+        aria-hidden="true"
+        className="project-ambient-glow project-ambient-glow-right"
+      />
+
+      {/* HEADER */}
+      <motion.div
+        initial={{ opacity: 0, y: reduceMotion ? 0 : 22 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: reduceMotion ? 0 : 0.6 }}
+        className="relative z-10 mb-12 sm:mb-14"
+      >
+        <div className="mb-4 flex items-center gap-3">
+          <span className="h-px w-8 bg-emerald-400" />
+          <span className="text-[10px] font-semibold uppercase tracking-[0.28em] text-emerald-300 sm:text-xs">
+            Selected work
+          </span>
+        </div>
+
+        <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
+          <div>
+            <h2 className="text-3xl font-semibold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
+              Projects<span className="text-white/40">.</span>
+              <br className="hidden sm:block" />
+              <span className="project-gradient-text">
+                {" "}Built with purpose.
+              </span>
+            </h2>
+
+            <p className="mt-5 max-w-2xl text-sm leading-7 text-zinc-400 sm:text-base sm:leading-8">
+              A collection of applications, experiments and solutions
+              built through hands-on development and continuous learning.
+            </p>
+          </div>
+
+          {projects.length > 0 && (
+            <div className="flex shrink-0 items-center gap-3 self-start rounded-full border border-emerald-300/15 bg-emerald-300/[0.04] px-4 py-2.5 sm:self-auto">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(16,214,160,0.8)]" />
+              <span className="text-xs text-zinc-300">
+                {String(projects.length).padStart(2, "0")}{" "}
+                {projects.length === 1 ? "project" : "projects"}
+              </span>
+            </div>
+          )}
+        </div>
+      </motion.div>
+
+      {/* PROJECT GRID */}
+      {projects.length > 0 ? (
+        <div className="relative z-10 grid gap-5 md:grid-cols-2">
+          {projects.map((item, index) => (
+            <motion.article
+              key={item._id || index}
+              initial={{
+                opacity: 0,
+                y: reduceMotion ? 0 : 26,
+              }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.12 }}
+              transition={{
+                duration: reduceMotion ? 0 : 0.55,
+                delay: reduceMotion ? 0 : Math.min(index * 0.09, 0.36),
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              whileHover={reduceMotion ? undefined : { y: -5 }}
+              className="project-glass-card group relative flex min-w-0 flex-col overflow-hidden rounded-2xl border border-white/[0.09] p-5 sm:p-7"
+            >
+              {/* TOP EDGE LIGHT */}
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-emerald-300/0 to-transparent transition-colors duration-500 group-hover:via-emerald-300/65"
+              />
+
+              {/* AMBIENT CARD GLOW */}
+              <div
+                aria-hidden="true"
+                className="project-card-glow pointer-events-none absolute -right-20 -top-20 h-48 w-48 rounded-full opacity-50 transition-all duration-500 group-hover:opacity-100"
+              />
+
+              {/* PROJECT META */}
+              <div className="relative mb-7 flex items-center justify-between gap-3">
+                <span className="font-mono text-xs tracking-[0.2em] text-emerald-300/90">
+                  PROJECT / {String(index + 1).padStart(2, "0")}
+                </span>
+
+                {item.createdAt && (
+                  <time
+                    dateTime={new Date(item.createdAt).toISOString()}
+                    className="text-[10px] text-zinc-500 sm:text-xs"
+                  >
+                    {new Date(item.createdAt).toLocaleDateString("en-US", {
+                      month: "short",
+                      year: "numeric",
+                    })}
+                  </time>
+                )}
+              </div>
+
+              {/* PROJECT TITLE */}
+              <h3 className="relative text-xl font-semibold tracking-tight text-white transition-colors duration-300 group-hover:text-emerald-100 sm:text-2xl">
+                {item.name}
+              </h3>
+
+              {/* DIVIDER */}
+              <div className="my-5 h-px bg-gradient-to-r from-emerald-300/20 via-white/[0.08] to-transparent" />
+
+              {/* TECHNOLOGIES */}
+              {item.technologies && (
+                <div className="relative">
+                  <p className="mb-3 text-[10px] font-medium uppercase tracking-[0.2em] text-zinc-500">
+                    Built with
+                  </p>
+
+                  <div className="flex flex-wrap gap-2">
+                    {item.technologies
+                      .split(",")
+                      .map((technology) => technology.trim())
+                      .filter(Boolean)
+                      .map((technology, techIndex) => (
+                        <span
+                          key={`${technology}-${techIndex}`}
+                          className="project-tech-pill inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-[10px] font-medium sm:text-xs"
+                        >
+                          <span className="h-1 w-1 rounded-full bg-emerald-400" />
+                          {technology}
+                        </span>
+                      ))}
+                  </div>
+                </div>
+              )}
+
+              {/* ACTIONS */}
+              <div className="relative mt-auto flex flex-wrap gap-3 pt-8">
+                {item.website && (
+                  <a
+                    href={item.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="project-primary-link inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-xs font-semibold text-black"
+                  >
+                    <FaExternalLinkAlt size={10} />
+                    Live Preview
+                  </a>
+                )}
+
+                {item.github && (
+                  <a
+                    href={item.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.025] px-4 py-2.5 text-xs font-semibold text-zinc-300 transition-all duration-300 hover:border-emerald-300/30 hover:bg-emerald-300/[0.05] hover:text-white"
+                  >
+                    <FaGithub size={13} />
+                    Source Code
+                  </a>
+                )}
+              </div>
+            </motion.article>
+          ))}
+        </div>
+      ) : (
+        <div className="relative z-10 rounded-2xl border border-white/[0.09] bg-white/[0.02] p-10 text-center">
+          <p className="text-sm text-zinc-400">
+            No projects available yet.
+          </p>
+        </div>
+      )}
+
+      {/* SECTION FOOTER */}
+      <div className="relative z-10 mt-14 flex items-center gap-4">
+        <div className="h-px flex-1 bg-gradient-to-r from-transparent to-emerald-300/20" />
+        <span className="text-[9px] uppercase tracking-[0.25em] text-zinc-600">
+          End of selected work
+        </span>
+        <div className="h-px flex-1 bg-gradient-to-l from-transparent to-emerald-300/20" />
+      </div>
+    </section>
+  );
+}
+

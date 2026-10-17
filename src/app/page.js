@@ -41,7 +41,7 @@ export default async function HomePage() {
   const data = await getPortfolioData();
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#050505] text-white">
+    <main className="relative overflow-x-clip bg-[#050505] text-white">
       <div className="pointer-events-none fixed inset-0 -z-10">
         <div className="portfolio-grid absolute inset-0 opacity-40" />
 
